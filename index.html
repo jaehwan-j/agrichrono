@@ -314,7 +314,7 @@
           <h2 class="title is-3">Novel View Synthesis Benchmark</h2>
           <div class="content has-text-justified">
               We benchmark Novel View Synthesis on AgriChrono across <b>seven scenarios</b> characterized by <b>Lighting Variance</b> and <b>Growth Span</b>. 
-              Each scenario comprises 400 images (960 &times; 540) partitioned into 350 for training and 50 for testing. 
+              Each scenario comprises 400 images (960×540) partitioned into 350 for training and 50 for testing. 
               This benchmark assesses the robustness of methods against drastic <b>illumination changes</b> and <b>morphological variations</b> of <b>non-rigid objects</b> in unstructured outdoor environments.
           </div>
         </div>
@@ -1337,19 +1337,43 @@
                       [ICCV '23]
                     </span>
                   </td>
-                  <td class="has-text-centered"><strong>-</strong></td>
-                  <td class="has-text-centered"><strong>-</strong></td>
-                  <td class="has-text-centered"><strong>-</strong></td>
-                  <td class="has-text-centered"><strong>-h -m -s</strong></td>
-                  <td class="has-text-centered"><strong>-</strong></td>
+                   <td class="has-text-centered"><strong>26.713</strong></td>
+                  <td class="has-text-centered"><strong>0.6713</strong></td>
+                  <td class="has-text-centered"><strong>0.4296</strong></td>
+                  <td class="has-text-centered"><strong>17h 53m 4s</strong></td>
+                  <td class="has-text-centered"><strong>13,708 MB</strong></td>
                 </tr>
                 <tr class="child-row tetra-nerf-group">
                   <td style="padding-left: 40px;">↳ 06:00 AM (Lighting Variance)</td>
                   <td class="has-text-centered">28.225</td>
                   <td class="has-text-centered">0.7333</td>
                   <td class="has-text-centered">0.4292</td>
-                  <td class="has-text-centered">16h 59m 18s</td>
-                  <td class="has-text-centered">0 MB</td>
+                  <td class="has-text-centered">16h 59m 19s</td>
+                  <td class="has-text-centered">13,708 MB</td>
+                </tr>
+                <tr class="child-row tetra-nerf-group">
+                  <td style="padding-left: 40px;">↳ 11:00 AM (Lighting Variance)</td>
+                  <td class="has-text-centered">24.057</td>
+                  <td class="has-text-centered">0.6068</td>
+                  <td class="has-text-centered">0.4915</td>
+                  <td class="has-text-centered">17h 23m 24s</td>
+                  <td class="has-text-centered">13,708 MB</td>
+                </tr>
+                <tr class="child-row tetra-nerf-group">
+                  <td style="padding-left: 40px;">↳ 04:00 PM (Lighting Variance)</td>
+                  <td class="has-text-centered">25.564</td>
+                  <td class="has-text-centered">0.6458</td>
+                  <td class="has-text-centered">0.4765</td>
+                  <td class="has-text-centered">18h 8m 2s</td>
+                  <td class="has-text-centered">13,708 MB</td>
+                </tr>
+                <tr class="child-row tetra-nerf-group">
+                  <td style="padding-left: 40px;">↳ 09:00 PM (Lighting Variance)</td>
+                  <td class="has-text-centered">29.337</td>
+                  <td class="has-text-centered">0.7558</td>
+                  <td class="has-text-centered">0.3908</td>
+                  <td class="has-text-centered">17h 53m 47s</td>
+                  <td class="has-text-centered">13,708 MB</td>
                 </tr>
                 <tr class="child-row tetra-nerf-group">
                   <td style="padding-left: 40px;">↳ Day 6 (Growth Span)</td>
@@ -1357,7 +1381,23 @@
                   <td class="has-text-centered">0.5976</td>
                   <td class="has-text-centered">0.4025</td>
                   <td class="has-text-centered">16h 53m 12s</td>
-                  <td class="has-text-centered">0 MB</td>
+                  <td class="has-text-centered">13,708 MB</td>
+                </tr>
+                <tr class="child-row tetra-nerf-group">
+                  <td style="padding-left: 40px;">↳ Day 13 (Growth Span)</td>
+                  <td class="has-text-centered">27.096</td>
+                  <td class="has-text-centered">0.6581</td>
+                  <td class="has-text-centered">0.3926</td>
+                  <td class="has-text-centered">19h 51m 29s</td>
+                  <td class="has-text-centered">13,708 MB</td>
+                </tr>
+                <tr class="child-row tetra-nerf-group">
+                  <td style="padding-left: 40px;">↳ Day 20 (Growth Span)</td>
+                  <td class="has-text-centered">27.388</td>
+                  <td class="has-text-centered">0.7020</td>
+                  <td class="has-text-centered">0.4241</td>
+                  <td class="has-text-centered">18h 2m 14s</td>
+                  <td class="has-text-centered">13,708 MB</td>
                 </tr>
               </tbody>
 
@@ -1600,11 +1640,12 @@
           <h2 class="title is-3">Benchmark Qualitative Results I</h2>
           <div class="content has-text-centered">
             <p>
-              We present the qualitative comparison results against the Ground Truth for <b>Octree-GS</b> and <b>Zip-NeRF</b>, 
-              which demonstrated the best performance among Gaussian Splatting-based and NeRF-based methods, respectively.
+              We present the qualitative comparison results against the Ground Truth for <b>Zip-NeRF</b> and <b>Octree-GS</b>, 
+              which demonstrated the best performance among NeRF-based and Gaussian Splatting-based methods, respectively.
+              For high-resolution image comparisons, please refer to the Supplementary Material.
             </p>
             <p style="color: red;">
-              Please note that the images have been resized to 640 x 360.
+                Please note that all video playback is accelerated to 7&times; the actual robot speed and resized to 640 &times; 360.
             </p>
           </div>
         </div>
@@ -1664,12 +1705,12 @@
                         <span style="margin-right: 10px;"><strong>Zip-NeRF</strong></span>
                       </div>
                       <div class="video-compare-container" data-slider>
-                        <video class="left-video">
+                        <video class="left-video" loop autoplay muted playsinline>
                           <source src="./video_results/Rendered/zipnerf/Table1/06_640p.mp4" type="video/mp4">
                         </video>
                         <div class="slider-bar">
                           <div class="slider-divider"></div>
-                          <video class="right-video">
+                          <video class="right-video" loop autoplay muted playsinline>
                             <source src="./video_results/Ground_Truth/Table1/06_640p.mp4" type="video/mp4">
                           </video>
                         </div>
@@ -1687,12 +1728,12 @@
                         <span style="margin-right: 10px;"><strong>Octree-GS</strong></span>
                       </div>
                       <div class="video-compare-container" data-slider>
-                        <video class="left-video">
+                        <video class="left-video" loop autoplay muted playsinline>
                           <source src="./video_results/Rendered/octree-gs/Table1/06_640p.mp4" type="video/mp4">
                         </video>
                         <div class="slider-bar">
                           <div class="slider-divider"></div>
-                          <video class="right-video">
+                          <video class="right-video" loop autoplay muted playsinline>
                             <source src="./video_results/Ground_Truth/Table1/06_640p.mp4" type="video/mp4">
                           </video>
                         </div>
@@ -1714,12 +1755,12 @@
                         <span style="margin-right: 10px;"><strong>Zip-NeRF</strong></span>
                       </div>
                       <div class="video-compare-container" data-slider>
-                        <video class="left-video">
+                        <video class="left-video" loop autoplay muted playsinline>
                           <source src="./video_results/Rendered/zipnerf/Table1/11_640p.mp4" type="video/mp4">
                         </video>
                         <div class="slider-bar">
                           <div class="slider-divider"></div>
-                          <video class="right-video">
+                          <video class="right-video" loop autoplay muted playsinline>
                             <source src="./video_results/Ground_Truth/Table1/11_640p.mp4" type="video/mp4">
                           </video>
                         </div>
@@ -1737,12 +1778,12 @@
                         <span style="margin-right: 10px;"><strong>Octree-GS</strong></span>
                       </div>
                       <div class="video-compare-container" data-slider>
-                        <video class="left-video">
+                        <video class="left-video" loop autoplay muted playsinline>
                           <source src="./video_results/Rendered/octree-gs/Table1/11_640p.mp4" type="video/mp4">
                         </video>
                         <div class="slider-bar">
                           <div class="slider-divider"></div>
-                          <video class="right-video">
+                          <video class="right-video" loop autoplay muted playsinline>
                             <source src="./video_results/Ground_Truth/Table1/11_640p.mp4" type="video/mp4">
                           </video>
                         </div>
@@ -1764,12 +1805,12 @@
                         <span style="margin-right: 10px;"><strong>Zip-NeRF</strong></span>
                       </div>
                       <div class="video-compare-container" data-slider>
-                        <video class="left-video">
+                        <video class="left-video" loop autoplay muted playsinline>
                           <source src="./video_results/Rendered/zipnerf/Table1/16_640p.mp4" type="video/mp4">
                         </video>
                         <div class="slider-bar">
                           <div class="slider-divider"></div>
-                          <video class="right-video">
+                          <video class="right-video" loop autoplay muted playsinline>
                             <source src="./video_results/Ground_Truth/Table1/16_640p.mp4" type="video/mp4">
                           </video>
                         </div>
@@ -1787,12 +1828,12 @@
                         <span style="margin-right: 10px;"><strong>Octree-GS</strong></span>
                       </div>
                       <div class="video-compare-container" data-slider>
-                        <video class="left-video">
+                        <video class="left-video" loop autoplay muted playsinline>
                           <source src="./video_results/Rendered/octree-gs/Table1/16_640p.mp4" type="video/mp4">
                         </video>
                         <div class="slider-bar">
                           <div class="slider-divider"></div>
-                          <video class="right-video">
+                          <video class="right-video" loop autoplay muted playsinline>
                             <source src="./video_results/Ground_Truth/Table1/16_640p.mp4" type="video/mp4">
                           </video>
                         </div>
@@ -1814,12 +1855,12 @@
                         <span style="margin-right: 10px;"><strong>Zip-NeRF</strong></span>
                       </div>
                       <div class="video-compare-container" data-slider>
-                        <video class="left-video">
+                        <video class="left-video" loop autoplay muted playsinline>
                           <source src="./video_results/Rendered/zipnerf/Table1/21_640p.mp4" type="video/mp4">
                         </video>
                         <div class="slider-bar">
                           <div class="slider-divider"></div>
-                          <video class="right-video">
+                          <video class="right-video" loop autoplay muted playsinline>
                             <source src="./video_results/Ground_Truth/Table1/21_640p.mp4" type="video/mp4">
                           </video>
                         </div>
@@ -1837,12 +1878,12 @@
                         <span style="margin-right: 10px;"><strong>Octree-GS</strong></span>
                       </div>
                       <div class="video-compare-container" data-slider>
-                        <video class="left-video">
+                        <video class="left-video" loop autoplay muted playsinline>
                           <source src="./video_results/Rendered/octree-gs/Table1/21_640p.mp4" type="video/mp4">
                         </video>
                         <div class="slider-bar">
                           <div class="slider-divider"></div>
-                          <video class="right-video">
+                          <video class="right-video" loop autoplay muted playsinline>
                             <source src="./video_results/Ground_Truth/Table1/21_640p.mp4" type="video/mp4">
                           </video>
                         </div>
@@ -1864,12 +1905,12 @@
                         <span style="margin-right: 10px;"><strong>Zip-NeRF</strong></span>
                       </div>
                       <div class="video-compare-container" data-slider>
-                        <video class="left-video">
+                        <video class="left-video" loop autoplay muted playsinline>
                           <source src="./video_results/Rendered/zipnerf/Table2/Week1_640p.mp4" type="video/mp4">
                         </video>
                         <div class="slider-bar">
                           <div class="slider-divider"></div>
-                          <video class="right-video">
+                          <video class="right-video" loop autoplay muted playsinline>
                             <source src="./video_results/Ground_Truth/Table2/Week1_640p.mp4" type="video/mp4">
                           </video>
                         </div>
@@ -1887,12 +1928,12 @@
                         <span style="margin-right: 10px;"><strong>Octree-GS</strong></span>
                       </div>
                       <div class="video-compare-container" data-slider>
-                        <video class="left-video">
+                        <video class="left-video" loop autoplay muted playsinline>
                           <source src="./video_results/Rendered/octree-gs/Table2/Week1_640p.mp4" type="video/mp4">
                         </video>
                         <div class="slider-bar">
                           <div class="slider-divider"></div>
-                          <video class="right-video">
+                          <video class="right-video" loop autoplay muted playsinline>
                             <source src="./video_results/Ground_Truth/Table2/Week1_640p.mp4" type="video/mp4">
                           </video>
                         </div>
@@ -1914,12 +1955,12 @@
                         <span style="margin-right: 10px;"><strong>Zip-NeRF</strong></span>
                       </div>
                       <div class="video-compare-container" data-slider>
-                        <video class="left-video">
+                        <video class="left-video" loop autoplay muted playsinline>
                           <source src="./video_results/Rendered/zipnerf/Table2/Week2_640p.mp4" type="video/mp4">
                         </video>
                         <div class="slider-bar">
                           <div class="slider-divider"></div>
-                          <video class="right-video">
+                          <video class="right-video" loop autoplay muted playsinline>
                             <source src="./video_results/Ground_Truth/Table2/Week2_640p.mp4" type="video/mp4">
                           </video>
                         </div>
@@ -1937,12 +1978,12 @@
                         <span style="margin-right: 10px;"><strong>Octree-GS</strong></span>
                       </div>
                       <div class="video-compare-container" data-slider>
-                        <video class="left-video">
+                        <video class="left-video" loop autoplay muted playsinline>
                           <source src="./video_results/Rendered/octree-gs/Table2/Week2_640p.mp4" type="video/mp4">
                         </video>
                         <div class="slider-bar">
                           <div class="slider-divider"></div>
-                          <video class="right-video">
+                          <video class="right-video" loop autoplay muted playsinline>
                             <source src="./video_results/Ground_Truth/Table2/Week2_640p.mp4" type="video/mp4">
                           </video>
                         </div>
@@ -1964,12 +2005,12 @@
                         <span style="margin-right: 10px;"><strong>Zip-NeRF</strong></span>
                       </div>
                       <div class="video-compare-container" data-slider>
-                        <video class="left-video">
+                        <video class="left-video" loop autoplay muted playsinline>
                           <source src="./video_results/Rendered/zipnerf/Table2/Week3_640p.mp4" type="video/mp4">
                         </video>
                         <div class="slider-bar">
                           <div class="slider-divider"></div>
-                          <video class="right-video">
+                          <video class="right-video" loop autoplay muted playsinline>
                             <source src="./video_results/Ground_Truth/Table2/Week3_640p.mp4" type="video/mp4">
                           </video>
                         </div>
@@ -1987,12 +2028,12 @@
                         <span style="margin-right: 10px;"><strong>Octree-GS</strong></span>
                       </div>
                       <div class="video-compare-container" data-slider>
-                        <video class="left-video">
+                        <video class="left-video" loop autoplay muted playsinline>
                           <source src="./video_results/Rendered/octree-gs/Table2/Week3_640p.mp4" type="video/mp4">
                         </video>
                         <div class="slider-bar">
                           <div class="slider-divider"></div>
-                          <video class="right-video">
+                          <video class="right-video" loop autoplay muted playsinline>
                             <source src="./video_results/Ground_Truth/Table2/Week3_640p.mp4" type="video/mp4">
                           </video>
                         </div>
@@ -2086,12 +2127,11 @@
           <h2 class="title is-3">Benchmark Qualitative Results II</h2>
           <div class="content has-text-centered">
             <p>
-              Following the top performers, we present the qualitative results for the next three highest-ranking methods: <b>Taming-3DGS</b>, <b>Hierarchical-3DGS</b>, and <b>3DGS</b>.
-              These results are organized by scenario to facilitate direct comparison.
-              These all visuals confirm that the benchmark table above accurately reflects the actual method performance.
+              Following the top performers, we present the qualitative results for the next three highest-ranking methods: <b>Taming-3DGS</b>, <b>Hierarchical-3DGS</b>, and <b>3DGS</b>.<br>
+              These results are organized by scenario to facilitate direct comparison.<br> Collectively, the visuals confirm that the benchmark table above accurately reflects actual method performance.
             </p>
             <p style="color: red;">
-              Please note that the images have been resized to 480 &times; 270.
+                Please note that all video playback is accelerated to 7&times; the actual robot speed and resized to 480 &times; 270.
             </p>
           </div>
         </div>
@@ -2114,7 +2154,7 @@
       <div class="video-row">
         
         <figure class="video-wrapper">
-          <video class="sync-video">
+          <video class="sync-video" autoplay muted loop playsinline>
             <source src="./video_results/Ground_Truth/Table1/06_640p.mp4" type="video/mp4">
           </video>
           <button class="maximize-btn" title="Fullscreen">
@@ -2126,7 +2166,7 @@
         </figure>
 
         <figure class="video-wrapper">
-          <video class="sync-video">
+          <video class="sync-video" autoplay muted loop playsinline>
             <source src="./video_results/Rendered/taming-3dgs/Table1/06.mp4" type="video/mp4">
           </video>
           <button class="maximize-btn" title="Fullscreen">
@@ -2138,7 +2178,7 @@
         </figure>
 
         <figure class="video-wrapper">
-          <video class="sync-video">
+          <video class="sync-video" autoplay muted loop playsinline>
             <source src="./video_results/Rendered/hierarchical-3dgs/Table1/06.mp4" type="video/mp4">
           </video>
           <button class="maximize-btn" title="Fullscreen">
@@ -2150,7 +2190,7 @@
         </figure>
 
         <figure class="video-wrapper">
-          <video class="sync-video">
+          <video class="sync-video" autoplay muted loop playsinline>
             <source src="./video_results/Rendered/gaussian-splatting/Table1/06.mp4" type="video/mp4">
           </video>
           <button class="maximize-btn" title="Fullscreen">
@@ -2168,7 +2208,7 @@
       <h3 class="scenario-title" style="font-size: 1.3rem;"><b>[Lighting Variance]</b> <span style="color: #0253c5;">11:00 AM</span></h3>
       <div class="video-row">
         <figure class="video-wrapper">
-          <video class="sync-video">
+          <video class="sync-video" autoplay muted loop playsinline>
             <source src="./video_results/Ground_Truth/Table1/11_640p.mp4" type="video/mp4">
           </video>
           <button class="maximize-btn" title="Fullscreen">
@@ -2179,7 +2219,7 @@
           <figcaption><strong>Ground Truth</strong></figcaption>
         </figure>
         <figure class="video-wrapper">
-          <video class="sync-video">
+          <video class="sync-video" autoplay muted loop playsinline>
             <source src="./video_results/Rendered/taming-3dgs/Table1/11.mp4" type="video/mp4">
           </video>
           <button class="maximize-btn" title="Fullscreen">
@@ -2190,7 +2230,7 @@
           <figcaption><strong>Taming-3DGS</strong></figcaption>
         </figure>
         <figure class="video-wrapper">
-          <video class="sync-video">
+          <video class="sync-video" autoplay muted loop playsinline>
             <source src="./video_results/Rendered/hierarchical-3dgs/Table1/11.mp4" type="video/mp4">
           </video>
           <button class="maximize-btn" title="Fullscreen">
@@ -2201,7 +2241,7 @@
           <figcaption><strong>Hierarchical-3DGS</strong></figcaption>
         </figure>
         <figure class="video-wrapper">
-          <video class="sync-video">
+          <video class="sync-video" autoplay muted loop playsinline>
             <source src="./video_results/Rendered/gaussian-splatting/Table1/11.mp4" type="video/mp4">
           </video>
           <button class="maximize-btn" title="Fullscreen">
@@ -2218,7 +2258,7 @@
       <h3 class="scenario-title" style="font-size: 1.3rem;"><b>[Lighting Variance]</b> <span style="color: #0253c5;">04:00 PM</span></h3>
       <div class="video-row">
         <figure class="video-wrapper">
-          <video class="sync-video">
+          <video class="sync-video" autoplay muted loop playsinline>
             <source src="./video_results/Ground_Truth/Table1/16_640p.mp4" type="video/mp4">
           </video>
           <button class="maximize-btn" title="Fullscreen">
@@ -2229,7 +2269,7 @@
           <figcaption><strong>Ground Truth</strong></figcaption>
         </figure>
         <figure class="video-wrapper">
-          <video class="sync-video">
+          <video class="sync-video" autoplay muted loop playsinline>
             <source src="./video_results/Rendered/taming-3dgs/Table1/16.mp4" type="video/mp4">
           </video>
           <button class="maximize-btn" title="Fullscreen">
@@ -2240,7 +2280,7 @@
           <figcaption><strong>Taming-3DGS</strong></figcaption>
         </figure>
         <figure class="video-wrapper">
-          <video class="sync-video">
+          <video class="sync-video" autoplay muted loop playsinline>
             <source src="./video_results/Rendered/hierarchical-3dgs/Table1/16.mp4" type="video/mp4">
           </video>
           <button class="maximize-btn" title="Fullscreen">
@@ -2251,7 +2291,7 @@
           <figcaption><strong>Hierarchical-3DGS</strong></figcaption>
         </figure>
         <figure class="video-wrapper">
-          <video class="sync-video">
+          <video class="sync-video" autoplay muted loop playsinline>
             <source src="./video_results/Rendered/gaussian-splatting/Table1/16.mp4" type="video/mp4">
           </video>
           <button class="maximize-btn" title="Fullscreen">
@@ -2268,7 +2308,7 @@
       <h3 class="scenario-title" style="font-size: 1.3rem;"><b>[Lighting Variance]</b> <span style="color: #0253c5;">09:00 PM</span></h3>
       <div class="video-row">
         <figure class="video-wrapper">
-          <video class="sync-video">
+          <video class="sync-video" autoplay muted loop playsinline>
             <source src="./video_results/Ground_Truth/Table1/21_640p.mp4" type="video/mp4">
           </video>
           <button class="maximize-btn" title="Fullscreen">
@@ -2279,7 +2319,7 @@
           <figcaption><strong>Ground Truth</strong></figcaption>
         </figure>
         <figure class="video-wrapper">
-          <video class="sync-video">
+          <video class="sync-video" autoplay muted loop playsinline>
             <source src="./video_results/Rendered/taming-3dgs/Table1/21.mp4" type="video/mp4">
           </video>
           <button class="maximize-btn" title="Fullscreen">
@@ -2290,7 +2330,7 @@
           <figcaption><strong>Taming-3DGS</strong></figcaption>
         </figure>
         <figure class="video-wrapper">
-          <video class="sync-video">
+          <video class="sync-video" autoplay muted loop playsinline>
             <source src="./video_results/Rendered/hierarchical-3dgs/Table1/21.mp4" type="video/mp4">
           </video>
           <button class="maximize-btn" title="Fullscreen">
@@ -2301,7 +2341,7 @@
           <figcaption><strong>Hierarchical-3DGS</strong></figcaption>
         </figure>
         <figure class="video-wrapper">
-          <video class="sync-video">
+          <video class="sync-video" autoplay muted loop playsinline>
             <source src="./video_results/Rendered/gaussian-splatting/Table1/21.mp4" type="video/mp4">
           </video>
           <button class="maximize-btn" title="Fullscreen">
@@ -2318,7 +2358,7 @@
       <h3 class="scenario-title" style="font-size: 1.3rem;"><b>[Growth Span]</b> <span style="color: #0253c5;">Day 6</span></h3>
       <div class="video-row">
         <figure class="video-wrapper">
-          <video class="sync-video">
+          <video class="sync-video" autoplay muted loop playsinline>
             <source src="./video_results/Ground_Truth/Table2/Week1_640p.mp4" type="video/mp4">
           </video>
           <button class="maximize-btn" title="Fullscreen">
@@ -2329,7 +2369,7 @@
           <figcaption><strong>Ground Truth</strong></figcaption>
         </figure>
         <figure class="video-wrapper">
-          <video class="sync-video">
+          <video class="sync-video" autoplay muted loop playsinline>
             <source src="./video_results/Rendered/taming-3dgs/Table2/Week1.mp4" type="video/mp4">
           </video>
           <button class="maximize-btn" title="Fullscreen">
@@ -2340,7 +2380,7 @@
           <figcaption><strong>Taming-3DGS</strong></figcaption>
         </figure>
         <figure class="video-wrapper">
-          <video class="sync-video">
+          <video class="sync-video" autoplay muted loop playsinline>
             <source src="./video_results/Rendered/hierarchical-3dgs/Table2/Week1.mp4" type="video/mp4">
           </video>
           <button class="maximize-btn" title="Fullscreen">
@@ -2351,7 +2391,7 @@
           <figcaption><strong>Hierarchical-3DGS</strong></figcaption>
         </figure>
         <figure class="video-wrapper">
-          <video class="sync-video">
+          <video class="sync-video" autoplay muted loop playsinline>
             <source src="./video_results/Rendered/gaussian-splatting/Table2/Week1.mp4" type="video/mp4">
           </video>
           <button class="maximize-btn" title="Fullscreen">
@@ -2368,7 +2408,7 @@
       <h3 class="scenario-title" style="font-size: 1.3rem;"><b>[Growth Span]</b> <span style="color: #0253c5;">Day 13</span></h3>
       <div class="video-row">
         <figure class="video-wrapper">
-          <video class="sync-video">
+          <video class="sync-video" autoplay muted loop playsinline>
             <source src="./video_results/Ground_Truth/Table2/Week2_640p.mp4" type="video/mp4">
           </video>
           <button class="maximize-btn" title="Fullscreen">
@@ -2379,7 +2419,7 @@
           <figcaption><strong>Ground Truth</strong></figcaption>
         </figure>
         <figure class="video-wrapper">
-          <video class="sync-video">
+          <video class="sync-video" autoplay muted loop playsinline>
             <source src="./video_results/Rendered/taming-3dgs/Table2/Week2.mp4" type="video/mp4">
           </video>
           <button class="maximize-btn" title="Fullscreen">
@@ -2390,7 +2430,7 @@
           <figcaption><strong>Taming-3DGS</strong></figcaption>
         </figure>
         <figure class="video-wrapper">
-          <video class="sync-video">
+          <video class="sync-video" autoplay muted loop playsinline>
             <source src="./video_results/Rendered/hierarchical-3dgs/Table2/Week2.mp4" type="video/mp4">
           </video>
           <button class="maximize-btn" title="Fullscreen">
@@ -2401,7 +2441,7 @@
           <figcaption><strong>Hierarchical-3DGS</strong></figcaption>
         </figure>
         <figure class="video-wrapper">
-          <video class="sync-video">
+          <video class="sync-video" autoplay muted loop playsinline>
             <source src="./video_results/Rendered/gaussian-splatting/Table2/Week2.mp4" type="video/mp4">
           </video>
           <button class="maximize-btn" title="Fullscreen">
@@ -2418,7 +2458,7 @@
       <h3 class="scenario-title" style="font-size: 1.3rem;"><b>[Growth Span]</b> <span style="color: #0253c5;">Day 20</span></h3>
       <div class="video-row">
         <figure class="video-wrapper">
-          <video class="sync-video">
+          <video class="sync-video" autoplay muted loop playsinline>
             <source src="./video_results/Ground_Truth/Table2/Week3_640p.mp4" type="video/mp4">
           </video>
           <button class="maximize-btn" title="Fullscreen">
@@ -2429,7 +2469,7 @@
           <figcaption><strong>Ground Truth</strong></figcaption>
         </figure>
         <figure class="video-wrapper">
-          <video class="sync-video">
+          <video class="sync-video" autoplay muted loop playsinline>
             <source src="./video_results/Rendered/taming-3dgs/Table2/Week3.mp4" type="video/mp4">
           </video>
           <button class="maximize-btn" title="Fullscreen">
@@ -2440,7 +2480,7 @@
           <figcaption><strong>Taming-3DGS</strong></figcaption>
         </figure>
         <figure class="video-wrapper">
-          <video class="sync-video">
+          <video class="sync-video" autoplay muted loop playsinline>
             <source src="./video_results/Rendered/hierarchical-3dgs/Table2/Week3.mp4" type="video/mp4">
           </video>
           <button class="maximize-btn" title="Fullscreen">
@@ -2451,7 +2491,7 @@
           <figcaption><strong>Hierarchical-3DGS</strong></figcaption>
         </figure>
         <figure class="video-wrapper">
-          <video class="sync-video">
+          <video class="sync-video" autoplay muted loop playsinline>
             <source src="./video_results/Rendered/gaussian-splatting/Table2/Week3.mp4" type="video/mp4">
           </video>
           <button class="maximize-btn" title="Fullscreen">
@@ -2532,6 +2572,20 @@
       });
     });
   </script>
+
+  <section class="section" id="BibTeX">
+    <div class="container is-max-desktop content">
+      <h2 class="title">BibTeX</h2>
+      <pre><code>@article{jeong2025agrichrono,
+        title={AgriChrono: A Multi-modal Dataset Capturing Crop Growth and Lighting Variability with a Field Robot},
+        author={Jeong, Jaehwan and Vu, Tuan-Anh and Jony, Mohammad and Ahmad, Shahab and Rahman, Md. Mukhlesur and Kim, Sangpil and Jawed, M. Khalid},
+        journal={arXiv preprint arXiv:2508.18694},
+        year={2025},
+        primaryClass={cs.RO},
+        doi={10.48550/arXiv.2508.18694},}
+      </code></pre>
+    </div>
+  </section>
 
   <br><br><br><br>
 
