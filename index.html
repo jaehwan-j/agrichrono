@@ -151,158 +151,161 @@
     </div>
   </section>
   <!-- / Main Figure Section -->
-
+  <br><br>
   <!-- Abstract. -->
   <section class="hero teaser">
     <div class="container is-max-desktop">
       <div class="hero-body">
-      <div class="columns is-centered has-text-centered" style="width: 100%; margin: 20px 0 40px;">
+        <div class="columns is-centered has-text-centered" style="width: 100%; margin: 20px 0 40px;">
           <div class="column" style="width: 80%; padding: 0;">
-              <h2 class="title is-3"> Abstract </h2>
-              <div class="content has-text-justified">
-                  Advances in AI and Robotics have accelerated significant initiatives in agriculture, particularly in the areas of robot navigation and 3D digital twin creation. A significant bottleneck impeding this progress is the critical lack of "in-the-wild" datasets that capture the full complexities of real farmland, including non-rigid motion from wind, drastic illumination variance, and morphological changes resulting from growth. This data gap fundamentally limits research on robust AI models for autonomous field navigation and scene-level dynamic 3D reconstruction.
-                  In this paper, we present <b>AgriChrono</b>, a modular robotic data collection platform and multi-modal dataset designed to capture these dynamic farmland conditions. Our platform integrates multiple sensors, enabling remote, time-synchronized acquisition of RGB, Depth, LiDAR, IMU, and Pose data for efficient and repeatable long-term data collection in real-world agricultural environments. We successfully collected 18TB of data over one month, documenting the entire growth cycle of Canola under diverse illumination conditions.
-                  We benchmark state-of-the-art 3D reconstruction methods on <b>AgriChrono</b>, revealing the profound challenge of reconstructing high-fidelity, dynamic non-rigid scenes in such farmland settings. This benchmark validates <b>AgriChrono</b> as a critical asset for advancing model generalization, and its public release is expected to significantly accelerate research and development in precision agriculture.
-              </div>
-          </div>
-      </div>
-  <!--/ Abstract. -->
-
-  <!-- Sub Figure Section -->
-  <style>
-    /* The Modal (background) */
-    .image-modal {
-      display: none; 
-      position: fixed; 
-      z-index: 9999; 
-      left: 0;
-      top: 0;
-      width: 100%; 
-      height: 100%; 
-      overflow: hidden; /* Hide scrollbars for the background */
-      background-color: rgba(0,0,0,0.95); /* Darker background */
-      align-items: center;
-      justify-content: center;
-      flex-direction: column;
-      padding: 0; /* Remove padding to allow full screen */
-    }
-
-    /* Modal Content (The Image) - UPDATED FOR FULL SCREEN */
-    .modal-content {
-      margin: auto;
-      display: block;
-      
-      /* Force full viewport size */
-      width: 90vw;
-      height: 90vh;
-      max-width: none; /* Remove max-width limit */
-      max-height: none; /* Remove max-height limit */
-      
-      object-fit: contain; /* Ensures image isn't stretched/distorted */
-      animation-name: zoom;
-      animation-duration: 0.4s;
-    }
-
-    /* Animation */
-    @keyframes zoom {
-      from {transform:scale(0.1); opacity: 0;} 
-      to {transform:scale(1); opacity: 1;}
-    }
-
-    /* Close Button */
-    .close {
-      position: absolute;
-      top: 20px;
-      right: 30px;
-      color: #f1f1f1;
-      font-size: 50px; /* Slightly larger */
-      font-weight: bold;
-      transition: 0.3s;
-      cursor: pointer;
-      z-index: 10000; /* Ensure it sits on top of the image */
-      text-shadow: 0px 0px 10px #000; /* Add shadow to see it against white images */
-    }
-
-    .close:hover,
-    .close:focus {
-      color: #bbb;
-      text-decoration: none;
-      cursor: pointer;
-    }
-
-    /* Clickable Image Styling */
-    .clickable-image {
-        cursor: pointer;
-        transition: 0.3s;
-    }
-    .clickable-image:hover {
-        opacity: 0.7;
-    }
-  </style>
-
-  <section class="hero teaser">
-    <div class="container is-max-desktop">
-      <div class="hero-body">
-        <div class="columns is-centered has-text-centered" style="width: 107%; margin-left: -3.4%">
-          
-          <div class="column" style="flex: 2.5; padding: 0 0.30rem;">
-              <figure class="image">
-                <img src="static/imgs/Platform.png" alt="Figure 1" 
-                    class="clickable-image" onclick="openModal(this)" 
-                    style="max-width: 100%; height: auto; display: block;" />
-                <figcaption>Robotic Platform</figcaption>
-              </figure>
-          </div>
-
-          <div class="column" style="flex: 6.7; padding: 0 0.30rem;">
-              <figure class="image">
-                <img src="static/imgs/Dataset.png" alt="Figure 2" 
-                    class="clickable-image" onclick="openModal(this)" 
-                    style="max-width: 100%; height: auto; display: block;" />
-                <figcaption>In-the-Wild Dataset</figcaption>
-              </figure>
-          </div>
-
-          <div class="column" style="flex: 4.4; padding: 0 0.30rem;">
-              <figure class="image">
-                <img src="static/imgs/Benchmark.png" alt="Figure 3" 
-                    class="clickable-image" onclick="openModal(this)" 
-                    style="max-width: 100%; height: auto; display: block;" />
-                <figcaption>3D Reconstruction Benchmark</figcaption>
-              </figure>
+            <h2 class="title is-3"> Abstract </h2>
+            <div class="content has-text-justified">
+              Advances in AI and Robotics have accelerated significant initiatives in agriculture, particularly in the areas of robot navigation and 3D digital twin creation. A significant bottleneck impeding this progress is the critical lack of "in-the-wild" datasets that capture the full complexities of real farmland, including non-rigid motion from wind, drastic illumination variance, and morphological changes resulting from growth. This data gap fundamentally limits research on robust AI models for autonomous field navigation and scene-level dynamic 3D reconstruction.
+              In this paper, we present <b>AgriChrono</b>, a modular robotic data collection platform and multi-modal dataset designed to capture these dynamic farmland conditions. Our platform integrates multiple sensors, enabling remote, time-synchronized acquisition of RGB, Depth, LiDAR, IMU, and Pose data for efficient and repeatable long-term data collection in real-world agricultural environments. We successfully collected 18TB of data over one month, documenting the entire growth cycle of Canola under diverse illumination conditions.
+              We benchmark state-of-the-art 3D reconstruction methods on <b>AgriChrono</b>, revealing the profound challenge of reconstructing high-fidelity, dynamic non-rigid scenes in such farmland settings. This benchmark validates <b>AgriChrono</b> as a critical asset for advancing model generalization, and its public release is expected to significantly accelerate research and development in precision agriculture.
+            </div>
           </div>
         </div>
-      </div>    
+        <!--/ Abstract. -->
+
+        <!-- Sub Figure Section -->
+        <style>
+          /* The Modal (background) */
+          .image-modal {
+            display: none; 
+            position: fixed; 
+            z-index: 9999; 
+            left: 0;
+            top: 0;
+            width: 100%; 
+            height: 100%; 
+            overflow: hidden; /* Hide scrollbars for the background */
+            background-color: rgba(0,0,0,0.95); /* Darker background */
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            padding: 0; /* Remove padding to allow full screen */
+          }
+
+          /* Modal Content (The Image) - UPDATED FOR FULL SCREEN */
+          .modal-content {
+            margin: auto;
+            display: block;
+            
+            /* Force full viewport size */
+            width: 90vw;
+            height: 90vh;
+            max-width: none; /* Remove max-width limit */
+            max-height: none; /* Remove max-height limit */
+            
+            object-fit: contain; /* Ensures image isn't stretched/distorted */
+            animation-name: zoom;
+            animation-duration: 0.4s;
+          }
+
+          /* Animation */
+          @keyframes zoom {
+            from {transform:scale(0.1); opacity: 0;} 
+            to {transform:scale(1); opacity: 1;}
+          }
+
+          /* Close Button */
+          .close {
+            position: absolute;
+            top: 20px;
+            right: 30px;
+            color: #f1f1f1;
+            font-size: 50px; /* Slightly larger */
+            font-weight: bold;
+            transition: 0.3s;
+            cursor: pointer;
+            z-index: 10000; /* Ensure it sits on top of the image */
+            text-shadow: 0px 0px 10px #000; /* Add shadow to see it against white images */
+          }
+
+          .close:hover,
+          .close:focus {
+            color: #bbb;
+            text-decoration: none;
+            cursor: pointer;
+          }
+
+          /* Clickable Image Styling */
+          .clickable-image {
+              cursor: pointer;
+              transition: 0.3s;
+          }
+          .clickable-image:hover {
+              opacity: 0.7;
+          }
+        </style>
+
+        <section class="hero teaser">
+          <div class="container is-max-desktop">
+            <div class="hero-body">
+              <div class="columns is-centered has-text-centered" style="width: 107%; margin-left: -3.4%">
+                
+                <div class="column" style="flex: 2.5; padding: 0 0.30rem;">
+                    <figure class="image">
+                      <img src="static/imgs/Platform.png" alt="Figure 1" 
+                          class="clickable-image" onclick="openModal(this)" 
+                          style="max-width: 100%; height: auto; display: block;" />
+                      <figcaption>Robotic Platform</figcaption>
+                    </figure>
+                </div>
+
+                <div class="column" style="flex: 6.7; padding: 0 0.30rem;">
+                    <figure class="image">
+                      <img src="static/imgs/Dataset.png" alt="Figure 2" 
+                          class="clickable-image" onclick="openModal(this)" 
+                          style="max-width: 100%; height: auto; display: block;" />
+                      <figcaption>In-the-Wild Dataset</figcaption>
+                    </figure>
+                </div>
+
+                <div class="column" style="flex: 4.4; padding: 0 0.30rem;">
+                    <figure class="image">
+                      <img src="static/imgs/Benchmark.png" alt="Figure 3" 
+                          class="clickable-image" onclick="openModal(this)" 
+                          style="max-width: 100%; height: auto; display: block;" />
+                      <figcaption>3D Reconstruction Benchmark</figcaption>
+                    </figure>
+                </div>
+              </div>
+            </div>    
+          </div>
+        </section>
+
+        <div id="myModal" class="image-modal">
+          <span class="close" onclick="closeModal()">&times;</span>
+          <img class="modal-content" id="img01">
+        </div>
+
+        <script>
+          function openModal(imgElement) {
+            var modal = document.getElementById("myModal");
+            var modalImg = document.getElementById("img01");
+            modal.style.display = "flex";
+            modalImg.src = imgElement.src;
+          }
+
+          function closeModal() {
+            var modal = document.getElementById("myModal");
+            modal.style.display = "none";
+          }
+
+          window.onclick = function(event) {
+            var modal = document.getElementById("myModal");
+            if (event.target == modal) {
+              modal.style.display = "none";
+            }
+          }
+        </script>
+        <!-- / Sub Figure Section -->
+      </div>
     </div>
   </section>
-
-  <div id="myModal" class="image-modal">
-    <span class="close" onclick="closeModal()">&times;</span>
-    <img class="modal-content" id="img01">
-  </div>
-
-  <script>
-    function openModal(imgElement) {
-      var modal = document.getElementById("myModal");
-      var modalImg = document.getElementById("img01");
-      modal.style.display = "flex";
-      modalImg.src = imgElement.src;
-    }
-
-    function closeModal() {
-      var modal = document.getElementById("myModal");
-      modal.style.display = "none";
-    }
-
-    window.onclick = function(event) {
-      var modal = document.getElementById("myModal");
-      if (event.target == modal) {
-        modal.style.display = "none";
-      }
-    }
-  </script>
-  <!-- / Sub Figure Section -->
-
+  <br><br>
   <!-- Benchmark Section -->
   <section class="section">
     <div class="container is-max-desktop">
@@ -1594,17 +1597,14 @@
     <div class="container is-max-desktop">
       <div class="columns is-centered has-text-centered" style="width: 100%; margin: 0px 0 -50px;">
         <div class="column is-11">
-          <h2 class="title is-3">Benchmark Qualitative Results</h2>
+          <h2 class="title is-3">Benchmark Qualitative Results I</h2>
           <div class="content has-text-centered">
             <p>
-              We present rendered videos of the top five performing methods: <b>Zip-NeRF</b>, <b>Octree-GS</b>, <b>Taming3DGS</b>, <b>H3DGS</b>, and <b>3DGS</b>.
-              The videos are played at 7× the speed of the original capture. 
-              These visuals confirm that the benchmark table above accurately reflects the actual method performance.
+              We present the qualitative comparison results against the Ground Truth for <b>Octree-GS</b> and <b>Zip-NeRF</b>, 
+              which demonstrated the best performance among Gaussian Splatting-based and NeRF-based methods, respectively.
             </p>
             <p style="color: red;">
-              Due to storage limits, Zip-NeRF and Octree-GS were resized to 640p, and the rest to 480p.
-              <br>
-              Please refer to the Supplementary Material for high-resolution images.
+              Please note that the images have been resized to 640 x 360.
             </p>
           </div>
         </div>
@@ -2075,10 +2075,30 @@
     });
   </script>
 
-  <br><br><br>
-
+  <br><br>
 
   <!-- Videos Section -->
+
+  <section class="section">
+      <div class="container is-max-desktop">
+        <div class="columns is-centered has-text-centered" style="width: 100%; margin: 0px 0 0;">
+          <div class="column is-11">
+            <h2 class="title is-3">Benchmark Qualitative Results II</h2>
+            <div class="content has-text-centered">
+              <p>
+                Following the top performers, we present the qualitative results for the next three highest-ranking methods.
+                These results are organized by scenario to facilitate direct comparison.
+                These all visuals confirm that the benchmark table above accurately reflects the actual method performance.
+              </p>
+              <p style="color: red;">
+                Please note that the images have been resized to 480 &times; 270.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  
   <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -2086,7 +2106,7 @@
     <link rel="stylesheet" href="static/css/video_styles.css">
   </head>
   <div class="container is-max-desktop" style="margin-top: -50px;">
-    <section class="hero teaser video-section" style="background-color: #dadada; padding: 20px; border-radius: 10px;">
+    <section class="hero teaser" style="background-color: #cecece6c; padding: 15px; border-radius: 8px;">
       <h3 class="scenario-title" style="font-size: 1.3rem;"><b>[Lighting Variance]</b> <span style="color: #0253c5;">06:00 AM</span></h3>
       <div class="video-row">
         
@@ -2139,9 +2159,9 @@
         </figure>
 
       </div>
-    </section>
+    <!-- </section> -->
 
-    <section class="hero teaser video-section" style="background-color: #dadada; padding: 20px; border-radius: 10px;">
+    <!-- <section class="hero teaser" style="background-color: #cecece6c; padding: 15px; border-radius: 8px;"> -->
       <h3 class="scenario-title" style="font-size: 1.3rem;"><b>[Lighting Variance]</b> <span style="color: #0253c5;">11:00 AM</span></h3>
       <div class="video-row">
         <figure class="video-wrapper">
@@ -2189,9 +2209,9 @@
           <figcaption><strong>3DGS</strong></figcaption>
         </figure>
       </div>
-    </section>
+    <!-- </section> -->
 
-    <section class="hero teaser video-section" style="background-color: #dadada; padding: 20px; border-radius: 10px;">
+    <!-- <section class="hero teaser" style="background-color: #cecece6c; padding: 15px; border-radius: 8px;"> -->
       <h3 class="scenario-title" style="font-size: 1.3rem;"><b>[Lighting Variance]</b> <span style="color: #0253c5;">04:00 PM</span></h3>
       <div class="video-row">
         <figure class="video-wrapper">
@@ -2239,9 +2259,9 @@
           <figcaption><strong>3DGS</strong></figcaption>
         </figure>
       </div>
-    </section>
+    <!-- </section> -->
 
-    <section class="hero teaser video-section" style="background-color: #dadada; padding: 20px; border-radius: 10px;">
+    <!-- <section class="hero teaser" style="background-color: #cecece6c; padding: 15px; border-radius: 8px;"> -->
       <h3 class="scenario-title" style="font-size: 1.3rem;"><b>[Lighting Variance]</b> <span style="color: #0253c5;">09:00 PM</span></h3>
       <div class="video-row">
         <figure class="video-wrapper">
@@ -2290,8 +2310,8 @@
         </figure>
       </div>
     </section>
-
-    <section class="hero teaser video-section" style="background-color: #dadada; padding: 20px; border-radius: 10px;">
+    <br>
+    <section class="hero teaser" style="background-color: #cecece6c; padding: 15px; border-radius: 8px;">
       <h3 class="scenario-title" style="font-size: 1.3rem;"><b>[Growth Span]</b> <span style="color: #0253c5;">Day 6</span></h3>
       <div class="video-row">
         <figure class="video-wrapper">
@@ -2339,9 +2359,9 @@
           <figcaption><strong>3DGS</strong></figcaption>
         </figure>
       </div>
-    </section>
+    <!-- </section> -->
 
-    <section class="hero teaser video-section" style="background-color: #dadada; padding: 20px; border-radius: 10px;">
+    <!-- <section class="hero teaser" style="background-color: #cecece6c; padding: 15px; border-radius: 8px;"> -->
       <h3 class="scenario-title" style="font-size: 1.3rem;"><b>[Growth Span]</b> <span style="color: #0253c5;">Day 13</span></h3>
       <div class="video-row">
         <figure class="video-wrapper">
@@ -2389,9 +2409,9 @@
           <figcaption><strong>3DGS</strong></figcaption>
         </figure>
       </div>
-    </section>
+    <!-- </section> -->
 
-    <section class="hero teaser video-section" style="background-color: #dadada; padding: 20px; border-radius: 10px;">
+    <!-- <section class="hero teaser" style="background-color: #cecece6c; padding: 15px; border-radius: 8px;"> -->
       <h3 class="scenario-title" style="font-size: 1.3rem;"><b>[Growth Span]</b> <span style="color: #0253c5;">Day 20</span></h3>
       <div class="video-row">
         <figure class="video-wrapper">
