@@ -1,0 +1,2522 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="description" content="AgriChrono: Platform, Dataset, and Benchmark">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>AgriChrono: A Multi-modal Dataset Capturing Crop Growth and Lighting Variability with a Field Robot</title>
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Indie+Flower&family=Kalam:wght@300;400&family=Shadows+Into+Light&family=Google+Sans&family=Noto+Sans&display=swap" rel="stylesheet">
+
+  <!-- CSS Stylesheets -->
+  <link rel="stylesheet" href="./static/css/bulma.min.css">
+  <link rel="stylesheet" href="./static/css/fontawesome.all.min.css">
+  <link rel="stylesheet" href="./static/css/index.css">
+  <link rel="stylesheet" href="./static/css/styles.css">
+  <link rel="icon" href="./static/images/favicon.svg">
+
+  <!-- Optional CSS (Remove if not needed) -->
+  <link rel="stylesheet" href="./static/css/bulma-carousel.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
+
+  <!-- JavaScript Libraries -->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script defer src="./static/js/fontawesome.all.min.js"></script>
+  <script src="./static/js/bulma-carousel.min.js"></script>
+  <script src="./static/js/index.js"></script>
+</head>
+
+<body>
+
+
+  <section class="hero">
+    <div class="hero-body">
+      <div class="container is-max-desktop">
+        <div class="columns is-centered">
+          <div class="column has-text-centered">
+            <h1 class="title is-1 publication-title">AgriChrono: A Multi-modal Dataset Capturing Crop Growth and Lighting Variability with a Field Robot
+            </h1>
+            <div class="is-size-5 publication-authors">
+            
+            </div>
+
+            <div class="is-size-5 publication-authors">
+              <span class="author-block"><sup> Anonymous CVPR submission</sup></span> <br>
+              <span class="author-block"><sup><strong> Paper ID 17954</strong>  </sup></span>
+              <span class="author-block"><sup></sup></span>
+            </div>
+
+            <div class="column has-text-centered">
+              
+              <div class="publication-links">
+                <!-- PDF Link. -->
+                <span class="link-block">
+                  <a href=""
+                    class="external-link button is-normal is-rounded is-dark">
+                    <span class="icon">
+                        <i class="fas fa-file-pdf"></i>
+                    </span>
+                    <span>Paper</span>
+                  </a>
+                </span>
+                <!-- <span class="link-block">
+                  <a href=""
+                    class="external-link button is-normal is-rounded is-dark">
+                    <span class="icon">
+                        <i class="ai ai-arxiv"></i>
+                    </span>
+                    <span>arXiv</span>
+                  </a>
+                </span> -->
+                <!-- Video Link. -->
+                <!-- <span class="link-block">
+                  <a href=""
+                    class="external-link button is-normal is-rounded is-dark">
+                    <span class="icon">
+                        <i class="fab fa-youtube"></i>
+                    </span>
+                    <span>Video</span>
+                  </a>
+                </span> -->
+                <!-- Code Link. -->
+                <span class="link-block">
+                  <a href=""
+                    class="external-link button is-normal is-rounded is-dark">
+                    <span class="icon">
+                        <i class="fab fa-github"></i>
+                    </span>
+                    <span>Code</span>
+                    </a>
+                </span>
+                <!-- Dataset Link. -->
+                <span class="link-block">
+                  <a href=""
+                    class="external-link button is-normal is-rounded is-dark">
+                    <span class="icon">
+                        <i class="far fa-images"></i>
+                    </span>
+                    <span>Dataset</span>
+                    </a>
+              </div>
+
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Main Figure Section -->
+  <section class="hero teaser">
+    <div class="container is-max-desktop">
+      <div class="hero-body">
+        <div class="columns is-centered has-text-centered" style="width: 100%; margin: 0px 0 20px;">
+          <div class="column" style="width: 100%; padding: 0;">
+            <h2 class="title is-3"> Overview </h2> 
+            <img src="static/imgs/Field.png" alt="Teaser" style="width: 100%; height: auto;" />
+            <figcaption class="custom-caption" style="text-align: left; margin-top: 10px;">
+              <strong>Experimental sites and remote operation interface.</strong> 
+              <strong>(Site 1)</strong> Main canola phenotyping site used for repeated data collection, capturing temporal changes in illumination and crop structure. 
+              <strong>(Site 2)</strong> Genotype trial site featuring diverse canola varieties, capturing morphological variation across crop types.
+              <strong>(Site 3)</strong> Flax trial site comprising multiple plots with varying weed control strategies, offering structural diversity in a controlled multi-block layout.
+              <strong>(Web UI)</strong> Remote interface supporting real-time system feedback, intuitive directory-based data saving, and low-latency teleoperation, <b>ensuring high-quality data collection through consistent velocity and trajectory repeatability</b>.
+            </figcaption>
+          </div>    
+        </div>
+      </div>
+    </div>
+  </section>
+  <!-- / Main Figure Section -->
+
+  <!-- Abstract. -->
+  <section class="hero teaser">
+    <div class="container is-max-desktop">
+      <div class="hero-body">
+      <div class="columns is-centered has-text-centered" style="width: 100%; margin: 20px 0 40px;">
+          <div class="column" style="width: 80%; padding: 0;">
+              <h2 class="title is-3"> Abstract </h2>
+              <div class="content has-text-justified">
+                  Advances in AI and Robotics have accelerated significant initiatives in agriculture, particularly in the areas of robot navigation and 3D digital twin creation. A significant bottleneck impeding this progress is the critical lack of "in-the-wild" datasets that capture the full complexities of real farmland, including non-rigid motion from wind, drastic illumination variance, and morphological changes resulting from growth. This data gap fundamentally limits research on robust AI models for autonomous field navigation and scene-level dynamic 3D reconstruction.
+                  In this paper, we present <b>AgriChrono</b>, a modular robotic data collection platform and multi-modal dataset designed to capture these dynamic farmland conditions. Our platform integrates multiple sensors, enabling remote, time-synchronized acquisition of RGB, Depth, LiDAR, IMU, and Pose data for efficient and repeatable long-term data collection in real-world agricultural environments. We successfully collected 18TB of data over one month, documenting the entire growth cycle of Canola under diverse illumination conditions.
+                  We benchmark state-of-the-art 3D reconstruction methods on <b>AgriChrono</b>, revealing the profound challenge of reconstructing high-fidelity, dynamic non-rigid scenes in such farmland settings. This benchmark validates <b>AgriChrono</b> as a critical asset for advancing model generalization, and its public release is expected to significantly accelerate research and development in precision agriculture.
+              </div>
+          </div>
+      </div>
+  <!--/ Abstract. -->
+
+  <!-- Sub Figure Section -->
+  <style>
+    /* The Modal (background) */
+    .image-modal {
+      display: none; 
+      position: fixed; 
+      z-index: 9999; 
+      left: 0;
+      top: 0;
+      width: 100%; 
+      height: 100%; 
+      overflow: hidden; /* Hide scrollbars for the background */
+      background-color: rgba(0,0,0,0.95); /* Darker background */
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      padding: 0; /* Remove padding to allow full screen */
+    }
+
+    /* Modal Content (The Image) - UPDATED FOR FULL SCREEN */
+    .modal-content {
+      margin: auto;
+      display: block;
+      
+      /* Force full viewport size */
+      width: 90vw;
+      height: 90vh;
+      max-width: none; /* Remove max-width limit */
+      max-height: none; /* Remove max-height limit */
+      
+      object-fit: contain; /* Ensures image isn't stretched/distorted */
+      animation-name: zoom;
+      animation-duration: 0.4s;
+    }
+
+    /* Animation */
+    @keyframes zoom {
+      from {transform:scale(0.1); opacity: 0;} 
+      to {transform:scale(1); opacity: 1;}
+    }
+
+    /* Close Button */
+    .close {
+      position: absolute;
+      top: 20px;
+      right: 30px;
+      color: #f1f1f1;
+      font-size: 50px; /* Slightly larger */
+      font-weight: bold;
+      transition: 0.3s;
+      cursor: pointer;
+      z-index: 10000; /* Ensure it sits on top of the image */
+      text-shadow: 0px 0px 10px #000; /* Add shadow to see it against white images */
+    }
+
+    .close:hover,
+    .close:focus {
+      color: #bbb;
+      text-decoration: none;
+      cursor: pointer;
+    }
+
+    /* Clickable Image Styling */
+    .clickable-image {
+        cursor: pointer;
+        transition: 0.3s;
+    }
+    .clickable-image:hover {
+        opacity: 0.7;
+    }
+  </style>
+
+  <section class="hero teaser">
+    <div class="container is-max-desktop">
+      <div class="hero-body">
+        <div class="columns is-centered has-text-centered" style="width: 107%; margin-left: -3.4%">
+          
+          <div class="column" style="flex: 2.5; padding: 0 0.30rem;">
+              <figure class="image">
+                <img src="static/imgs/Platform.png" alt="Figure 1" 
+                    class="clickable-image" onclick="openModal(this)" 
+                    style="max-width: 100%; height: auto; display: block;" />
+                <figcaption>Robotic Platform</figcaption>
+              </figure>
+          </div>
+
+          <div class="column" style="flex: 6.7; padding: 0 0.30rem;">
+              <figure class="image">
+                <img src="static/imgs/Dataset.png" alt="Figure 2" 
+                    class="clickable-image" onclick="openModal(this)" 
+                    style="max-width: 100%; height: auto; display: block;" />
+                <figcaption>In-the-Wild Dataset</figcaption>
+              </figure>
+          </div>
+
+          <div class="column" style="flex: 4.4; padding: 0 0.30rem;">
+              <figure class="image">
+                <img src="static/imgs/Benchmark.png" alt="Figure 3" 
+                    class="clickable-image" onclick="openModal(this)" 
+                    style="max-width: 100%; height: auto; display: block;" />
+                <figcaption>3D Reconstruction Benchmark</figcaption>
+              </figure>
+          </div>
+        </div>
+      </div>    
+    </div>
+  </section>
+
+  <div id="myModal" class="image-modal">
+    <span class="close" onclick="closeModal()">&times;</span>
+    <img class="modal-content" id="img01">
+  </div>
+
+  <script>
+    function openModal(imgElement) {
+      var modal = document.getElementById("myModal");
+      var modalImg = document.getElementById("img01");
+      modal.style.display = "flex";
+      modalImg.src = imgElement.src;
+    }
+
+    function closeModal() {
+      var modal = document.getElementById("myModal");
+      modal.style.display = "none";
+    }
+
+    window.onclick = function(event) {
+      var modal = document.getElementById("myModal");
+      if (event.target == modal) {
+        modal.style.display = "none";
+      }
+    }
+  </script>
+  <!-- / Sub Figure Section -->
+
+  <!-- Benchmark Section -->
+  <section class="section">
+    <div class="container is-max-desktop">
+      <div class="columns is-centered has-text-centered" style="width: 100%; margin: 10px 0 0;">
+        <div class="column is-11">
+          <h2 class="title is-3">Novel View Synthesis Benchmark</h2>
+          <div class="content has-text-justified">
+              We benchmark Novel View Synthesis on AgriChrono across <b>seven scenarios</b> characterized by <b>Lighting Variance</b> and <b>Growth Span</b>. 
+              Each scenario comprises 400 images (960×540) partitioned into 350 for training and 50 for testing. 
+              This benchmark assesses the robustness of methods against drastic <b>illumination changes</b> and <b>morphological variations</b> of <b>non-rigid objects</b> in unstructured outdoor environments.
+          </div>
+        </div>
+      </div>
+
+      <div class="columns is-centered">
+        <div class="column is-full">
+          <div class="table-container">
+            <style>
+              /* Table style definitions */
+              .benchmark-table th { cursor: pointer; user-select: none; }
+              .benchmark-table .parent-row { cursor: pointer; transition: background-color 0.2s; }
+              .benchmark-table .parent-row:hover { background-color: #f5f5f5; }
+              .benchmark-table .child-row { display: none; background-color: #fafafa; font-size: 0.95em; color: #666; }
+              .benchmark-table .child-row.is-active { display: table-row; }
+              .toggle-icon { display: inline-block; width: 15px; transition: transform 0.2s; font-size: 0.8em; }
+              .benchmark-table th.is-clickable { cursor: pointer; }
+              .benchmark-table th.is-clickable:hover { background-color: #f0f0f0; color: #3273dc; }
+            </style>
+            <table class="table is-hoverable is-fullwidth benchmark-table">
+              <thead>
+                <tr>
+                  <th style="width: 30%;">
+                    Method 
+                    <span style="color: #888; font-size: 0.95em; font-weight: normal;">
+                      (Click to view all 7 scenarios)
+                    </span>
+                  </th>
+                  <th class="has-text-centered is-clickable" onclick="sortTable(1, 'number')">PSNR ↑</th>
+                  <th class="has-text-centered is-clickable" onclick="sortTable(2, 'number')">SSIM ↑</th>
+                  <th class="has-text-centered is-clickable" onclick="sortTable(3, 'number')">LPIPS (VGG) ↓</th>
+                  <th class="has-text-centered is-clickable" onclick="sortTable(4, 'time')">Time</th>
+                  <th class="has-text-centered is-clickable" onclick="sortTable(5, 'gpu')">GPU Mem.</th>
+                </tr>
+              </thead>
+
+              <tbody>
+                <tr class="parent-row" onclick="toggleBenchmarkRow(this, '3dgut-group')">
+                  <td>
+                    <span class="icon is-small" style="margin-right: 5px;">
+                      <i class="fas fa-angle-down toggle-icon"></i>
+                    </span>
+                    <strong>3DGUT</strong>
+                    <span style="color: #888; font-size: 0.95em; font-weight: normal;">
+                      [CVPR '25]
+                    </span>
+                  </td>
+                  <td class="has-text-centered"><strong>25.096</strong></td>
+                  <td class="has-text-centered"><strong>0.6092</strong></td>
+                  <td class="has-text-centered"><strong>0.4945</strong></td>
+                  <td class="has-text-centered"><strong>7m 0s</strong></td>
+                  <td class="has-text-centered"><strong>6,315 MB</strong></td>
+                </tr>
+                <tr class="child-row 3dgut-group">
+                  <td style="padding-left: 40px;">↳ 06:00 AM (Lighting Variance)</td>
+                  <td class="has-text-centered">26.433</td>
+                  <td class="has-text-centered">0.6915</td>
+                  <td class="has-text-centered">0.4697</td>
+                  <td class="has-text-centered">6m 35s</td>
+                  <td class="has-text-centered">6,060 MB</td>
+                </tr>
+                <tr class="child-row 3dgut-group">
+                  <td style="padding-left: 40px;">↳ 11:00 AM (Lighting Variance)</td>
+                  <td class="has-text-centered">22.860</td>
+                  <td class="has-text-centered">0.5488</td>
+                  <td class="has-text-centered">0.5058</td>
+                  <td class="has-text-centered">6m 48s</td>
+                  <td class="has-text-centered">6,630 MB</td>
+                </tr>
+                <tr class="child-row 3dgut-group">
+                  <td style="padding-left: 40px;">↳ 04:00 PM (Lighting Variance)</td>
+                  <td class="has-text-centered">24.147</td>
+                  <td class="has-text-centered">0.5906</td>
+                  <td class="has-text-centered">0.4904</td>
+                  <td class="has-text-centered">6m 41s</td>
+                  <td class="has-text-centered">6,390 MB</td>
+                </tr>
+                <tr class="child-row 3dgut-group">
+                  <td style="padding-left: 40px;">↳ 09:00 PM (Lighting Variance)</td>
+                  <td class="has-text-centered">27.813</td>
+                  <td class="has-text-centered">0.7134</td>
+                  <td class="has-text-centered">0.4465</td>
+                  <td class="has-text-centered">6m 36s</td>
+                  <td class="has-text-centered">5,976 MB</td>
+                </tr>
+                <tr class="child-row 3dgut-group">
+                  <td style="padding-left: 40px;">↳ Day 6 (Growth Span)</td>
+                  <td class="has-text-centered">23.706</td>
+                  <td class="has-text-centered">0.5130</td>
+                  <td class="has-text-centered">0.5563</td>
+                  <td class="has-text-centered">8m 2s</td>
+                  <td class="has-text-centered">6,474 MB</td>
+                </tr>
+                <tr class="child-row 3dgut-group">
+                  <td style="padding-left: 40px;">↳ Day 13 (Growth Span)</td>
+                  <td class="has-text-centered">24.856</td>
+                  <td class="has-text-centered">0.5597</td>
+                  <td class="has-text-centered">0.5259</td>
+                  <td class="has-text-centered">7m 17s</td>
+                  <td class="has-text-centered">6,448 MB</td>
+                </tr>
+                <tr class="child-row 3dgut-group">
+                  <td style="padding-left: 40px;">↳ Day 20 (Growth Span)</td>
+                  <td class="has-text-centered">25.858</td>
+                  <td class="has-text-centered">0.6477</td>
+                  <td class="has-text-centered">0.4670</td>
+                  <td class="has-text-centered">7m 3s</td>
+                  <td class="has-text-centered">6,228 MB</td>
+                </tr>
+              </tbody>
+
+              <tbody>
+                <tr class="parent-row" onclick="toggleBenchmarkRow(this, 'octree-gs-group')">
+                  <td>
+                    <span class="icon is-small" style="margin-right: 5px;">
+                      <i class="fas fa-angle-down toggle-icon"></i>
+                    </span>
+                    <strong>Octree-GS</strong>                  
+                    <span style="color: #888; font-size: 0.95em; font-weight: normal;">
+                      [TPAMI '25]
+                    </span>
+                  </td>
+                  <td class="has-text-centered"><strong>27.103</strong></td>
+                  <td class="has-text-centered"><strong>0.7547</strong></td>
+                  <td class="has-text-centered"><strong>0.2670</strong></td>
+                  <td class="has-text-centered"><strong>13m 23s</strong></td>
+                  <td class="has-text-centered"><strong>5,578 MB</strong></td>
+                </tr>
+                <tr class="child-row octree-gs-group">
+                  <td style="padding-left: 40px;">↳ 06:00 AM (Lighting Variance)</td>
+                  <td class="has-text-centered">28.451</td>
+                  <td class="has-text-centered">0.8009</td>
+                  <td class="has-text-centered">0.2640</td>
+                  <td class="has-text-centered">12m 59s</td>
+                  <td class="has-text-centered">5,018 MB</td>
+                </tr>
+                <tr class="child-row octree-gs-group">
+                  <td style="padding-left: 40px;">↳ 11:00 AM (Lighting Variance)</td>
+                  <td class="has-text-centered">24.402</td>
+                  <td class="has-text-centered">0.7044</td>
+                  <td class="has-text-centered">0.3007</td>
+                  <td class="has-text-centered">13m 36s</td>
+                  <td class="has-text-centered">5,748 MB</td>
+                </tr>
+                <tr class="child-row octree-gs-group">
+                  <td style="padding-left: 40px;">↳ 04:00 PM (Lighting Variance)</td>
+                  <td class="has-text-centered">25.593</td>
+                  <td class="has-text-centered">0.7269</td>
+                  <td class="has-text-centered">0.2916</td>
+                  <td class="has-text-centered">13m 1s</td>
+                  <td class="has-text-centered">5,414 MB</td>
+                </tr>
+                <tr class="child-row octree-gs-group">
+                  <td style="padding-left: 40px;">↳ 09:00 PM (Lighting Variance)</td>
+                  <td class="has-text-centered">29.716</td>
+                  <td class="has-text-centered">0.8092</td>
+                  <td class="has-text-centered">0.2429</td>
+                  <td class="has-text-centered">13m 17s</td>
+                  <td class="has-text-centered">5,526 MB</td>
+                </tr>
+                <tr class="child-row octree-gs-group">
+                  <td style="padding-left: 40px;">↳ Day 6 (Growth Span)</td>
+                  <td class="has-text-centered">26.211</td>
+                  <td class="has-text-centered">0.7098</td>
+                  <td class="has-text-centered">0.2654</td>
+                  <td class="has-text-centered">14m 50s</td>
+                  <td class="has-text-centered">6,226 MB</td>
+                </tr>
+                <tr class="child-row octree-gs-group">
+                  <td style="padding-left: 40px;">↳ Day 13 (Growth Span)</td>
+                  <td class="has-text-centered">27.669</td>
+                  <td class="has-text-centered">0.7545</td>
+                  <td class="has-text-centered">0.2499</td>
+                  <td class="has-text-centered">13m 50s</td>
+                  <td class="has-text-centered">6,042 MB</td>
+                </tr>
+                <tr class="child-row octree-gs-group">
+                  <td style="padding-left: 40px;">↳ Day 20 (Growth Span)</td>
+                  <td class="has-text-centered">27.677</td>
+                  <td class="has-text-centered">0.7771</td>
+                  <td class="has-text-centered">0.2544</td>
+                  <td class="has-text-centered">12m 11s</td>
+                  <td class="has-text-centered">5,074 MB</td>
+                </tr>
+              </tbody>
+
+              <tbody>
+                <tr class="parent-row" onclick="toggleBenchmarkRow(this, 'gsplat-group')">
+                  <td>
+                    <span class="icon is-small" style="margin-right: 5px;">
+                      <i class="fas fa-angle-down toggle-icon"></i>
+                    </span>
+                    <strong>gsplat</strong>
+                    <span style="color: #888; font-size: 0.95em; font-weight: normal;">
+                      [JMLR '25]
+                    </span>
+                  </td>
+                  <td class="has-text-centered"><strong>26.256</strong></td>
+                  <td class="has-text-centered"><strong>0.7094</strong></td>
+                  <td class="has-text-centered"><strong>0.3769</strong></td>
+                  <td class="has-text-centered"><strong>5m 15s</strong></td>
+                  <td class="has-text-centered"><strong>1,834 MB</strong></td>
+                </tr>
+                <tr class="child-row gsplat-group">
+                  <td style="padding-left: 40px;">↳ 06:00 AM (Lighting Variance)</td>
+                  <td class="has-text-centered">27.242</td>
+                  <td class="has-text-centered">0.7637</td>
+                  <td class="has-text-centered">0.3758</td>
+                  <td class="has-text-centered">4m 33s</td>
+                  <td class="has-text-centered">1,596 MB</td>
+                </tr>
+                <tr class="child-row gsplat-group">
+                  <td style="padding-left: 40px;">↳ 11:00 AM (Lighting Variance)</td>
+                  <td class="has-text-centered">23.740</td>
+                  <td class="has-text-centered">0.6630</td>
+                  <td class="has-text-centered">0.3823</td>
+                  <td class="has-text-centered">5m 51s</td>
+                  <td class="has-text-centered">1,958 MB</td>
+                </tr>
+                <tr class="child-row gsplat-group">
+                  <td style="padding-left: 40px;">↳ 04:00 PM (Lighting Variance)</td>
+                  <td class="has-text-centered">25.012</td>
+                  <td class="has-text-centered">0.6882</td>
+                  <td class="has-text-centered">0.3932</td>
+                  <td class="has-text-centered">5m 29s</td>
+                  <td class="has-text-centered">2,064 MB</td>
+                </tr>
+                <tr class="child-row gsplat-group">
+                  <td style="padding-left: 40px;">↳ 09:00 PM (Lighting Variance)</td>
+                  <td class="has-text-centered">28.714</td>
+                  <td class="has-text-centered">0.7827</td>
+                  <td class="has-text-centered">0.3407</td>
+                  <td class="has-text-centered">4m 34s</td>
+                  <td class="has-text-centered">1,542 MB</td>
+                </tr>
+                <tr class="child-row gsplat-group">
+                  <td style="padding-left: 40px;">↳ Day 6 (Growth Span)</td>
+                  <td class="has-text-centered">25.431</td>
+                  <td class="has-text-centered">0.6348</td>
+                  <td class="has-text-centered">0.3989</td>
+                  <td class="has-text-centered">5m 50s</td>
+                  <td class="has-text-centered">2,094 MB</td>
+                </tr>
+                <tr class="child-row gsplat-group">
+                  <td style="padding-left: 40px;">↳ Day 13 (Growth Span)</td>
+                  <td class="has-text-centered">26.730</td>
+                  <td class="has-text-centered">0.6977</td>
+                  <td class="has-text-centered">0.3723</td>
+                  <td class="has-text-centered">5m 43s</td>
+                  <td class="has-text-centered">1,964 MB</td>
+                </tr>
+                <tr class="child-row gsplat-group">
+                  <td style="padding-left: 40px;">↳ Day 20 (Growth Span)</td>
+                  <td class="has-text-centered">26.922</td>
+                  <td class="has-text-centered">0.7355</td>
+                  <td class="has-text-centered">0.3752</td>
+                  <td class="has-text-centered">4m 49s</td>
+                  <td class="has-text-centered">1,620 MB</td>
+                </tr>
+              </tbody>
+
+              <tbody>
+                <tr class="parent-row" onclick="toggleBenchmarkRow(this, '3dgs-mcmc-group')">
+                  <td>
+                    <span class="icon is-small" style="margin-right: 5px;">
+                      <i class="fas fa-angle-down toggle-icon"></i>
+                    </span>
+                    <strong>3D-MCMC</strong>
+                    <span style="color: #888; font-size: 0.95em; font-weight: normal;">
+                      [NeurIPS '24]
+                    </span>
+                  </td>
+                  <td class="has-text-centered"><strong>25.762</strong></td>
+                  <td class="has-text-centered"><strong>0.6491</strong></td>
+                  <td class="has-text-centered"><strong>0.5143</strong></td>
+                  <td class="has-text-centered"><strong>4m 56s</strong></td>
+                  <td class="has-text-centered"><strong>4,512 MB</strong></td>
+                </tr>
+                <tr class="child-row 3dgs-mcmc-group">
+                  <td style="padding-left: 40px;">↳ 06:00 AM (Lighting Variance)</td>
+                  <td class="has-text-centered">27.053</td>
+                  <td class="has-text-centered">0.7194</td>
+                  <td class="has-text-centered">0.4917</td>
+                  <td class="has-text-centered">4m 58s</td>
+                  <td class="has-text-centered">4,992 MB</td>
+                </tr>
+                <tr class="child-row 3dgs-mcmc-group">
+                  <td style="padding-left: 40px;">↳ 11:00 AM (Lighting Variance)</td>
+                  <td class="has-text-centered">23.385</td>
+                  <td class="has-text-centered">0.5886</td>
+                  <td class="has-text-centered">0.5363</td>
+                  <td class="has-text-centered">4m 22s</td>
+                  <td class="has-text-centered">4,302 MB</td>
+                </tr>
+                <tr class="child-row 3dgs-mcmc-group">
+                  <td style="padding-left: 40px;">↳ 04:00 PM (Lighting Variance)</td>
+                  <td class="has-text-centered">24.667</td>
+                  <td class="has-text-centered">0.6281</td>
+                  <td class="has-text-centered">0.5223</td>
+                  <td class="has-text-centered">4m 39s</td>
+                  <td class="has-text-centered">4,310 MB</td>
+                </tr>
+                <tr class="child-row 3dgs-mcmc-group">
+                  <td style="padding-left: 40px;">↳ 09:00 PM (Lighting Variance)</td>
+                  <td class="has-text-centered">28.180</td>
+                  <td class="has-text-centered">0.7370</td>
+                  <td class="has-text-centered">0.4675</td>
+                  <td class="has-text-centered">5m 4s</td>
+                  <td class="has-text-centered">4,734 MB</td>
+                </tr>
+                <tr class="child-row 3dgs-mcmc-group">
+                  <td style="padding-left: 40px;">↳ Day 6 (Growth Span)</td>
+                  <td class="has-text-centered">24.556</td>
+                  <td class="has-text-centered">0.5566</td>
+                  <td class="has-text-centered">0.5902</td>
+                  <td class="has-text-centered">5m 37s</td>
+                  <td class="has-text-centered">4,436 MB</td>
+                </tr>
+                <tr class="child-row 3dgs-mcmc-group">
+                  <td style="padding-left: 40px;">↳ Day 13 (Growth Span)</td>
+                  <td class="has-text-centered">26.134</td>
+                  <td class="has-text-centered">0.6349</td>
+                  <td class="has-text-centered">0.4973</td>
+                  <td class="has-text-centered">5m 5s</td>
+                  <td class="has-text-centered">4,196 MB</td>
+                </tr>
+                <tr class="child-row 3dgs-mcmc-group">
+                  <td style="padding-left: 40px;">↳ Day 20 (Growth Span)</td>
+                  <td class="has-text-centered">26.357</td>
+                  <td class="has-text-centered">0.6795</td>
+                  <td class="has-text-centered">0.4948</td>
+                  <td class="has-text-centered">4m 50s</td>
+                  <td class="has-text-centered">4,612 MB</td>
+                </tr>
+              </tbody>
+
+              <tbody>
+                <tr class="parent-row" onclick="toggleBenchmarkRow(this, 'wild-gaussians-group')">
+                  <td>
+                    <span class="icon is-small" style="margin-right: 5px;">
+                      <i class="fas fa-angle-down toggle-icon"></i>
+                    </span>
+                    <strong>WildGaussians</strong>
+                    <span style="color: #888; font-size: 0.95em; font-weight: normal;">
+                      [NeurIPS '24]
+                    </span>
+                  </td>
+                  <td class="has-text-centered"><strong>13.873</strong></td>
+                  <td class="has-text-centered"><strong>0.4647</strong></td>
+                  <td class="has-text-centered"><strong>0.7445</strong></td>
+                  <td class="has-text-centered"><strong>1h 1m 28s</strong></td>
+                  <td class="has-text-centered"><strong>2,022 MB</strong></td>
+                </tr>
+                <tr class="child-row wild-gaussians-group">
+                  <td style="padding-left: 40px;">↳ 06:00 AM (Lighting Variance)</td>
+                  <td class="has-text-centered">7.298</td>
+                  <td class="has-text-centered">0.4037</td>
+                  <td class="has-text-centered">0.8073</td>
+                  <td class="has-text-centered">59m 27s</td>
+                  <td class="has-text-centered">2,034 MB</td>
+                </tr>
+                <tr class="child-row wild-gaussians-group">
+                  <td style="padding-left: 40px;">↳ 11:00 AM (Lighting Variance)</td>
+                  <td class="has-text-centered">11.498</td>
+                  <td class="has-text-centered">0.3847</td>
+                  <td class="has-text-centered">0.8028</td>
+                  <td class="has-text-centered">1h 0m 56s</td>
+                  <td class="has-text-centered">1,832 MB</td>
+                </tr>
+                <tr class="child-row wild-gaussians-group">
+                  <td style="padding-left: 40px;">↳ 04:00 PM (Lighting Variance)</td>
+                  <td class="has-text-centered">11.022</td>
+                  <td class="has-text-centered">0.4061</td>
+                  <td class="has-text-centered">0.8067</td>
+                  <td class="has-text-centered">59m 46s</td>
+                  <td class="has-text-centered">1,832 MB</td>
+                </tr>
+                <tr class="child-row wild-gaussians-group">
+                  <td style="padding-left: 40px;">↳ 09:00 PM (Lighting Variance)</td>
+                  <td class="has-text-centered">8.158</td>
+                  <td class="has-text-centered">0.4506</td>
+                  <td class="has-text-centered">0.7798</td>
+                  <td class="has-text-centered">58m 56s</td>
+                  <td class="has-text-centered">1,846 MB</td>
+                </tr>
+                <tr class="child-row wild-gaussians-group">
+                  <td style="padding-left: 40px;">↳ Day 6 (Growth Span)</td>
+                  <td class="has-text-centered">23.057</td>
+                  <td class="has-text-centered">0.5129</td>
+                  <td class="has-text-centered">0.6509</td>
+                  <td class="has-text-centered">1h 6m 28s</td>
+                  <td class="has-text-centered">2,310 MB</td>
+                </tr>
+                <tr class="child-row wild-gaussians-group">
+                  <td style="padding-left: 40px;">↳ Day 13 (Growth Span)</td>
+                  <td class="has-text-centered">24.422</td>
+                  <td class="has-text-centered">0.5812</td>
+                  <td class="has-text-centered">0.6197</td>
+                  <td class="has-text-centered">1h 5m 4s</td>
+                  <td class="has-text-centered">2,268 MB</td>
+                </tr>
+                <tr class="child-row wild-gaussians-group">
+                  <td style="padding-left: 40px;">↳ Day 20 (Growth Span)</td>
+                  <td class="has-text-centered">11.655</td>
+                  <td class="has-text-centered">0.5140</td>
+                  <td class="has-text-centered">0.7441</td>
+                  <td class="has-text-centered">59m 39s</td>
+                  <td class="has-text-centered">2,034 MB</td>
+                </tr>
+              </tbody>
+
+              <tbody>
+                <tr class="parent-row" onclick="toggleBenchmarkRow(this, 'gaussian-splatting-wild-group')">
+                  <td>
+                    <span class="icon is-small" style="margin-right: 5px;">
+                      <i class="fas fa-angle-down toggle-icon"></i>
+                    </span>
+                    <strong>GS-W</strong>
+                    <span style="color: #888; font-size: 0.95em; font-weight: normal;">
+                      [ECCV '24]
+                    </span>
+                  </td>
+                  <td class="has-text-centered"><strong>21.214</strong></td>
+                  <td class="has-text-centered"><strong>0.5884</strong></td>
+                  <td class="has-text-centered"><strong>0.5621</strong></td>
+                  <td class="has-text-centered"><strong>58m 32s</strong></td>
+                  <td class="has-text-centered"><strong>7,027 MB</strong></td>
+                </tr>
+                <tr class="child-row gaussian-splatting-wild-group">
+                  <td style="padding-left: 40px;">↳ 06:00 AM (Lighting Variance)</td>
+                  <td class="has-text-centered">20.338</td>
+                  <td class="has-text-centered">0.6593</td>
+                  <td class="has-text-centered">0.5430</td>
+                  <td class="has-text-centered">58m 59s</td>
+                  <td class="has-text-centered">6,888 MB</td>
+                </tr>
+                <tr class="child-row gaussian-splatting-wild-group">
+                  <td style="padding-left: 40px;">↳ 11:00 AM (Lighting Variance)</td>
+                  <td class="has-text-centered">17.946</td>
+                  <td class="has-text-centered">0.5033</td>
+                  <td class="has-text-centered">0.6044</td>
+                  <td class="has-text-centered">58m 59s</td>
+                  <td class="has-text-centered">7,040 MB</td>
+                </tr>
+                <tr class="child-row gaussian-splatting-wild-group">
+                  <td style="padding-left: 40px;">↳ 04:00 PM (Lighting Variance)</td>
+                  <td class="has-text-centered">20.337</td>
+                  <td class="has-text-centered">0.5588</td>
+                  <td class="has-text-centered">0.5888</td>
+                  <td class="has-text-centered">58m 48s</td>
+                  <td class="has-text-centered">6,886 MB</td>
+                </tr>
+                <tr class="child-row gaussian-splatting-wild-group">
+                  <td style="padding-left: 40px;">↳ 09:00 PM (Lighting Variance)</td>
+                  <td class="has-text-centered">22.819</td>
+                  <td class="has-text-centered">0.7015</td>
+                  <td class="has-text-centered">0.4949</td>
+                  <td class="has-text-centered">58m 16s</td>
+                  <td class="has-text-centered">6,848 MB</td>
+                </tr>
+                <tr class="child-row gaussian-splatting-wild-group">
+                  <td style="padding-left: 40px;">↳ Day 6 (Growth Span)</td>
+                  <td class="has-text-centered">23.474</td>
+                  <td class="has-text-centered">0.5186</td>
+                  <td class="has-text-centered">0.5919</td>
+                  <td class="has-text-centered">59m 9s</td>
+                  <td class="has-text-centered">7,314 MB</td>
+                </tr>
+                <tr class="child-row gaussian-splatting-wild-group">
+                  <td style="padding-left: 40px;">↳ Day 13 (Growth Span)</td>
+                  <td class="has-text-centered">23.616</td>
+                  <td class="has-text-centered">0.5885</td>
+                  <td class="has-text-centered">0.5392</td>
+                  <td class="has-text-centered">58m 40s</td>
+                  <td class="has-text-centered">7,330 MB</td>
+                </tr>
+                <tr class="child-row gaussian-splatting-wild-group">
+                  <td style="padding-left: 40px;">↳ Day 20 (Growth Span)</td>
+                  <td class="has-text-centered">19.967</td>
+                  <td class="has-text-centered">0.5889</td>
+                  <td class="has-text-centered">0.5724</td>
+                  <td class="has-text-centered">56m 57s</td>
+                  <td class="has-text-centered">6,886 MB</td>
+                </tr>
+              </tbody>
+
+              <tbody>
+                <tr class="parent-row" onclick="toggleBenchmarkRow(this, 'hierarchical-3dgs-group')">
+                  <td>
+                    <span class="icon is-small" style="margin-right: 5px;">
+                      <i class="fas fa-angle-down toggle-icon"></i>
+                    </span>
+                    <strong>H3DGS</strong>
+                    <span style="color: #888; font-size: 0.95em; font-weight: normal;">
+                      [SIGGRAPH '24]
+                    </span>
+                  </td>
+                  <td class="has-text-centered"><strong>26.758</strong></td>
+                  <td class="has-text-centered"><strong>0.7431</strong></td>
+                  <td class="has-text-centered"><strong>0.2573</strong></td>
+                  <td class="has-text-centered"><strong>38m 12s</strong></td>
+                  <td class="has-text-centered"><strong>8,602 MB</strong></td>
+                </tr>
+                <tr class="child-row hierarchical-3dgs-group">
+                  <td style="padding-left: 40px;">↳ 06:00 AM (Lighting Variance)</td>
+                  <td class="has-text-centered">27.990</td>
+                  <td class="has-text-centered">0.7939</td>
+                  <td class="has-text-centered">0.2504</td>
+                  <td class="has-text-centered">33m 11s</td>
+                  <td class="has-text-centered">6,900 MB</td>
+                </tr>
+                <tr class="child-row hierarchical-3dgs-group">
+                  <td style="padding-left: 40px;">↳ 11:00 AM (Lighting Variance)</td>
+                  <td class="has-text-centered">24.412</td>
+                  <td class="has-text-centered">0.7076</td>
+                  <td class="has-text-centered">0.2620</td>
+                  <td class="has-text-centered">43m 37s</td>
+                  <td class="has-text-centered">10,584 MB</td>
+                </tr>
+                <tr class="child-row hierarchical-3dgs-group">
+                  <td style="padding-left: 40px;">↳ 04:00 PM (Lighting Variance)</td>
+                  <td class="has-text-centered">25.488</td>
+                  <td class="has-text-centered">0.7204</td>
+                  <td class="has-text-centered">0.2647</td>
+                  <td class="has-text-centered">41m 34s</td>
+                  <td class="has-text-centered">9,742 MB</td>
+                </tr>
+                <tr class="child-row hierarchical-3dgs-group">
+                  <td style="padding-left: 40px;">↳ 09:00 PM (Lighting Variance)</td>
+                  <td class="has-text-centered">29.330</td>
+                  <td class="has-text-centered">0.8042</td>
+                  <td class="has-text-centered">0.2371</td>
+                  <td class="has-text-centered">31m 57s</td>
+                  <td class="has-text-centered">6,320 MB</td>
+                </tr>
+                <tr class="child-row hierarchical-3dgs-group">
+                  <td style="padding-left: 40px;">↳ Day 6 (Growth Span)</td>
+                  <td class="has-text-centered">25.473</td>
+                  <td class="has-text-centered">0.6680</td>
+                  <td class="has-text-centered">0.2920</td>
+                  <td class="has-text-centered">38m 59s</td>
+                  <td class="has-text-centered">8,734 MB</td>
+                </tr>
+                <tr class="child-row hierarchical-3dgs-group">
+                  <td style="padding-left: 40px;">↳ Day 13 (Growth Span)</td>
+                  <td class="has-text-centered">27.260</td>
+                  <td class="has-text-centered">0.7390</td>
+                  <td class="has-text-centered">0.2511</td>
+                  <td class="has-text-centered">40m 50s</td>
+                  <td class="has-text-centered">9,430 MB</td>
+                </tr>
+                <tr class="child-row hierarchical-3dgs-group">
+                  <td style="padding-left: 40px;">↳ Day 20 (Growth Span)</td>
+                  <td class="has-text-centered">27.350</td>
+                  <td class="has-text-centered">0.7685</td>
+                  <td class="has-text-centered">0.2436</td>
+                  <td class="has-text-centered">37m 18s</td>
+                  <td class="has-text-centered">8,502 MB</td>
+                </tr>
+              </tbody>
+
+              <tbody>
+                <tr class="parent-row" onclick="toggleBenchmarkRow(this, '3dgrt-group')">
+                  <td>
+                    <span class="icon is-small" style="margin-right: 5px;">
+                      <i class="fas fa-angle-down toggle-icon"></i>
+                    </span>
+                    <strong>3DGRT</strong>
+                    <span style="color: #888; font-size: 0.95em; font-weight: normal;">
+                      [SIGGRAPH Asia '24]
+                    </span>
+                  </td>
+                  <td class="has-text-centered"><strong>25.934</strong></td>
+                  <td class="has-text-centered"><strong>0.7100</strong></td>
+                  <td class="has-text-centered"><strong>0.3567</strong></td>
+                  <td class="has-text-centered"><strong>27m 52s</strong></td>
+                  <td class="has-text-centered"><strong>7,866 MB</strong></td>
+                </tr>
+                <tr class="child-row 3dgrt-group">
+                  <td style="padding-left: 40px;">↳ 06:00 AM (Lighting Variance)</td>
+                  <td class="has-text-centered">26.702</td>
+                  <td class="has-text-centered">0.7653</td>
+                  <td class="has-text-centered">0.3477</td>
+                  <td class="has-text-centered">22m 57s</td>
+                  <td class="has-text-centered">7,200 MB</td>
+                </tr>
+                <tr class="child-row 3dgrt-group">
+                  <td style="padding-left: 40px;">↳ 11:00 AM (Lighting Variance)</td>
+                  <td class="has-text-centered">23.599</td>
+                  <td class="has-text-centered">0.6616</td>
+                  <td class="has-text-centered">0.3710</td>
+                  <td class="has-text-centered">30m 39s</td>
+                  <td class="has-text-centered">8,206 MB</td>
+                </tr>
+                <tr class="child-row 3dgrt-group">
+                  <td style="padding-left: 40px;">↳ 04:00 PM (Lighting Variance)</td>
+                  <td class="has-text-centered">24.733</td>
+                  <td class="has-text-centered">0.6896</td>
+                  <td class="has-text-centered">0.3751</td>
+                  <td class="has-text-centered">28m 20s</td>
+                  <td class="has-text-centered">8,034 MB</td>
+                </tr>
+                <tr class="child-row 3dgrt-group">
+                  <td style="padding-left: 40px;">↳ 09:00 PM (Lighting Variance)</td>
+                  <td class="has-text-centered">28.463</td>
+                  <td class="has-text-centered">0.7828</td>
+                  <td class="has-text-centered">0.3213</td>
+                  <td class="has-text-centered">21m 50s</td>
+                  <td class="has-text-centered">6,996 MB</td>
+                </tr>
+                <tr class="child-row 3dgrt-group">
+                  <td style="padding-left: 40px;">↳ Day 6 (Growth Span)</td>
+                  <td class="has-text-centered">25.317</td>
+                  <td class="has-text-centered">0.6351</td>
+                  <td class="has-text-centered">0.3847</td>
+                  <td class="has-text-centered">31m 22s</td>
+                  <td class="has-text-centered">8,450 MB</td>
+                </tr>
+                <tr class="child-row 3dgrt-group">
+                  <td style="padding-left: 40px;">↳ Day 13 (Growth Span)</td>
+                  <td class="has-text-centered">26.424</td>
+                  <td class="has-text-centered">0.6986</td>
+                  <td class="has-text-centered">0.3515</td>
+                  <td class="has-text-centered">33m 59s</td>
+                  <td class="has-text-centered">8,456 MB</td>
+                </tr>
+                <tr class="child-row 3dgrt-group">
+                  <td style="padding-left: 40px;">↳ Day 20 (Growth Span)</td>
+                  <td class="has-text-centered">26.301</td>
+                  <td class="has-text-centered">0.7373</td>
+                  <td class="has-text-centered">0.3458</td>
+                  <td class="has-text-centered">25m 59s</td>
+                  <td class="has-text-centered">7,722 MB</td>
+                </tr>
+              </tbody>
+
+              <tbody>
+                <tr class="parent-row" onclick="toggleBenchmarkRow(this, 'taming-3dgs-group')">
+                  <td>
+                    <span class="icon is-small" style="margin-right: 5px;">
+                      <i class="fas fa-angle-down toggle-icon"></i>
+                    </span>
+                    <strong>Taming3DGS</strong>
+                    <span style="color: #888; font-size: 0.95em; font-weight: normal;">
+                      [SIGGRAPH Asia '24]
+                    </span>
+                  </td>
+                  <td class="has-text-centered"><strong>26.777</strong></td>
+                  <td class="has-text-centered"><strong>0.7248</strong></td>
+                  <td class="has-text-centered"><strong>0.3541</strong></td>
+                  <td class="has-text-centered"><strong>4m 31s</strong></td>
+                  <td class="has-text-centered"><strong>6,016 MB</strong></td>
+                </tr>
+                <tr class="child-row taming-3dgs-group">
+                  <td style="padding-left: 40px;">↳ 06:00 AM (Lighting Variance)</td>
+                  <td class="has-text-centered">27.908</td>
+                  <td class="has-text-centered">0.7756</td>
+                  <td class="has-text-centered">0.3472</td>
+                  <td class="has-text-centered">3m 47s</td>
+                  <td class="has-text-centered">5,222 MB</td>
+                </tr>
+                <tr class="child-row taming-3dgs-group">
+                  <td style="padding-left: 40px;">↳ 11:00 AM (Lighting Variance)</td>
+                  <td class="has-text-centered">24.342</td>
+                  <td class="has-text-centered">0.6854</td>
+                  <td class="has-text-centered">0.3579</td>
+                  <td class="has-text-centered">5m 3s</td>
+                  <td class="has-text-centered">5,914 MB</td>
+                </tr>
+                <tr class="child-row taming-3dgs-group">
+                  <td style="padding-left: 40px;">↳ 04:00 PM (Lighting Variance)</td>
+                  <td class="has-text-centered">25.453</td>
+                  <td class="has-text-centered">0.7012</td>
+                  <td class="has-text-centered">0.3705</td>
+                  <td class="has-text-centered">4m 31s</td>
+                  <td class="has-text-centered">6,112 MB</td>
+                </tr>
+                <tr class="child-row taming-3dgs-group">
+                  <td style="padding-left: 40px;">↳ 09:00 PM (Lighting Variance)</td>
+                  <td class="has-text-centered">29.179</td>
+                  <td class="has-text-centered">0.7896</td>
+                  <td class="has-text-centered">0.3245</td>
+                  <td class="has-text-centered">3m 44s</td>
+                  <td class="has-text-centered">5,342 MB</td>
+                </tr>
+                <tr class="child-row taming-3dgs-group">
+                  <td style="padding-left: 40px;">↳ Day 6 (Growth Span)</td>
+                  <td class="has-text-centered">25.780</td>
+                  <td class="has-text-centered">0.6533</td>
+                  <td class="has-text-centered">0.3855</td>
+                  <td class="has-text-centered">5m 19s</td>
+                  <td class="has-text-centered">7,162 MB</td>
+                </tr>
+                <tr class="child-row taming-3dgs-group">
+                  <td style="padding-left: 40px;">↳ Day 13 (Growth Span)</td>
+                  <td class="has-text-centered">27.241</td>
+                  <td class="has-text-centered">0.7187</td>
+                  <td class="has-text-centered">0.3495</td>
+                  <td class="has-text-centered">5m 10s</td>
+                  <td class="has-text-centered">6,714 MB</td>
+                </tr>
+                <tr class="child-row taming-3dgs-group">
+                  <td style="padding-left: 40px;">↳ Day 20 (Growth Span)</td>
+                  <td class="has-text-centered">27.534</td>
+                  <td class="has-text-centered">0.7495</td>
+                  <td class="has-text-centered">0.3437</td>
+                  <td class="has-text-centered">4m 7s</td>
+                  <td class="has-text-centered">5,648 MB</td>
+                </tr>
+              </tbody>
+
+              <tbody>
+                <tr class="parent-row" onclick="toggleBenchmarkRow(this, 'scaffold-gs-group')">
+                  <td>
+                    <span class="icon is-small" style="margin-right: 5px;">
+                      <i class="fas fa-angle-down toggle-icon"></i>
+                    </span>
+                    <strong>Scaffold-GS</strong>
+                    <span style="color: #888; font-size: 0.95em; font-weight: normal;">
+                      [CVPR '24]
+                    </span>
+                  </td>
+                  <td class="has-text-centered"><strong>24.840</strong></td>
+                  <td class="has-text-centered"><strong>0.6930</strong></td>
+                  <td class="has-text-centered"><strong>0.3550</strong></td>
+                  <td class="has-text-centered"><strong>8m 25s</strong></td>
+                  <td class="has-text-centered"><strong>4,785 MB</strong></td>
+                </tr>
+                <tr class="child-row scaffold-gs-group">
+                  <td style="padding-left: 40px;">↳ 06:00 AM (Lighting Variance)</td>
+                  <td class="has-text-centered">25.542</td>
+                  <td class="has-text-centered">0.7403</td>
+                  <td class="has-text-centered">0.3649</td>
+                  <td class="has-text-centered">7m 33s</td>
+                  <td class="has-text-centered">4,450 MB</td>
+                </tr>
+                <tr class="child-row scaffold-gs-group">
+                  <td style="padding-left: 40px;">↳ 11:00 AM (Lighting Variance)</td>
+                  <td class="has-text-centered">21.193</td>
+                  <td class="has-text-centered">0.6280</td>
+                  <td class="has-text-centered">0.3630</td>
+                  <td class="has-text-centered">8m 36s</td>
+                  <td class="has-text-centered">5,066 MB</td>
+                </tr>
+                <tr class="child-row scaffold-gs-group">
+                  <td style="padding-left: 40px;">↳ 04:00 PM (Lighting Variance)</td>
+                  <td class="has-text-centered">24.661</td>
+                  <td class="has-text-centered">0.6739</td>
+                  <td class="has-text-centered">0.3766</td>
+                  <td class="has-text-centered">7m 58s</td>
+                  <td class="has-text-centered">4,646 MB</td>
+                </tr>
+                <tr class="child-row scaffold-gs-group">
+                  <td style="padding-left: 40px;">↳ 09:00 PM (Lighting Variance)</td>
+                  <td class="has-text-centered">27.770</td>
+                  <td class="has-text-centered">0.7743</td>
+                  <td class="has-text-centered">0.3255</td>
+                  <td class="has-text-centered">7m 21s</td>
+                  <td class="has-text-centered">4,334 MB</td>
+                </tr>
+                <tr class="child-row scaffold-gs-group">
+                  <td style="padding-left: 40px;">↳ Day 6 (Growth Span)</td>
+                  <td class="has-text-centered">24.816</td>
+                  <td class="has-text-centered">0.6427</td>
+                  <td class="has-text-centered">0.3445</td>
+                  <td class="has-text-centered">9m 55s</td>
+                  <td class="has-text-centered">5,428 MB</td>
+                </tr>
+                <tr class="child-row scaffold-gs-group">
+                  <td style="padding-left: 40px;">↳ Day 13 (Growth Span)</td>
+                  <td class="has-text-centered">25.286</td>
+                  <td class="has-text-centered">0.6887</td>
+                  <td class="has-text-centered">0.3515</td>
+                  <td class="has-text-centered">9m 35s</td>
+                  <td class="has-text-centered">5,006 MB</td>
+                </tr>
+                <tr class="child-row scaffold-gs-group">
+                  <td style="padding-left: 40px;">↳ Day 20 (Growth Span)</td>
+                  <td class="has-text-centered">24.612</td>
+                  <td class="has-text-centered">0.7032</td>
+                  <td class="has-text-centered">0.3587</td>
+                  <td class="has-text-centered">8m 0s</td>
+                  <td class="has-text-centered">4,564 MB</td>
+                </tr>
+              </tbody>
+
+              <tbody>
+                <tr class="parent-row" onclick="toggleBenchmarkRow(this, 'pgsr-group')">
+                  <td>
+                    <span class="icon is-small" style="margin-right: 5px;">
+                      <i class="fas fa-angle-down toggle-icon"></i>
+                    </span>
+                    <strong>PGSR</strong>
+                    <span style="color: #888; font-size: 0.95em; font-weight: normal;">
+                      [TVCG '24]
+                    </span>
+                  </td>
+                  <td class="has-text-centered"><strong>25.610</strong></td>
+                  <td class="has-text-centered"><strong>0.6699</strong></td>
+                  <td class="has-text-centered"><strong>0.4543</strong></td>
+                  <td class="has-text-centered"><strong>7m 30s</strong></td>
+                  <td class="has-text-centered"><strong>4,770 MB</strong></td>
+                </tr>
+                <tr class="child-row pgsr-group">
+                  <td style="padding-left: 40px;">↳ 06:00 AM (Lighting Variance)</td>
+                  <td class="has-text-centered">26.697</td>
+                  <td class="has-text-centered">0.7429</td>
+                  <td class="has-text-centered">0.4173</td>
+                  <td class="has-text-centered">6m 53s</td>
+                  <td class="has-text-centered">4,514 MB</td>
+                </tr>
+                <tr class="child-row pgsr-group">
+                  <td style="padding-left: 40px;">↳ 11:00 AM (Lighting Variance)</td>
+                  <td class="has-text-centered">23.673</td>
+                  <td class="has-text-centered">0.6415</td>
+                  <td class="has-text-centered">0.4212</td>
+                  <td class="has-text-centered">8m 16s</td>
+                  <td class="has-text-centered">5,148 MB</td>
+                </tr>
+                <tr class="child-row pgsr-group">
+                  <td style="padding-left: 40px;">↳ 04:00 PM (Lighting Variance)</td>
+                  <td class="has-text-centered">24.634</td>
+                  <td class="has-text-centered">0.6610</td>
+                  <td class="has-text-centered">0.4435</td>
+                  <td class="has-text-centered">7m 41s</td>
+                  <td class="has-text-centered">4,806 MB</td>
+                </tr>
+                <tr class="child-row pgsr-group">
+                  <td style="padding-left: 40px;">↳ 09:00 PM (Lighting Variance)</td>
+                  <td class="has-text-centered">28.277</td>
+                  <td class="has-text-centered">0.7585</td>
+                  <td class="has-text-centered">0.3931</td>
+                  <td class="has-text-centered">6m 49s</td>
+                  <td class="has-text-centered">4,510 MB</td>
+                </tr>
+                <tr class="child-row pgsr-group">
+                  <td style="padding-left: 40px;">↳ Day 6 (Growth Span)</td>
+                  <td class="has-text-centered">24.148</td>
+                  <td class="has-text-centered">0.5459</td>
+                  <td class="has-text-centered">0.6047</td>
+                  <td class="has-text-centered">8m 16s</td>
+                  <td class="has-text-centered">4,948 MB</td>
+                </tr>
+                <tr class="child-row pgsr-group">
+                  <td style="padding-left: 40px;">↳ Day 13 (Growth Span)</td>
+                  <td class="has-text-centered">25.236</td>
+                  <td class="has-text-centered">0.6271</td>
+                  <td class="has-text-centered">0.4952</td>
+                  <td class="has-text-centered">7m 28s</td>
+                  <td class="has-text-centered">4,822 MB</td>
+                </tr>
+                <tr class="child-row pgsr-group">
+                  <td style="padding-left: 40px;">↳ Day 20 (Growth Span)</td>
+                  <td class="has-text-centered">26.607</td>
+                  <td class="has-text-centered">0.7122</td>
+                  <td class="has-text-centered">0.4053</td>
+                  <td class="has-text-centered">7m 13s</td>
+                  <td class="has-text-centered">4,640 MB</td>
+                </tr>
+              </tbody>
+
+              <tbody>
+                <tr class="parent-row" onclick="toggleBenchmarkRow(this, 'gaussian-splatting-group')">
+                  <td>
+                    <span class="icon is-small" style="margin-right: 5px;">
+                      <i class="fas fa-angle-down toggle-icon"></i>
+                    </span>
+                    <strong>3DGS</strong>
+                    <span style="color: #888; font-size: 0.95em; font-weight: normal;">
+                      [SIGGRAPH '23]
+                    </span>
+                  </td>
+                  <td class="has-text-centered"><strong>26.306</strong></td>
+                  <td class="has-text-centered"><strong>0.7177</strong></td>
+                  <td class="has-text-centered"><strong>0.3636</strong></td>
+                  <td class="has-text-centered"><strong>6m 43s</strong></td>
+                  <td class="has-text-centered"><strong>4,665 MB</strong></td>
+                </tr>
+                <tr class="child-row gaussian-splatting-group">
+                  <td style="padding-left: 40px;">↳ 06:00 AM (Lighting Variance)</td>
+                  <td class="has-text-centered">27.107</td>
+                  <td class="has-text-centered">0.7717</td>
+                  <td class="has-text-centered">0.3565</td>
+                  <td class="has-text-centered">6m 0s</td>
+                  <td class="has-text-centered">4,480 MB</td>
+                </tr>
+                <tr class="child-row gaussian-splatting-group">
+                  <td style="padding-left: 40px;">↳ 11:00 AM (Lighting Variance)</td>
+                  <td class="has-text-centered">23.950</td>
+                  <td class="has-text-centered">0.6742</td>
+                  <td class="has-text-centered">0.3695</td>
+                  <td class="has-text-centered">7m 0s</td>
+                  <td class="has-text-centered">4,852 MB</td>
+                </tr>
+                <tr class="child-row gaussian-splatting-group">
+                  <td style="padding-left: 40px;">↳ 04:00 PM (Lighting Variance)</td>
+                  <td class="has-text-centered">24.970</td>
+                  <td class="has-text-centered">0.6932</td>
+                  <td class="has-text-centered">0.3862</td>
+                  <td class="has-text-centered">6m 42s</td>
+                  <td class="has-text-centered">4,646 MB</td>
+                </tr>
+                <tr class="child-row gaussian-splatting-group">
+                  <td style="padding-left: 40px;">↳ 09:00 PM (Lighting Variance)</td>
+                  <td class="has-text-centered">28.788</td>
+                  <td class="has-text-centered">0.7884</td>
+                  <td class="has-text-centered">0.3294</td>
+                  <td class="has-text-centered">6m 5s</td>
+                  <td class="has-text-centered">4,274 MB</td>
+                </tr>
+                <tr class="child-row gaussian-splatting-group">
+                  <td style="padding-left: 40px;">↳ Day 6 (Growth Span)</td>
+                  <td class="has-text-centered">25.449</td>
+                  <td class="has-text-centered">0.6449</td>
+                  <td class="has-text-centered">0.3867</td>
+                  <td class="has-text-centered">7m 48s</td>
+                  <td class="has-text-centered">5,090 MB</td>
+                </tr>
+                <tr class="child-row gaussian-splatting-group">
+                  <td style="padding-left: 40px;">↳ Day 13 (Growth Span)</td>
+                  <td class="has-text-centered">26.891</td>
+                  <td class="has-text-centered">0.7097</td>
+                  <td class="has-text-centered">0.3538</td>
+                  <td class="has-text-centered">7m 22s</td>
+                  <td class="has-text-centered">4,952 MB</td>
+                </tr>
+                <tr class="child-row gaussian-splatting-group">
+                  <td style="padding-left: 40px;">↳ Day 20 (Growth Span)</td>
+                  <td class="has-text-centered">26.987</td>
+                  <td class="has-text-centered">0.7420</td>
+                  <td class="has-text-centered">0.3633</td>
+                  <td class="has-text-centered">6m 9s</td>
+                  <td class="has-text-centered">4,364 MB</td>
+                </tr>
+              </tbody>
+
+              <tbody>
+                <tr class="parent-row" onclick="toggleBenchmarkRow(this, 'zipnerf-group')">
+                  <td>
+                    <span class="icon is-small" style="margin-right: 5px;">
+                      <i class="fas fa-angle-down toggle-icon"></i>
+                    </span>
+                    <strong>Zip-NeRF</strong>
+                    <span style="color: #888; font-size: 0.95em; font-weight: normal;">
+                      [ICCV '23]
+                    </span>
+                  </td>
+                  <td class="has-text-centered"><strong>28.264</strong></td>
+                  <td class="has-text-centered"><strong>0.7598</strong></td>
+                  <td class="has-text-centered"><strong>0.2455</strong></td>
+                  <td class="has-text-centered"><strong>4h 27m 45s</strong></td>
+                  <td class="has-text-centered"><strong>32,448 MB</strong></td>
+                </tr>
+                <tr class="child-row zipnerf-group">
+                  <td style="padding-left: 40px;">↳ 06:00 AM (Lighting Variance)</td>
+                  <td class="has-text-centered">29.582</td>
+                  <td class="has-text-centered">0.7953</td>
+                  <td class="has-text-centered">0.2518</td>
+                  <td class="has-text-centered">4h 22m 33s</td>
+                  <td class="has-text-centered">32,448 MB</td>
+                </tr>
+                <tr class="child-row zipnerf-group">
+                  <td style="padding-left: 40px;">↳ 11:00 AM (Lighting Variance)</td>
+                  <td class="has-text-centered">25.923</td>
+                  <td class="has-text-centered">0.7562</td>
+                  <td class="has-text-centered">0.2003</td>
+                  <td class="has-text-centered">4h 28m 42s</td>
+                  <td class="has-text-centered">32,448 MB</td>
+                </tr>
+                <tr class="child-row zipnerf-group">
+                  <td style="padding-left: 40px;">↳ 04:00 PM (Lighting Variance)</td>
+                  <td class="has-text-centered">27.466</td>
+                  <td class="has-text-centered">0.7663</td>
+                  <td class="has-text-centered">0.2027</td>
+                  <td class="has-text-centered">4h 26m 45s</td>
+                  <td class="has-text-centered">32,448 MB</td>
+                </tr>
+                <tr class="child-row zipnerf-group">
+                  <td style="padding-left: 40px;">↳ 09:00 PM (Lighting Variance)</td>
+                  <td class="has-text-centered">30.675</td>
+                  <td class="has-text-centered">0.8065</td>
+                  <td class="has-text-centered">0.2368</td>
+                  <td class="has-text-centered">4h 20m 20s</td>
+                  <td class="has-text-centered">32,448 MB</td>
+                </tr>
+                <tr class="child-row zipnerf-group">
+                  <td style="padding-left: 40px;">↳ Day 6 (Growth Span)</td>
+                  <td class="has-text-centered">25.943</td>
+                  <td class="has-text-centered">0.6097</td>
+                  <td class="has-text-centered">0.4169</td>
+                  <td class="has-text-centered">4h 24m 37s</td>
+                  <td class="has-text-centered">32,448 MB</td>
+                </tr>
+                <tr class="child-row zipnerf-group">
+                  <td style="padding-left: 40px;">↳ Day 13 (Growth Span)</td>
+                  <td class="has-text-centered">28.844</td>
+                  <td class="has-text-centered">0.7742</td>
+                  <td class="has-text-centered">0.2164</td>
+                  <td class="has-text-centered">4h 41m 43s</td>
+                  <td class="has-text-centered">32,448 MB</td>
+                </tr>
+                <tr class="child-row zipnerf-group">
+                  <td style="padding-left: 40px;">↳ Day 20 (Growth Span)</td>
+                  <td class="has-text-centered">29.418</td>
+                  <td class="has-text-centered">0.8105</td>
+                  <td class="has-text-centered">0.1936</td>
+                  <td class="has-text-centered">4h 29m 36s</td>
+                  <td class="has-text-centered">32,448 MB</td>
+                </tr>
+              </tbody>
+
+              <tbody>
+                <tr class="parent-row" onclick="toggleBenchmarkRow(this, 'tetra-nerf-group')">
+                  <td>
+                    <span class="icon is-small" style="margin-right: 5px;">
+                      <i class="fas fa-angle-down toggle-icon"></i>
+                    </span>
+                    <strong>Tetra-NeRF</strong>
+                    <span style="color: #888; font-size: 0.95em; font-weight: normal;">
+                      [ICCV '23]
+                    </span>
+                  </td>
+                  <td class="has-text-centered"><strong>-</strong></td>
+                  <td class="has-text-centered"><strong>-</strong></td>
+                  <td class="has-text-centered"><strong>-</strong></td>
+                  <td class="has-text-centered"><strong>-h -m -s</strong></td>
+                  <td class="has-text-centered"><strong>-</strong></td>
+                </tr>
+                <tr class="child-row tetra-nerf-group">
+                  <td style="padding-left: 40px;">↳ 06:00 AM (Lighting Variance)</td>
+                  <td class="has-text-centered">28.225</td>
+                  <td class="has-text-centered">0.7333</td>
+                  <td class="has-text-centered">0.4292</td>
+                  <td class="has-text-centered">16h 59m 18s</td>
+                  <td class="has-text-centered">0 MB</td>
+                </tr>
+                <tr class="child-row tetra-nerf-group">
+                  <td style="padding-left: 40px;">↳ Day 6 (Growth Span)</td>
+                  <td class="has-text-centered">25.324</td>
+                  <td class="has-text-centered">0.5976</td>
+                  <td class="has-text-centered">0.4025</td>
+                  <td class="has-text-centered">16h 53m 12s</td>
+                  <td class="has-text-centered">0 MB</td>
+                </tr>
+              </tbody>
+
+              <tbody>
+                <tr class="parent-row" onclick="toggleBenchmarkRow(this, 'nerfacto-group')">
+                  <td>
+                    <span class="icon is-small" style="margin-right: 5px;">
+                      <i class="fas fa-angle-down toggle-icon"></i>
+                    </span>
+                    <strong>NerfStudio</strong>
+                    <span style="color: #888; font-size: 0.95em; font-weight: normal;">
+                      [SIGGRAPH '23]
+                    </span>
+                  </td>
+                  <td class="has-text-centered"><strong>22.061</strong></td>
+                  <td class="has-text-centered"><strong>0.5288</strong></td>
+                  <td class="has-text-centered"><strong>0.5434</strong></td>
+                  <td class="has-text-centered"><strong>6m 53s</strong></td>
+                  <td class="has-text-centered"><strong>4,198 MB</strong></td>
+                </tr>
+                <tr class="child-row nerfacto-group">
+                  <td style="padding-left: 40px;">↳ 06:00 AM (Lighting Variance)</td>
+                  <td class="has-text-centered">23.703</td>
+                  <td class="has-text-centered">0.6389</td>
+                  <td class="has-text-centered">0.4891</td>
+                  <td class="has-text-centered">7m 18s</td>
+                  <td class="has-text-centered">4,198 MB</td>
+                </tr>
+                <tr class="child-row nerfacto-group">
+                  <td style="padding-left: 40px;">↳ 11:00 AM (Lighting Variance)</td>
+                  <td class="has-text-centered">20.275</td>
+                  <td class="has-text-centered">0.4353</td>
+                  <td class="has-text-centered">0.5365</td>
+                  <td class="has-text-centered">7m 22s</td>
+                  <td class="has-text-centered">4,198 MB</td>
+                </tr>
+                <tr class="child-row nerfacto-group">
+                  <td style="padding-left: 40px;">↳ 04:00 PM (Lighting Variance)</td>
+                  <td class="has-text-centered">21.573</td>
+                  <td class="has-text-centered">0.5007</td>
+                  <td class="has-text-centered">0.4977</td>
+                  <td class="has-text-centered">7m 19s</td>
+                  <td class="has-text-centered">4,198 MB</td>
+                </tr>
+                <tr class="child-row nerfacto-group">
+                  <td style="padding-left: 40px;">↳ 09:00 PM (Lighting Variance)</td>
+                  <td class="has-text-centered">24.739</td>
+                  <td class="has-text-centered">0.6555</td>
+                  <td class="has-text-centered">0.4643</td>
+                  <td class="has-text-centered">7m 10s</td>
+                  <td class="has-text-centered">4,198 MB</td>
+                </tr>
+                <tr class="child-row nerfacto-group">
+                  <td style="padding-left: 40px;">↳ Day 6 (Growth Span)</td>
+                  <td class="has-text-centered">22.133</td>
+                  <td class="has-text-centered">0.4449</td>
+                  <td class="has-text-centered">0.6376</td>
+                  <td class="has-text-centered">6m 22s</td>
+                  <td class="has-text-centered">4,198 MB</td>
+                </tr>
+                <tr class="child-row nerfacto-group">
+                  <td style="padding-left: 40px;">↳ Day 13 (Growth Span)</td>
+                  <td class="has-text-centered">18.809</td>
+                  <td class="has-text-centered">0.4454</td>
+                  <td class="has-text-centered">0.6905</td>
+                  <td class="has-text-centered">6m 21s</td>
+                  <td class="has-text-centered">4,198 MB</td>
+                </tr>
+                <tr class="child-row nerfacto-group">
+                  <td style="padding-left: 40px;">↳ Day 20 (Growth Span)</td>
+                  <td class="has-text-centered">23.194</td>
+                  <td class="has-text-centered">0.5809</td>
+                  <td class="has-text-centered">0.4882</td>
+                  <td class="has-text-centered">6m 20s</td>
+                  <td class="has-text-centered">4,198 MB</td>
+                </tr>
+              </tbody>
+
+              <tbody>
+                <tr class="parent-row" onclick="toggleBenchmarkRow(this, 'seathru-nerf-group')">
+                  <td>
+                    <span class="icon is-small" style="margin-right: 5px;">
+                      <i class="fas fa-angle-down toggle-icon"></i>
+                    </span>
+                    <strong>SeaThru-NeRF</strong>
+                    <span style="color: #888; font-size: 0.95em; font-weight: normal;">
+                      [CVPR '23]
+                    </span>
+                  </td>
+                  <td class="has-text-centered"><strong>23.485</strong></td>
+                  <td class="has-text-centered"><strong>0.5272</strong></td>
+                  <td class="has-text-centered"><strong>0.6709</strong></td>
+                  <td class="has-text-centered"><strong>11h 51m 45s</strong></td>
+                  <td class="has-text-centered"><strong>37,218 MB</strong></td>
+                </tr>
+                <tr class="child-row seathru-nerf-group">
+                  <td style="padding-left: 40px;">↳ 06:00 AM (Lighting Variance)</td>
+                  <td class="has-text-centered">25.371</td>
+                  <td class="has-text-centered">0.6274</td>
+                  <td class="has-text-centered">0.6273</td>
+                  <td class="has-text-centered">11h 46m 32s</td>
+                  <td class="has-text-centered">37,218 MB</td>
+                </tr>
+                <tr class="child-row seathru-nerf-group">
+                  <td style="padding-left: 40px;">↳ 11:00 AM (Lighting Variance)</td>
+                  <td class="has-text-centered">21.421</td>
+                  <td class="has-text-centered">0.4415</td>
+                  <td class="has-text-centered">0.7049</td>
+                  <td class="has-text-centered">11h 43m 27s</td>
+                  <td class="has-text-centered">37,218 MB</td>
+                </tr>
+                <tr class="child-row seathru-nerf-group">
+                  <td style="padding-left: 40px;">↳ 04:00 PM (Lighting Variance)</td>
+                  <td class="has-text-centered">22.885</td>
+                  <td class="has-text-centered">0.4975</td>
+                  <td class="has-text-centered">0.6810</td>
+                  <td class="has-text-centered">11h 41m 39s</td>
+                  <td class="has-text-centered">37,218 MB</td>
+                </tr>
+                <tr class="child-row seathru-nerf-group">
+                  <td style="padding-left: 40px;">↳ 09:00 PM (Lighting Variance)</td>
+                  <td class="has-text-centered">26.456</td>
+                  <td class="has-text-centered">0.6527</td>
+                  <td class="has-text-centered">0.6079</td>
+                  <td class="has-text-centered">11h 42m 38s</td>
+                  <td class="has-text-centered">37,218 MB</td>
+                </tr>
+                <tr class="child-row seathru-nerf-group">
+                  <td style="padding-left: 40px;">↳ Day 6 (Growth Span)</td>
+                  <td class="has-text-centered">22.691</td>
+                  <td class="has-text-centered">0.4429</td>
+                  <td class="has-text-centered">0.7129</td>
+                  <td class="has-text-centered">11h 38m 1s</td>
+                  <td class="has-text-centered">37,218 MB</td>
+                </tr>
+                <tr class="child-row seathru-nerf-group">
+                  <td style="padding-left: 40px;">↳ Day 13 (Growth Span)</td>
+                  <td class="has-text-centered">21.488</td>
+                  <td class="has-text-centered">0.4601</td>
+                  <td class="has-text-centered">0.7162</td>
+                  <td class="has-text-centered">12h 45m 41s</td>
+                  <td class="has-text-centered">37,216 MB</td>
+                </tr>
+                <tr class="child-row seathru-nerf-group">
+                  <td style="padding-left: 40px;">↳ Day 20 (Growth Span)</td>
+                  <td class="has-text-centered">24.084</td>
+                  <td class="has-text-centered">0.5681</td>
+                  <td class="has-text-centered">0.6460</td>
+                  <td class="has-text-centered">11h 44m 23s</td>
+                  <td class="has-text-centered">37,218 MB</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <script>
+    function toggleBenchmarkRow(element, groupClass) {
+      element.classList.toggle('is-open');
+      
+      const icon = element.querySelector('.toggle-icon');
+      if (element.classList.contains('is-open')) {
+        icon.classList.remove('fa-angle-down');
+        icon.classList.add('fa-angle-up');
+      } else {
+        icon.classList.remove('fa-angle-up');
+        icon.classList.add('fa-angle-down');
+      }
+
+      const rows = document.getElementsByClassName(groupClass);
+      for (let row of rows) {
+        row.classList.toggle('is-active');
+      }
+    }
+
+    let sortDirection = {};
+
+    function sortTable(columnIndex, type) {
+      const table = document.querySelector('.benchmark-table');
+      const tbodies = Array.from(table.querySelectorAll('tbody'));
+      const isAscending = sortDirection[columnIndex] === 'asc';
+
+      tbodies.sort((a, b) => {
+        const rowA = a.querySelector('.parent-row');
+        const rowB = b.querySelector('.parent-row');
+
+        const cellA = rowA.cells[columnIndex].innerText.trim();
+        const cellB = rowB.cells[columnIndex].innerText.trim();
+
+        let valA = parseValue(cellA, type);
+        let valB = parseValue(cellB, type);
+
+        if (valA < valB) return isAscending ? -1 : 1;
+        if (valA > valB) return isAscending ? 1 : -1;
+        return 0;
+      });
+
+      tbodies.forEach(tbody => table.appendChild(tbody));
+
+      sortDirection[columnIndex] = isAscending ? 'desc' : 'asc';
+    }
+
+    function parseValue(text, type) {
+      if (type === 'number') {
+        return parseFloat(text);
+      } 
+      else if (type === 'gpu') {
+        return parseFloat(text.replace(/,/g, '').replace(' MB', ''));
+      } 
+      else if (type === 'time') {
+        let h = 0, m = 0, s = 0;
+        if (text.includes('h')) {
+          const parts = text.split('h');
+          h = parseInt(parts[0]);
+          text = parts[1];
+        }
+        if (text.includes('m')) {
+          const parts = text.split('m');
+          m = parseInt(parts[0]);
+          text = parts[1];
+        }
+        if (text.includes('s')) {
+          s = parseInt(text.split('s')[0]);
+        }
+        return h * 3600 + m * 60 + s;
+      }
+      return text;
+    }
+  </script>
+
+  <!-- / Benchmark Section -->
+
+  <section class="section">
+    <div class="container is-max-desktop">
+      <div class="columns is-centered has-text-centered" style="width: 100%; margin: 0px 0 -50px;">
+        <div class="column is-11">
+          <h2 class="title is-3">Benchmark Qualitative Results</h2>
+          <div class="content has-text-centered">
+            <p>
+              We present rendered videos of the top five performing methods: <b>Zip-NeRF</b>, <b>Octree-GS</b>, <b>Taming3DGS</b>, <b>H3DGS</b>, and <b>3DGS</b>.
+              The videos are played at 7× the speed of the original capture. 
+              These visuals confirm that the benchmark table above accurately reflects the actual method performance.
+            </p>
+            <p style="color: red;">
+              Due to storage limits, Zip-NeRF and Octree-GS were resized to 640p, and the rest to 480p.
+              <br>
+              Please refer to the Supplementary Material for high-resolution images.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="hero teaser">
+    <div class="container is-max-desktop">
+      <div class="hero-body">
+      <!-- Comparison -->
+      <div class="columns is-centered has-text-centered" style="width: 100%; margin: 0px 10px 0;">
+          <div class="column" style="width: 100%; padding: 0;">
+              <h2 class="subtitle" style="font-family: 'Kalam', cursive; text-align: center; font-size: 1.5em;">
+                📷 <strong> Click </strong> on video to play or pause. <strong> Move</strong> mouse to change the hover  📷
+              </h2>
+              
+              <head>
+              <meta charset="UTF-8">
+              <meta name="viewport" content="width=device-width, initial-scale=1.0">
+              <title>Scene Editing Results</title>
+              <!-- Bootstrap CSS -->
+              <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+              <head>
+                <meta charset="UTF-8">
+                <meta name="viewport" content="width=device-width, initial-scale=1.0">
+                <title>Comparison Slider</title>
+              
+                <link rel="stylesheet" href="static/css/slidebar-container.css">
+              </head>
+              
+                <!-- Tabs -->
+              <nav>
+                <div class="nav nav-tabs justify-content-center" id="nav-tab" role="tablist">
+                  <a class="nav-item nav-link active" id="nav-06am-tab" data-bs-toggle="tab" href="#nav-06am" role="tab" aria-controls="nav-06am" aria-selected="true">06:00 AM</a>
+                  <a class="nav-item nav-link" id="nav-11am-tab" data-bs-toggle="tab" href="#nav-11am" role="tab" aria-controls="nav-11am" aria-selected="false">11:00 AM</a>
+                  <a class="nav-item nav-link" id="nav-04pm-tab" data-bs-toggle="tab" href="#nav-04pm" role="tab" aria-controls="nav-04pm" aria-selected="false">04:00 PM</a>
+                  <a class="nav-item nav-link" id="nav-09pm-tab" data-bs-toggle="tab" href="#nav-09pm" role="tab" aria-controls="nav-09pm" aria-selected="false">09:00 PM</a>
+                  <span style="border-left: 2px solid #ccc; height: 25px; align-self: center; margin: 0 15px;"></span>
+                  <a class="nav-item nav-link" id="nav-day6-tab" data-bs-toggle="tab" href="#nav-day6" role="tab" aria-controls="nav-day6" aria-selected="false">Day 6</a>
+                  <a class="nav-item nav-link" id="nav-day13-tab" data-bs-toggle="tab" href="#nav-day13" role="tab" aria-controls="nav-day13" aria-selected="false">Day 13</a>
+                  <a class="nav-item nav-link" id="nav-day20-tab" data-bs-toggle="tab" href="#nav-day20" role="tab" aria-controls="nav-day20" aria-selected="false">Day 20</a>
+                </div>
+              </nav>
+            
+              <div class="tab-content" id="nav-tabContent">
+                
+                <div class="tab-pane fade show active" id="nav-06am" role="tabpanel" aria-labelledby="nav-06am-tab">
+                  <div class="container h-100 pt-3 pb-3">
+                    
+                    <div class="custom-video-block">
+                      <h3 class="title" style="font-family: 'Kalam', cursive; text-align: center; font-size: 16px; margin-bottom: 5px;">
+                        Scene at <span style="color: #0253c5;">06:00 AM</span> (Zip-NeRF)
+                      </h3>
+                      <div style="display: flex; justify-content: space-between; text-align: center; font-size: 15px; margin-bottom: 2px; padding: 5px;">
+                        <span style="margin-left: 10px;"><strong>Ground Truth</strong></span>
+                        <span style="margin-right: 10px;"><strong>Zip-NeRF</strong></span>
+                      </div>
+                      <div class="video-compare-container" data-slider>
+                        <video class="left-video" loop autoplay muted playsinline>
+                          <source src="./video_results/Rendered/zipnerf/Table1/06_640p.mp4" type="video/mp4">
+                        </video>
+                        <div class="slider-bar">
+                          <div class="slider-divider"></div>
+                          <video class="right-video" loop autoplay muted playsinline>
+                            <source src="./video_results/Ground_Truth/Table1/06_640p.mp4" type="video/mp4">
+                          </video>
+                        </div>
+                      </div>
+                    </div>
+
+                    <br>
+
+                    <div class="custom-video-block">
+                      <h3 class="title" style="font-family: 'Kalam', cursive; text-align: center; font-size: 16px; margin-bottom: 5px;">
+                        Scene at <span style="color: #0253c5;">06:00 AM</span> (Octree-GS)
+                      </h3>
+                      <div style="display: flex; justify-content: space-between; text-align: center; font-size: 15px; margin-bottom: 2px; padding: 5px;">
+                        <span style="margin-left: 10px;"><strong>Ground Truth</strong></span>
+                        <span style="margin-right: 10px;"><strong>Octree-GS</strong></span>
+                      </div>
+                      <div class="video-compare-container" data-slider>
+                        <video class="left-video" loop autoplay muted playsinline>
+                          <source src="./video_results/Rendered/octree-gs/Table1/06_640p.mp4" type="video/mp4">
+                        </video>
+                        <div class="slider-bar">
+                          <div class="slider-divider"></div>
+                          <video class="right-video" loop autoplay muted playsinline>
+                            <source src="./video_results/Ground_Truth/Table1/06_640p.mp4" type="video/mp4">
+                          </video>
+                        </div>
+                      </div>
+                    </div>
+
+                  </div>
+                </div>
+
+                <div class="tab-pane fade" id="nav-11am" role="tabpanel" aria-labelledby="nav-11am-tab">
+                  <div class="container h-100 pt-3 pb-3">
+                    
+                    <div class="custom-video-block">
+                      <h3 class="title" style="font-family: 'Kalam', cursive; text-align: center; font-size: 16px; margin-bottom: 5px;">
+                        Scene at <span style="color: #0253c5;">11:00 AM</span> (Zip-NeRF)
+                      </h3>
+                      <div style="display: flex; justify-content: space-between; text-align: center; font-size: 15px; margin-bottom: 2px; padding: 5px;">
+                        <span style="margin-left: 10px;"><strong>Ground Truth</strong></span>
+                        <span style="margin-right: 10px;"><strong>Zip-NeRF</strong></span>
+                      </div>
+                      <div class="video-compare-container" data-slider>
+                        <video class="left-video" loop autoplay muted playsinline>
+                          <source src="./video_results/Rendered/zipnerf/Table1/11_640p.mp4" type="video/mp4">
+                        </video>
+                        <div class="slider-bar">
+                          <div class="slider-divider"></div>
+                          <video class="right-video" loop autoplay muted playsinline>
+                            <source src="./video_results/Ground_Truth/Table1/11_640p.mp4" type="video/mp4">
+                          </video>
+                        </div>
+                      </div>
+                    </div>
+
+                    <br>
+
+                    <div class="custom-video-block">
+                      <h3 class="title" style="font-family: 'Kalam', cursive; text-align: center; font-size: 16px; margin-bottom: 5px;">
+                        Scene at <span style="color: #0253c5;">11:00 AM</span> (Octree-GS)
+                      </h3>
+                      <div style="display: flex; justify-content: space-between; text-align: center; font-size: 15px; margin-bottom: 2px; padding: 5px;">
+                        <span style="margin-left: 10px;"><strong>Ground Truth</strong></span>
+                        <span style="margin-right: 10px;"><strong>Octree-GS</strong></span>
+                      </div>
+                      <div class="video-compare-container" data-slider>
+                        <video class="left-video" loop autoplay muted playsinline>
+                          <source src="./video_results/Rendered/octree-gs/Table1/11_640p.mp4" type="video/mp4">
+                        </video>
+                        <div class="slider-bar">
+                          <div class="slider-divider"></div>
+                          <video class="right-video" loop autoplay muted playsinline>
+                            <source src="./video_results/Ground_Truth/Table1/11_640p.mp4" type="video/mp4">
+                          </video>
+                        </div>
+                      </div>
+                    </div>
+
+                  </div>
+                </div>
+
+                <div class="tab-pane fade" id="nav-04pm" role="tabpanel" aria-labelledby="nav-04pm-tab">
+                  <div class="container h-100 pt-3 pb-3">
+                    
+                    <div class="custom-video-block">
+                      <h3 class="title" style="font-family: 'Kalam', cursive; text-align: center; font-size: 16px; margin-bottom: 5px;">
+                        Scene at <span style="color: #0253c5;">04:00 PM</span> (Zip-NeRF)
+                      </h3>
+                      <div style="display: flex; justify-content: space-between; text-align: center; font-size: 15px; margin-bottom: 2px; padding: 5px;">
+                        <span style="margin-left: 10px;"><strong>Ground Truth</strong></span>
+                        <span style="margin-right: 10px;"><strong>Zip-NeRF</strong></span>
+                      </div>
+                      <div class="video-compare-container" data-slider>
+                        <video class="left-video" loop autoplay muted playsinline>
+                          <source src="./video_results/Rendered/zipnerf/Table1/16_640p.mp4" type="video/mp4">
+                        </video>
+                        <div class="slider-bar">
+                          <div class="slider-divider"></div>
+                          <video class="right-video" loop autoplay muted playsinline>
+                            <source src="./video_results/Ground_Truth/Table1/16_640p.mp4" type="video/mp4">
+                          </video>
+                        </div>
+                      </div>
+                    </div>
+
+                    <br>
+
+                    <div class="custom-video-block">
+                      <h3 class="title" style="font-family: 'Kalam', cursive; text-align: center; font-size: 16px; margin-bottom: 5px;">
+                        Scene at <span style="color: #0253c5;">04:00 PM</span> (Octree-GS)
+                      </h3>
+                      <div style="display: flex; justify-content: space-between; text-align: center; font-size: 15px; margin-bottom: 2px; padding: 5px;">
+                        <span style="margin-left: 10px;"><strong>Ground Truth</strong></span>
+                        <span style="margin-right: 10px;"><strong>Octree-GS</strong></span>
+                      </div>
+                      <div class="video-compare-container" data-slider>
+                        <video class="left-video" loop autoplay muted playsinline>
+                          <source src="./video_results/Rendered/octree-gs/Table1/16_640p.mp4" type="video/mp4">
+                        </video>
+                        <div class="slider-bar">
+                          <div class="slider-divider"></div>
+                          <video class="right-video" loop autoplay muted playsinline>
+                            <source src="./video_results/Ground_Truth/Table1/16_640p.mp4" type="video/mp4">
+                          </video>
+                        </div>
+                      </div>
+                    </div>
+
+                  </div>
+                </div>
+
+                <div class="tab-pane fade" id="nav-09pm" role="tabpanel" aria-labelledby="nav-09pm-tab">
+                  <div class="container h-100 pt-3 pb-3">
+                    
+                    <div class="custom-video-block">
+                      <h3 class="title" style="font-family: 'Kalam', cursive; text-align: center; font-size: 16px; margin-bottom: 5px;">
+                        Scene at <span style="color: #0253c5;">09:00 PM</span> (Zip-NeRF)
+                      </h3>
+                      <div style="display: flex; justify-content: space-between; text-align: center; font-size: 15px; margin-bottom: 2px; padding: 5px;">
+                        <span style="margin-left: 10px;"><strong>Ground Truth</strong></span>
+                        <span style="margin-right: 10px;"><strong>Zip-NeRF</strong></span>
+                      </div>
+                      <div class="video-compare-container" data-slider>
+                        <video class="left-video" loop autoplay muted playsinline>
+                          <source src="./video_results/Rendered/zipnerf/Table1/21_640p.mp4" type="video/mp4">
+                        </video>
+                        <div class="slider-bar">
+                          <div class="slider-divider"></div>
+                          <video class="right-video" loop autoplay muted playsinline>
+                            <source src="./video_results/Ground_Truth/Table1/21_640p.mp4" type="video/mp4">
+                          </video>
+                        </div>
+                      </div>
+                    </div>
+
+                    <br>
+
+                    <div class="custom-video-block">
+                      <h3 class="title" style="font-family: 'Kalam', cursive; text-align: center; font-size: 16px; margin-bottom: 5px;">
+                        Scene at <span style="color: #0253c5;">09:00 PM</span> (Octree-GS)
+                      </h3>
+                      <div style="display: flex; justify-content: space-between; text-align: center; font-size: 15px; margin-bottom: 2px; padding: 5px;">
+                        <span style="margin-left: 10px;"><strong>Ground Truth</strong></span>
+                        <span style="margin-right: 10px;"><strong>Octree-GS</strong></span>
+                      </div>
+                      <div class="video-compare-container" data-slider>
+                        <video class="left-video" loop autoplay muted playsinline>
+                          <source src="./video_results/Rendered/octree-gs/Table1/21_640p.mp4" type="video/mp4">
+                        </video>
+                        <div class="slider-bar">
+                          <div class="slider-divider"></div>
+                          <video class="right-video" loop autoplay muted playsinline>
+                            <source src="./video_results/Ground_Truth/Table1/21_640p.mp4" type="video/mp4">
+                          </video>
+                        </div>
+                      </div>
+                    </div>
+
+                  </div>
+                </div>
+
+                <div class="tab-pane fade" id="nav-day6" role="tabpanel" aria-labelledby="nav-day6-tab">
+                  <div class="container h-100 pt-3 pb-3">
+                    
+                    <div class="custom-video-block">
+                      <h3 class="title" style="font-family: 'Kalam', cursive; text-align: center; font-size: 16px; margin-bottom: 5px;">
+                        Scene on <span style="color: #0253c5;">Day 6</span> (Zip-NeRF)
+                      </h3>
+                      <div style="display: flex; justify-content: space-between; text-align: center; font-size: 15px; margin-bottom: 2px; padding: 5px;">
+                        <span style="margin-left: 10px;"><strong>Ground Truth</strong></span>
+                        <span style="margin-right: 10px;"><strong>Zip-NeRF</strong></span>
+                      </div>
+                      <div class="video-compare-container" data-slider>
+                        <video class="left-video" loop autoplay muted playsinline>
+                          <source src="./video_results/Rendered/zipnerf/Table2/Week1_640p.mp4" type="video/mp4">
+                        </video>
+                        <div class="slider-bar">
+                          <div class="slider-divider"></div>
+                          <video class="right-video" loop autoplay muted playsinline>
+                            <source src="./video_results/Ground_Truth/Table2/Week1_640p.mp4" type="video/mp4">
+                          </video>
+                        </div>
+                      </div>
+                    </div>
+
+                    <br>
+
+                    <div class="custom-video-block">
+                      <h3 class="title" style="font-family: 'Kalam', cursive; text-align: center; font-size: 16px; margin-bottom: 5px;">
+                        Scene on <span style="color: #0253c5;">Day 6</span> (Octree-GS)
+                      </h3>
+                      <div style="display: flex; justify-content: space-between; text-align: center; font-size: 15px; margin-bottom: 2px; padding: 5px;">
+                        <span style="margin-left: 10px;"><strong>Ground Truth</strong></span>
+                        <span style="margin-right: 10px;"><strong>Octree-GS</strong></span>
+                      </div>
+                      <div class="video-compare-container" data-slider>
+                        <video class="left-video" loop autoplay muted playsinline>
+                          <source src="./video_results/Rendered/octree-gs/Table2/Week1_640p.mp4" type="video/mp4">
+                        </video>
+                        <div class="slider-bar">
+                          <div class="slider-divider"></div>
+                          <video class="right-video" loop autoplay muted playsinline>
+                            <source src="./video_results/Ground_Truth/Table2/Week1_640p.mp4" type="video/mp4">
+                          </video>
+                        </div>
+                      </div>
+                    </div>
+
+                  </div>
+                </div>
+
+                <div class="tab-pane fade" id="nav-day13" role="tabpanel" aria-labelledby="nav-day13-tab">
+                  <div class="container h-100 pt-3 pb-3">
+                    
+                    <div class="custom-video-block">
+                      <h3 class="title" style="font-family: 'Kalam', cursive; text-align: center; font-size: 16px; margin-bottom: 5px;">
+                        Scene on <span style="color: #0253c5;">Day 13</span> (Zip-NeRF)
+                      </h3>
+                      <div style="display: flex; justify-content: space-between; text-align: center; font-size: 15px; margin-bottom: 2px; padding: 5px;">
+                        <span style="margin-left: 10px;"><strong>Ground Truth</strong></span>
+                        <span style="margin-right: 10px;"><strong>Zip-NeRF</strong></span>
+                      </div>
+                      <div class="video-compare-container" data-slider>
+                        <video class="left-video" loop autoplay muted playsinline>
+                          <source src="./video_results/Rendered/zipnerf/Table2/Week2_640p.mp4" type="video/mp4">
+                        </video>
+                        <div class="slider-bar">
+                          <div class="slider-divider"></div>
+                          <video class="right-video" loop autoplay muted playsinline>
+                            <source src="./video_results/Ground_Truth/Table2/Week2_640p.mp4" type="video/mp4">
+                          </video>
+                        </div>
+                      </div>
+                    </div>
+
+                    <br>
+
+                    <div class="custom-video-block">
+                      <h3 class="title" style="font-family: 'Kalam', cursive; text-align: center; font-size: 16px; margin-bottom: 5px;">
+                        Scene on <span style="color: #0253c5;">Day 13</span> (Octree-GS)
+                      </h3>
+                      <div style="display: flex; justify-content: space-between; text-align: center; font-size: 15px; margin-bottom: 2px; padding: 5px;">
+                        <span style="margin-left: 10px;"><strong>Ground Truth</strong></span>
+                        <span style="margin-right: 10px;"><strong>Octree-GS</strong></span>
+                      </div>
+                      <div class="video-compare-container" data-slider>
+                        <video class="left-video" loop autoplay muted playsinline>
+                          <source src="./video_results/Rendered/octree-gs/Table2/Week2_640p.mp4" type="video/mp4">
+                        </video>
+                        <div class="slider-bar">
+                          <div class="slider-divider"></div>
+                          <video class="right-video" loop autoplay muted playsinline>
+                            <source src="./video_results/Ground_Truth/Table2/Week2_640p.mp4" type="video/mp4">
+                          </video>
+                        </div>
+                      </div>
+                    </div>
+
+                  </div>
+                </div>
+
+                <div class="tab-pane fade" id="nav-day20" role="tabpanel" aria-labelledby="nav-day20-tab">
+                  <div class="container h-100 pt-3 pb-3">
+                    
+                    <div class="custom-video-block">
+                      <h3 class="title" style="font-family: 'Kalam', cursive; text-align: center; font-size: 16px; margin-bottom: 5px;">
+                        Scene on <span style="color: #0253c5;">Day 20</span> (Zip-NeRF)
+                      </h3>
+                      <div style="display: flex; justify-content: space-between; text-align: center; font-size: 15px; margin-bottom: 2px; padding: 5px;">
+                        <span style="margin-left: 10px;"><strong>Ground Truth</strong></span>
+                        <span style="margin-right: 10px;"><strong>Zip-NeRF</strong></span>
+                      </div>
+                      <div class="video-compare-container" data-slider>
+                        <video class="left-video" loop autoplay muted playsinline>
+                          <source src="./video_results/Rendered/zipnerf/Table2/Week3_640p.mp4" type="video/mp4">
+                        </video>
+                        <div class="slider-bar">
+                          <div class="slider-divider"></div>
+                          <video class="right-video" loop autoplay muted playsinline>
+                            <source src="./video_results/Ground_Truth/Table2/Week3_640p.mp4" type="video/mp4">
+                          </video>
+                        </div>
+                      </div>
+                    </div>
+
+                    <br>
+
+                    <div class="custom-video-block">
+                      <h3 class="title" style="font-family: 'Kalam', cursive; text-align: center; font-size: 16px; margin-bottom: 5px;">
+                        Scene on <span style="color: #0253c5;">Day 20</span> (Octree-GS)
+                      </h3>
+                      <div style="display: flex; justify-content: space-between; text-align: center; font-size: 15px; margin-bottom: 2px; padding: 5px;">
+                        <span style="margin-left: 10px;"><strong>Ground Truth</strong></span>
+                        <span style="margin-right: 10px;"><strong>Octree-GS</strong></span>
+                      </div>
+                      <div class="video-compare-container" data-slider>
+                        <video class="left-video" loop autoplay muted playsinline>
+                          <source src="./video_results/Rendered/octree-gs/Table2/Week3_640p.mp4" type="video/mp4">
+                        </video>
+                        <div class="slider-bar">
+                          <div class="slider-divider"></div>
+                          <video class="right-video" loop autoplay muted playsinline>
+                            <source src="./video_results/Ground_Truth/Table2/Week3_640p.mp4" type="video/mp4">
+                          </video>
+                        </div>
+                      </div>
+                    </div>
+
+                  </div>
+                </div>
+                
+              </div> 
+            </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="static/js/slidebar-container.js"></script>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", function() {
+      var tabEls = document.querySelectorAll('a[data-bs-toggle="tab"]');
+      tabEls.forEach(function(tabEl) {
+        tabEl.addEventListener('shown.bs.tab', function (event) {
+          window.dispatchEvent(new Event('resize'));
+        });
+      });
+
+      function syncContainerPairs() {
+        const tabPanes = document.querySelectorAll('.tab-pane');
+        
+        tabPanes.forEach(pane => {
+          const containers = pane.querySelectorAll('.video-compare-container');
+          if(containers.length !== 2) return;
+
+          const top = containers[0];
+          const bottom = containers[1];
+
+          function syncMove(source, target, e) {
+            const rect = source.getBoundingClientRect();
+            const position = ((e.clientX - rect.left) / rect.width) * 100;
+            
+            const safePos = Math.max(0, Math.min(100, position));
+            
+            const targetBar = target.querySelector('.slider-bar');
+            const targetDivider = target.querySelector('.slider-divider');
+            
+            if(targetBar) targetBar.style.clipPath = `inset(0 ${100 - safePos}% 0 0)`;
+            if(targetDivider) targetDivider.style.left = `${safePos}%`;
+          }
+
+          top.addEventListener('mousemove', (e) => syncMove(top, bottom, e));
+          top.addEventListener('touchmove', (e) => syncMove(top, bottom, e.touches[0]));
+
+          bottom.addEventListener('mousemove', (e) => syncMove(bottom, top, e));
+          bottom.addEventListener('touchmove', (e) => syncMove(bottom, top, e.touches[0]));
+
+          const allVideos = [...top.querySelectorAll('video'), ...bottom.querySelectorAll('video')];
+
+          function syncPlayState(triggerVideo) {
+            if (triggerVideo.paused) {
+              allVideos.forEach(v => v.pause());
+            } else {
+              allVideos.forEach(v => v.play());
+            }
+          }
+
+          allVideos.forEach(video => {
+            video.addEventListener('play', function() {
+              allVideos.forEach(v => { if(v !== video && v.paused) v.play(); });
+            });
+            video.addEventListener('pause', function() {
+              allVideos.forEach(v => { if(v !== video && !v.paused) v.pause(); });
+            });
+          });
+        });
+      }
+
+      syncContainerPairs();
+    });
+  </script>
+
+  <br><br><br>
+
+
+  <!-- Videos Section -->
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Video Sync</title>
+    <link rel="stylesheet" href="static/css/video_styles.css">
+  </head>
+  <div class="container is-max-desktop" style="margin-top: -50px;">
+    <section class="hero teaser video-section" style="background-color: #dadada; padding: 20px; border-radius: 10px;">
+      <h3 class="scenario-title" style="font-size: 1.3rem;"><b>[Lighting Variance]</b> <span style="color: #0253c5;">06:00 AM</span></h3>
+      <div class="video-row">
+        
+        <figure class="video-wrapper">
+          <video class="sync-video" autoplay muted loop playsinline>
+            <source src="./video_results/Ground_Truth/Table1/06_640p.mp4" type="video/mp4">
+          </video>
+          <button class="maximize-btn" title="Fullscreen">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/>
+            </svg>
+          </button>
+          <figcaption><strong>Ground Truth</strong></figcaption>
+        </figure>
+
+        <figure class="video-wrapper">
+          <video class="sync-video" autoplay muted loop playsinline>
+            <source src="./video_results/Rendered/taming-3dgs/Table1/06.mp4" type="video/mp4">
+          </video>
+          <button class="maximize-btn" title="Fullscreen">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/>
+            </svg>
+          </button>
+          <figcaption><strong>Taming-3DGS</strong></figcaption>
+        </figure>
+
+        <figure class="video-wrapper">
+          <video class="sync-video" autoplay muted loop playsinline>
+            <source src="./video_results/Rendered/hierarchical-3dgs/Table1/06.mp4" type="video/mp4">
+          </video>
+          <button class="maximize-btn" title="Fullscreen">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/>
+            </svg>
+          </button>
+          <figcaption><strong>Hierarchical-3DGS</strong></figcaption>
+        </figure>
+
+        <figure class="video-wrapper">
+          <video class="sync-video" autoplay muted loop playsinline>
+            <source src="./video_results/Rendered/gaussian-splatting/Table1/06.mp4" type="video/mp4">
+          </video>
+          <button class="maximize-btn" title="Fullscreen">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/>
+            </svg>
+          </button>
+          <figcaption><strong>3DGS</strong></figcaption>
+        </figure>
+
+      </div>
+    </section>
+
+    <section class="hero teaser video-section" style="background-color: #dadada; padding: 20px; border-radius: 10px;">
+      <h3 class="scenario-title" style="font-size: 1.3rem;"><b>[Lighting Variance]</b> <span style="color: #0253c5;">11:00 AM</span></h3>
+      <div class="video-row">
+        <figure class="video-wrapper">
+          <video class="sync-video" autoplay muted loop playsinline>
+            <source src="./video_results/Ground_Truth/Table1/11_640p.mp4" type="video/mp4">
+          </video>
+          <button class="maximize-btn" title="Fullscreen">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/>
+            </svg>
+          </button>
+          <figcaption><strong>Ground Truth</strong></figcaption>
+        </figure>
+        <figure class="video-wrapper">
+          <video class="sync-video" autoplay muted loop playsinline>
+            <source src="./video_results/Rendered/taming-3dgs/Table1/11.mp4" type="video/mp4">
+          </video>
+          <button class="maximize-btn" title="Fullscreen">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/>
+            </svg>
+          </button>
+          <figcaption><strong>Taming-3DGS</strong></figcaption>
+        </figure>
+        <figure class="video-wrapper">
+          <video class="sync-video" autoplay muted loop playsinline>
+            <source src="./video_results/Rendered/hierarchical-3dgs/Table1/11.mp4" type="video/mp4">
+          </video>
+          <button class="maximize-btn" title="Fullscreen">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/>
+            </svg>
+          </button>
+          <figcaption><strong>Hierarchical-3DGS</strong></figcaption>
+        </figure>
+        <figure class="video-wrapper">
+          <video class="sync-video" autoplay muted loop playsinline>
+            <source src="./video_results/Rendered/gaussian-splatting/Table1/11.mp4" type="video/mp4">
+          </video>
+          <button class="maximize-btn" title="Fullscreen">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/>
+            </svg>
+          </button>
+          <figcaption><strong>3DGS</strong></figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <section class="hero teaser video-section" style="background-color: #dadada; padding: 20px; border-radius: 10px;">
+      <h3 class="scenario-title" style="font-size: 1.3rem;"><b>[Lighting Variance]</b> <span style="color: #0253c5;">04:00 PM</span></h3>
+      <div class="video-row">
+        <figure class="video-wrapper">
+          <video class="sync-video" autoplay muted loop playsinline>
+            <source src="./video_results/Ground_Truth/Table1/16_640p.mp4" type="video/mp4">
+          </video>
+          <button class="maximize-btn" title="Fullscreen">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/>
+            </svg>
+          </button>
+          <figcaption><strong>Ground Truth</strong></figcaption>
+        </figure>
+        <figure class="video-wrapper">
+          <video class="sync-video" autoplay muted loop playsinline>
+            <source src="./video_results/Rendered/taming-3dgs/Table1/16.mp4" type="video/mp4">
+          </video>
+          <button class="maximize-btn" title="Fullscreen">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/>
+            </svg>
+          </button>
+          <figcaption><strong>Taming-3DGS</strong></figcaption>
+        </figure>
+        <figure class="video-wrapper">
+          <video class="sync-video" autoplay muted loop playsinline>
+            <source src="./video_results/Rendered/hierarchical-3dgs/Table1/16.mp4" type="video/mp4">
+          </video>
+          <button class="maximize-btn" title="Fullscreen">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/>
+            </svg>
+          </button>
+          <figcaption><strong>Hierarchical-3DGS</strong></figcaption>
+        </figure>
+        <figure class="video-wrapper">
+          <video class="sync-video" autoplay muted loop playsinline>
+            <source src="./video_results/Rendered/gaussian-splatting/Table1/16.mp4" type="video/mp4">
+          </video>
+          <button class="maximize-btn" title="Fullscreen">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/>
+            </svg>
+          </button>
+          <figcaption><strong>3DGS</strong></figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <section class="hero teaser video-section" style="background-color: #dadada; padding: 20px; border-radius: 10px;">
+      <h3 class="scenario-title" style="font-size: 1.3rem;"><b>[Lighting Variance]</b> <span style="color: #0253c5;">09:00 PM</span></h3>
+      <div class="video-row">
+        <figure class="video-wrapper">
+          <video class="sync-video" autoplay muted loop playsinline>
+            <source src="./video_results/Ground_Truth/Table1/21_640p.mp4" type="video/mp4">
+          </video>
+          <button class="maximize-btn" title="Fullscreen">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/>
+            </svg>
+          </button>
+          <figcaption><strong>Ground Truth</strong></figcaption>
+        </figure>
+        <figure class="video-wrapper">
+          <video class="sync-video" autoplay muted loop playsinline>
+            <source src="./video_results/Rendered/taming-3dgs/Table1/21.mp4" type="video/mp4">
+          </video>
+          <button class="maximize-btn" title="Fullscreen">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/>
+            </svg>
+          </button>
+          <figcaption><strong>Taming-3DGS</strong></figcaption>
+        </figure>
+        <figure class="video-wrapper">
+          <video class="sync-video" autoplay muted loop playsinline>
+            <source src="./video_results/Rendered/hierarchical-3dgs/Table1/21.mp4" type="video/mp4">
+          </video>
+          <button class="maximize-btn" title="Fullscreen">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/>
+            </svg>
+          </button>
+          <figcaption><strong>Hierarchical-3DGS</strong></figcaption>
+        </figure>
+        <figure class="video-wrapper">
+          <video class="sync-video" autoplay muted loop playsinline>
+            <source src="./video_results/Rendered/gaussian-splatting/Table1/21.mp4" type="video/mp4">
+          </video>
+          <button class="maximize-btn" title="Fullscreen">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/>
+            </svg>
+          </button>
+          <figcaption><strong>3DGS</strong></figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <section class="hero teaser video-section" style="background-color: #dadada; padding: 20px; border-radius: 10px;">
+      <h3 class="scenario-title" style="font-size: 1.3rem;"><b>[Growth Span]</b> <span style="color: #0253c5;">Day 6</span></h3>
+      <div class="video-row">
+        <figure class="video-wrapper">
+          <video class="sync-video" autoplay muted loop playsinline>
+            <source src="./video_results/Ground_Truth/Table2/Week1_640p.mp4" type="video/mp4">
+          </video>
+          <button class="maximize-btn" title="Fullscreen">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/>
+            </svg>
+          </button>
+          <figcaption><strong>Ground Truth</strong></figcaption>
+        </figure>
+        <figure class="video-wrapper">
+          <video class="sync-video" autoplay muted loop playsinline>
+            <source src="./video_results/Rendered/taming-3dgs/Table2/Week1.mp4" type="video/mp4">
+          </video>
+          <button class="maximize-btn" title="Fullscreen">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/>
+            </svg>
+          </button>
+          <figcaption><strong>Taming-3DGS</strong></figcaption>
+        </figure>
+        <figure class="video-wrapper">
+          <video class="sync-video" autoplay muted loop playsinline>
+            <source src="./video_results/Rendered/hierarchical-3dgs/Table2/Week1.mp4" type="video/mp4">
+          </video>
+          <button class="maximize-btn" title="Fullscreen">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/>
+            </svg>
+          </button>
+          <figcaption><strong>Hierarchical-3DGS</strong></figcaption>
+        </figure>
+        <figure class="video-wrapper">
+          <video class="sync-video" autoplay muted loop playsinline>
+            <source src="./video_results/Rendered/gaussian-splatting/Table2/Week1.mp4" type="video/mp4">
+          </video>
+          <button class="maximize-btn" title="Fullscreen">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/>
+            </svg>
+          </button>
+          <figcaption><strong>3DGS</strong></figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <section class="hero teaser video-section" style="background-color: #dadada; padding: 20px; border-radius: 10px;">
+      <h3 class="scenario-title" style="font-size: 1.3rem;"><b>[Growth Span]</b> <span style="color: #0253c5;">Day 13</span></h3>
+      <div class="video-row">
+        <figure class="video-wrapper">
+          <video class="sync-video" autoplay muted loop playsinline>
+            <source src="./video_results/Ground_Truth/Table2/Week2_640p.mp4" type="video/mp4">
+          </video>
+          <button class="maximize-btn" title="Fullscreen">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/>
+            </svg>
+          </button>
+          <figcaption><strong>Ground Truth</strong></figcaption>
+        </figure>
+        <figure class="video-wrapper">
+          <video class="sync-video" autoplay muted loop playsinline>
+            <source src="./video_results/Rendered/taming-3dgs/Table2/Week2.mp4" type="video/mp4">
+          </video>
+          <button class="maximize-btn" title="Fullscreen">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/>
+            </svg>
+          </button>
+          <figcaption><strong>Taming-3DGS</strong></figcaption>
+        </figure>
+        <figure class="video-wrapper">
+          <video class="sync-video" autoplay muted loop playsinline>
+            <source src="./video_results/Rendered/hierarchical-3dgs/Table2/Week2.mp4" type="video/mp4">
+          </video>
+          <button class="maximize-btn" title="Fullscreen">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/>
+            </svg>
+          </button>
+          <figcaption><strong>Hierarchical-3DGS</strong></figcaption>
+        </figure>
+        <figure class="video-wrapper">
+          <video class="sync-video" autoplay muted loop playsinline>
+            <source src="./video_results/Rendered/gaussian-splatting/Table2/Week2.mp4" type="video/mp4">
+          </video>
+          <button class="maximize-btn" title="Fullscreen">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/>
+            </svg>
+          </button>
+          <figcaption><strong>3DGS</strong></figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <section class="hero teaser video-section" style="background-color: #dadada; padding: 20px; border-radius: 10px;">
+      <h3 class="scenario-title" style="font-size: 1.3rem;"><b>[Growth Span]</b> <span style="color: #0253c5;">Day 20</span></h3>
+      <div class="video-row">
+        <figure class="video-wrapper">
+          <video class="sync-video" autoplay muted loop playsinline>
+            <source src="./video_results/Ground_Truth/Table2/Week3_640p.mp4" type="video/mp4">
+          </video>
+          <button class="maximize-btn" title="Fullscreen">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/>
+            </svg>
+          </button>
+          <figcaption><strong>Ground Truth</strong></figcaption>
+        </figure>
+        <figure class="video-wrapper">
+          <video class="sync-video" autoplay muted loop playsinline>
+            <source src="./video_results/Rendered/taming-3dgs/Table2/Week3.mp4" type="video/mp4">
+          </video>
+          <button class="maximize-btn" title="Fullscreen">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/>
+            </svg>
+          </button>
+          <figcaption><strong>Taming-3DGS</strong></figcaption>
+        </figure>
+        <figure class="video-wrapper">
+          <video class="sync-video" autoplay muted loop playsinline>
+            <source src="./video_results/Rendered/hierarchical-3dgs/Table2/Week3.mp4" type="video/mp4">
+          </video>
+          <button class="maximize-btn" title="Fullscreen">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/>
+            </svg>
+          </button>
+          <figcaption><strong>Hierarchical-3DGS</strong></figcaption>
+        </figure>
+        <figure class="video-wrapper">
+          <video class="sync-video" autoplay muted loop playsinline>
+            <source src="./video_results/Rendered/gaussian-splatting/Table2/Week3.mp4" type="video/mp4">
+          </video>
+          <button class="maximize-btn" title="Fullscreen">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/>
+            </svg>
+          </button>
+          <figcaption><strong>3DGS</strong></figcaption>
+        </figure>
+      </div>
+    </section>
+
+  </div>
+
+  <div id="videoModal" class="video-modal">
+    <span class="close-modal">&times;</span>
+    <video id="modalVideo" controls autoplay loop></video>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", function() {
+      
+      // 1. Toggle play/pause for the entire row when a video is clicked
+      const videos = document.querySelectorAll('.sync-video');
+      videos.forEach(video => {
+        video.addEventListener('click', function(e) {
+          e.preventDefault(); 
+          const row = video.closest('.video-row');
+          const rowVideos = row.querySelectorAll('video');
+          const isPaused = video.paused;
+          
+          if (isPaused) { 
+            rowVideos.forEach(v => v.play()); 
+          } else { 
+            rowVideos.forEach(v => v.pause()); 
+          }
+        });
+      });
+
+      // 2. Modal (Lightbox) Popup Functionality
+      const modal = document.getElementById('videoModal');
+      const modalVideo = document.getElementById('modalVideo');
+      const closeBtn = document.querySelector('.close-modal');
+      const expandBtns = document.querySelectorAll('.maximize-btn');
+
+      // Event: Open modal when expand button is clicked
+      expandBtns.forEach(btn => {
+        btn.addEventListener('click', function(e) {
+          e.stopPropagation(); // Stop propagation to prevent triggering row play/pause
+          
+          // Get the source URL from the sibling video element
+          const sourceVideo = btn.parentElement.querySelector('video source').src;
+          
+          // Set source to modal video and show
+          modalVideo.src = sourceVideo;
+          modal.classList.add('show');
+          modalVideo.play();
+        });
+      });
+
+      // Function to close the modal
+      function closeModal() {
+        modal.classList.remove('show');
+        modalVideo.pause(); // Pause video
+        modalVideo.src = ""; // Reset source to save memory
+      }
+
+      // Event: Close on 'X' button click
+      closeBtn.addEventListener('click', closeModal);
+
+      // Event: Close when clicking outside the video (background)
+      modal.addEventListener('click', function(e) {
+        if (e.target === modal) {
+          closeModal();
+        }
+      });
+    });
+  </script>
+
+  <br><br><br><br>
+
+  <footer class="footer" style="background-color: #ececec;">
+    <div class="container">
+      <div class="content has-text-centered">
+        <a class="icon-link"
+          href="././static/videos/nerfies_paper.pdf">
+          <i class="fas fa-file-pdf"></i>
+        </a>
+        <a class="icon-link" href="https://github.com/keunhong" class="external-link" disabled>
+          <i class="fab fa-github"></i>
+        </a>
+      </div>
+      <div class="columns is-centered">
+        <div class="column is-8">
+          <div class="content">
+            <p>
+              This website is licensed under a <a rel="license"
+                                                  href="http://creativecommons.org/licenses/by-sa/4.0/">Creative
+              Commons Attribution-ShareAlike 4.0 International License</a>.
+            </p>
+            <p>
+              We borrow the <a href="https://github.com/nerfies/nerfies.github.io">source code</a> of this website,
+              A heartfelt thanks to the original creators! 💖
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+</body>
+</html>

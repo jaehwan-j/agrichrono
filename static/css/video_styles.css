@@ -1,0 +1,171 @@
+/* =========================================
+   1. Layout & Container
+   ========================================= */
+.container {
+  max-width: 1300px;
+  margin: 0 auto;
+}
+
+.hero.teaser {
+  background-color: #f5f5f5; /* Light gray background */
+  padding: 20px;
+  border-radius: 15px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+  margin-bottom: 40px;
+}
+
+.video-row {
+  display: flex;
+  justify-content: space-between; /* Evenly distribute space between videos */
+  align-items: flex-start;
+  gap: 10px; /* Default gap between videos */
+  width: 100%;
+}
+
+/* =========================================
+   2. Video Wrappers (Grid System)
+   ========================================= */
+/* Default video wrapper (Based on 4 columns - for Benchmarks) */
+.video-wrapper {
+  position: relative; /* Reference point for maximize button positioning */
+  flex: 1;            /* Occupy space evenly */
+  width: 24%;         /* Approx 25% for 4 items (24% considering gap) */
+  margin: 0;
+  padding: 0;
+  text-align: center;
+  cursor: pointer;    /* Indicate clickable */
+}
+
+/* -----------------------------------------
+   Special Wrappers (Teaser / Specific Ratio)
+   Use only when necessary (e.g., Source divider)
+   ----------------------------------------- */
+.left-video-wrapper {
+  flex: 0 1 33%;
+  max-width: 33%;
+  border-right: 3px dotted #5a5a5a; 
+  padding-right: 10px; 
+  margin-right: 10px;
+  text-align: center;
+  position: relative;
+}
+
+/* Row settings for square videos */
+.video-row-square .video-wrapper {
+  aspect-ratio: 1 / 1;
+}
+
+/* Row settings for portrait videos */
+.video-row-portrait .video-wrapper {
+  aspect-ratio: 4 / 5;
+}
+
+
+/* =========================================
+   3. Video Styling
+   ========================================= */
+video {
+  width: 100%;
+  height: auto;
+  border-radius: 8px;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+  margin-bottom: 5px;
+  display: block; /* Remove bottom micro-margin */
+  object-fit: cover;
+}
+
+figcaption {
+  margin-top: 8px;
+  font-family: 'Kalam', cursive;
+  font-size: 1em;
+  color: #333;
+  text-align: center;
+}
+
+/* Highlight text color */
+figcaption span {
+  font-weight: bold;
+}
+
+
+/* =========================================
+   4. Maximize Button (Hover Overlay)
+   ========================================= */
+.maximize-btn {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  background-color: rgba(0, 0, 0, 0.6); /* Semi-transparent black background */
+  color: white;
+  border: none;
+  border-radius: 4px;
+  width: 30px;
+  height: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  opacity: 0; /* Hidden by default */
+  transition: opacity 0.2s ease;
+  z-index: 10;
+}
+
+/* Show button on video wrapper hover */
+.video-wrapper:hover .maximize-btn,
+.left-video-wrapper:hover .maximize-btn {
+  opacity: 1;
+}
+
+.maximize-btn:hover {
+  background-color: rgba(0, 0, 0, 0.9); /* Darker on button hover */
+}
+
+
+/* =========================================
+   5. Modal (Lightbox) Styles
+   ========================================= */
+.video-modal {
+  display: none; /* Hidden by default */
+  position: fixed;
+  z-index: 9999; /* Topmost layer */
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.8); /* Darken background */
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.video-modal.show {
+  display: flex;
+  opacity: 1;
+}
+
+.video-modal video {
+  max-width: 90%;
+  max-height: 90%;
+  width: auto;
+  height: auto;
+  border-radius: 10px;
+  box-shadow: 0 0 20px rgba(255, 255, 255, 0.2);
+  background: black;
+  margin: 0; /* Remove margin inside modal */
+}
+
+.close-modal {
+  position: absolute;
+  top: 20px;
+  right: 30px;
+  color: white;
+  font-size: 40px;
+  font-weight: bold;
+  cursor: pointer;
+  z-index: 10000;
+}
+
+.close-modal:hover {
+  color: #bbb;
+}
