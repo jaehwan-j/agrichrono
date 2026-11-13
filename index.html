@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="description" content="AgriChrono: Platform, Dataset, and Benchmark">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>AgriChrono: A Multi-modal Dataset Capturing Crop Growth and Lighting Variability with a Field Robot</title>
+  <title>AgriChrono: A Longitudinal Dataset and Benchmark for Novel-View Synthesis of Field-Grown Crops</title>
 
   <!-- Google Fonts -->
   <link href="https://fonts.googleapis.com/css2?family=Indie+Flower&family=Kalam:wght@300;400&family=Shadows+Into+Light&family=Google+Sans&family=Noto+Sans&display=swap" rel="stylesheet">
@@ -35,7 +35,7 @@
       <div class="container is-max-desktop">
         <div class="columns is-centered">
           <div class="column has-text-centered">
-            <h1 class="title is-1 publication-title">AgriChrono: A Multi-modal Dataset Capturing Crop Growth and Lighting Variability with a Field Robot
+            <h1 class="title is-1 publication-title">AgriChrono: A Longitudinal Dataset and Benchmark for Novel-View Synthesis of Field-Grown Crops
             </h1>
             <br>
             <div class="is-size-4 publication-authors">
@@ -55,7 +55,7 @@
                 Md. Mukhlesur Rahman<sup>3</sup>,
               </span>
               <span class="author-block">
-                Sangpil Kim<sup>1,†</sup>, and
+                Sangpil Kim<sup>1</sup>, and
               </span>
               <span class="author-block">
                 M. Khalid Jawed<sup>2,†</sup>
@@ -66,7 +66,7 @@
 
             <style>
               .affiliation-block {
-                margin: 0 15px; /* 좌우로 15px씩 여백을 줌 */
+                margin: 0 15px; 
               }
             </style>
 
@@ -157,11 +157,11 @@
             <h2 class="title is-3"> Overview </h2> 
             <img src="static/imgs/Field.png" alt="Teaser" style="width: 100%; height: auto;" />
             <figcaption class="custom-caption" style="text-align: left; margin-top: 10px;">
-              <strong>Experimental sites and remote operation interface.</strong> 
-              <strong>(Site 1)</strong> Main canola phenotyping site used for repeated data collection, capturing temporal changes in illumination and crop structure. 
-              <strong>(Site 2)</strong> Genotype trial site featuring diverse canola varieties, capturing morphological variation across crop types.
-              <strong>(Site 3)</strong> Flax trial site comprising multiple plots with varying weed control strategies, offering structural diversity in a controlled multi-block layout.
-              <strong>(Web UI)</strong> Remote interface supporting real-time system feedback, intuitive directory-based data saving, and low-latency teleoperation, <b>ensuring high-quality data collection through consistent velocity and trajectory repeatability</b>.
+              <strong>Field acquisition sites and web-based remote operation interface.</strong>
+              <strong>Site 1:</strong> Main canola field used for repeated observations of crop development and natural illumination conditions.
+              <strong>Site 2:</strong> Canola genotype trial containing multiple canola varieties.
+              <strong>Site 3:</strong> Flax trial comprising plots with different cultivation treatments.
+              <strong>Web interface:</strong> System monitoring (1), recording directory and session management (2), robot and PTZ camera control (3), and real-time video streaming through WebRTC (4). Site 1 provides the primary observations analyzed in this study; Sites 2 and 3 are documented in the Supplementary Material (S2).
             </figcaption>
           </div>    
         </div>
@@ -178,9 +178,9 @@
           <div class="column" style="width: 80%; padding: 0;">
             <h2 class="title is-3"> Abstract </h2>
             <div class="content has-text-justified">
-              Advances in AI and Robotics have accelerated significant initiatives in agriculture, particularly in the areas of robot navigation and 3D digital twin creation. A significant bottleneck impeding this progress is the critical lack of "in-the-wild" datasets that capture the full complexities of real farmland, including non-rigid motion from wind, drastic illumination variance, and morphological changes resulting from growth. This data gap fundamentally limits research on robust AI models for autonomous field navigation and scene-level dynamic 3D reconstruction.
-              In this paper, we present <b>AgriChrono</b>, a modular robotic data collection platform and multi-modal dataset designed to capture these dynamic farmland conditions. Our platform integrates multiple sensors, enabling remote, time-synchronized acquisition of RGB, Depth, LiDAR, IMU, and Pose data for efficient and repeatable long-term data collection in real-world agricultural environments. We successfully collected 18TB of data over one month, documenting the entire growth cycle of Canola under diverse illumination conditions.
-              We benchmark state-of-the-art 3D reconstruction methods on <b>AgriChrono</b>, revealing the profound challenge of reconstructing high-fidelity, dynamic non-rigid scenes in such farmland settings. This benchmark validates <b>AgriChrono</b> as a critical asset for advancing model generalization, and its public release is expected to significantly accelerate research and development in precision agriculture.
+              Reliable three-dimensional (3D) reconstruction of field-grown crops remains challenging due to thin and overlapping plant structures, wind-induced foliage motion, and variable natural illumination. Longitudinal agricultural datasets and standardized novel-view synthesis (NVS) benchmarks for field conditions remain limited.
+              We present an integrated framework connecting robotic acquisition, dataset construction, NVS benchmarking, and agricultural scene reconstruction. We develop <b>AgriChrobot</b>, a robotic platform supporting web-based teleoperation and repeated multi-view acquisition along crop rows. Using this platform, we construct <b>AgriChrono</b>, a longitudinal canola dataset comprising 160 recording sessions over approximately one month, with four RGB streams, two depth maps, and camera-pose estimates. We establish seven NVS evaluation scenarios comprising four time-of-day and three acquisition-date scenarios, and evaluate 15 NeRF- and Gaussian Splatting-based methods. Beyond whole-image quality, we evaluate fine-detail reproduction within manually annotated canola regions using gradient- and edge-based metrics. The benchmark reveals that competitive whole-image performance does not necessarily translate into faithful reproduction of fine visual details in thin and overlapping crop structures.
+              Motivated by this finding, we propose <b>AgriSplat</b>, which relaxes initial visibility filtering and reallocates capacity through contribution-based pruning and budgeted reinvestment into sub-threshold candidates ranked by existing gradient statistics. After anchor reallocation, asymmetric supervision penalizes insufficient contrast along reference image-gradient directions. Compared with Octree-GS, AgriSplat improves the crop-region gradient-energy ratio from <u>0.506 to 0.847</u> and edge F-score from <u>0.712 to 0.797</u>, averaged across seven scenarios, while also improving whole-image PSNR, SSIM, and LPIPS. Together, these contributions support systematic research on scene-level crop reconstruction under field conditions.
             </div>
           </div>
         </div>
@@ -294,6 +294,20 @@
           </div>
         </section>
 
+        <div class="container is-max-desktop" style="margin-top: 60px;">
+          <figure class="image">
+            <img src="static/imgs/AgriSplat.png" alt="AgriSplat overview" class="clickable-image" onclick="openModal(this)" style="width: 100%; height: auto; display: block;" />
+            <figcaption class="custom-caption" style="text-align: left; margin-top: 10px;">
+              <strong>Overview of AgriSplat.</strong>
+              Given input images and an initial 3D point cloud, AgriSplat begins with visibility-relaxed anchor initialization.
+              During anchor growth, <b>Contribution-guided Anchor Reallocation (CAR)</b> prunes low-contribution anchors and reinvests the resulting credit into eligible sub-threshold candidates ranked by gradient magnitude.
+              After anchor growth and reallocation, <b>Asymmetric Directional Supervision (ADS)</b> refines rendering under a fixed anchor topology while continuing to optimize the trainable Gaussian parameters.
+              ADS penalizes insufficient rendered contrast along reference image-gradient directions to improve the reproduction of fine crop structures.
+              The lower panels illustrate the CAR and ADS mechanisms.
+            </figcaption>
+          </figure>
+        </div>
+
         <div id="myModal" class="image-modal">
           <span class="close" onclick="closeModal()">&times;</span>
           <img class="modal-content" id="img01">
@@ -331,9 +345,9 @@
         <div class="column is-11">
           <h2 class="title is-3">Novel View Synthesis Benchmark</h2>
           <div class="content has-text-justified">
-              We benchmark Novel View Synthesis on AgriChrono across <b>seven scenarios</b> characterized by <b>Lighting Variance</b> and <b>Growth Span</b>. 
+              We benchmark Novel View Synthesis on AgriChrono with <b>15 baseline methods and AgriSplat</b> across <b>seven scenarios</b> characterized by <b>Lighting Variance</b> and <b>Growth Span</b>. 
               Each scenario comprises 400 images (960×540) partitioned into 350 for training and 50 for testing. 
-              This benchmark assesses the robustness of methods against drastic <b>illumination changes</b> and <b>morphological variations</b> of <b>non-rigid objects</b> in unstructured outdoor environments.
+              This benchmark assesses the robustness of methods against drastic <b>illumination changes</b> and <b>morphological variations</b> of <b>non-rigid objects</b> in unstructured outdoor environments. Whole-image (W) and canola-region (C) metrics follow the paper; whole-image LPIPS uses AlexNet; GER<sub>C</sub> is best when closest to 1; <b>bold</b> and <u>underline</u> mark the best and second-best; training time and GPU memory are measured on an NVIDIA RTX 6000 Ada GPU. Values are means over the seven scenarios (click a row for per-scenario results).
           </div>
         </div>
       </div>
@@ -343,6 +357,7 @@
           <div class="table-container">
             <style>
               /* Table style definitions */
+              .benchmark-table .ours-row { background-color: #fdf1ee; }
               .benchmark-table th { cursor: pointer; user-select: none; }
               .benchmark-table .parent-row { cursor: pointer; transition: background-color 0.2s; }
               .benchmark-table .parent-row:hover { background-color: #f5f5f5; }
@@ -355,22 +370,42 @@
             <table class="table is-hoverable is-fullwidth benchmark-table">
               <thead>
                 <tr>
-                  <th style="width: 30%;">
-                    Method 
-                    <span style="color: #888; font-size: 0.95em; font-weight: normal;">
-                      (Click to view all 7 scenarios)
-                    </span>
-                  </th>
-                  <th class="has-text-centered is-clickable" onclick="sortTable(1, 'number')">PSNR ↑</th>
-                  <th class="has-text-centered is-clickable" onclick="sortTable(2, 'number')">SSIM ↑</th>
-                  <th class="has-text-centered is-clickable" onclick="sortTable(3, 'number')">LPIPS (VGG) ↓</th>
-                  <th class="has-text-centered is-clickable" onclick="sortTable(4, 'time')">Time</th>
-                  <th class="has-text-centered is-clickable" onclick="sortTable(5, 'gpu')">GPU Mem.</th>
+                  <th rowspan="2" style="width: 22%; vertical-align: middle;">Method<br> <span style="color: #888; font-size: 0.95em; font-weight: normal;">(Click to view all 7 scenarios)</span></th>
+                  <th colspan="3" class="has-text-centered">Whole Image</th>
+                  <th colspan="4" class="has-text-centered">Canola Region</th>
+                  <th colspan="2" class="has-text-centered">Cost</th>
                 </tr>
+                <tr><th class="has-text-centered is-clickable" onclick="sortTable(1, 'number')">PSNR<sub>W</sub> ↑</th><th class="has-text-centered is-clickable" onclick="sortTable(2, 'number')">SSIM<sub>W</sub> ↑</th><th class="has-text-centered is-clickable" onclick="sortTable(3, 'number')">LPIPS<sub>W</sub> ↓</th><th class="has-text-centered is-clickable" onclick="sortTable(4, 'number')">SSIM<sub>C</sub> ↑</th><th class="has-text-centered is-clickable" onclick="sortTable(5, 'number')">LPIPS<sub>C</sub> ↓</th><th class="has-text-centered is-clickable" onclick="sortTable(6, 'number')">GER<sub>C</sub> →1</th><th class="has-text-centered is-clickable" onclick="sortTable(7, 'number')">EdgeF<sub>C</sub> ↑</th><th class="has-text-centered is-clickable" onclick="sortTable(8, 'time')">Time</th><th class="has-text-centered is-clickable" onclick="sortTable(9, 'gpu')">GPU Mem.</th></tr>
               </thead>
 
               <tbody>
-                <tr class="parent-row" onclick="toggleBenchmarkRow(this, '3dgut-group')">
+<tr class="parent-row ours-row" onclick="toggleBenchmarkRow(this, 'agrisplat-group')">
+<td><span class="icon is-small" style="margin-right: 5px;"><i class="fas fa-angle-down toggle-icon"></i></span><strong>AgriSplat</strong> <span style="color: #c0392b; font-size: 0.95em; font-weight: normal;">(Ours)</span></td><td class="has-text-centered"><u>27.24</u></td><td class="has-text-centered"><strong>0.779</strong></td><td class="has-text-centered"><strong>0.187</strong></td><td class="has-text-centered"><b>0.560</b></td><td class="has-text-centered"><strong>0.273</strong></td><td class="has-text-centered"><strong>0.847</strong></td><td class="has-text-centered"><strong>0.797</strong></td><td class="has-text-centered">17m 58s</td><td class="has-text-centered">6,258 MB</td>
+</tr>
+<tr class="child-row agrisplat-group">
+<td style="padding-left: 40px;">↳ 06:00 AM (Lighting Variance)</td><td class="has-text-centered"><u>28.69</u></td><td class="has-text-centered"><strong>0.823</strong></td><td class="has-text-centered"><strong>0.177</strong></td><td class="has-text-centered"><strong>0.609</strong></td><td class="has-text-centered"><strong>0.277</strong></td><td class="has-text-centered"><strong>0.785</strong></td><td class="has-text-centered"><strong>0.686</strong></td><td class="has-text-centered">16m 53s</td><td class="has-text-centered">5,864 MB</td>
+</tr>
+<tr class="child-row agrisplat-group">
+<td style="padding-left: 40px;">↳ 11:00 AM (Lighting Variance)</td><td class="has-text-centered"><u>24.28</u></td><td class="has-text-centered"><u>0.730</u></td><td class="has-text-centered"><u>0.223</u></td><td class="has-text-centered"><u>0.411</u></td><td class="has-text-centered"><strong>0.325</strong></td><td class="has-text-centered"><strong>0.824</strong></td><td class="has-text-centered"><strong>0.888</strong></td><td class="has-text-centered">17m 56s</td><td class="has-text-centered">6,166 MB</td>
+</tr>
+<tr class="child-row agrisplat-group">
+<td style="padding-left: 40px;">↳ 04:00 PM (Lighting Variance)</td><td class="has-text-centered">25.64</td><td class="has-text-centered"><u>0.745</u></td><td class="has-text-centered"><u>0.223</u></td><td class="has-text-centered"><u>0.443</u></td><td class="has-text-centered"><strong>0.327</strong></td><td class="has-text-centered"><strong>0.798</strong></td><td class="has-text-centered"><strong>0.844</strong></td><td class="has-text-centered">17m 3s</td><td class="has-text-centered">5,934 MB</td>
+</tr>
+<tr class="child-row agrisplat-group">
+<td style="padding-left: 40px;">↳ 09:00 PM (Lighting Variance)</td><td class="has-text-centered"><u>29.81</u></td><td class="has-text-centered"><strong>0.827</strong></td><td class="has-text-centered"><strong>0.165</strong></td><td class="has-text-centered"><strong>0.596</strong></td><td class="has-text-centered"><strong>0.291</strong></td><td class="has-text-centered"><strong>0.793</strong></td><td class="has-text-centered"><strong>0.680</strong></td><td class="has-text-centered">17m 5s</td><td class="has-text-centered">5,762 MB</td>
+</tr>
+<tr class="child-row agrisplat-group">
+<td style="padding-left: 40px;">↳ Day 6 (Growth Span)</td><td class="has-text-centered"><strong>26.39</strong></td><td class="has-text-centered"><strong>0.740</strong></td><td class="has-text-centered"><strong>0.181</strong></td><td class="has-text-centered"><strong>0.634</strong></td><td class="has-text-centered"><strong>0.186</strong></td><td class="has-text-centered"><strong>0.977</strong></td><td class="has-text-centered"><strong>0.924</strong></td><td class="has-text-centered">20m 43s</td><td class="has-text-centered">7,507 MB</td>
+</tr>
+<tr class="child-row agrisplat-group">
+<td style="padding-left: 40px;">↳ Day 13 (Growth Span)</td><td class="has-text-centered"><u>28.02</u></td><td class="has-text-centered"><strong>0.787</strong></td><td class="has-text-centered"><strong>0.163</strong></td><td class="has-text-centered"><strong>0.670</strong></td><td class="has-text-centered"><strong>0.213</strong></td><td class="has-text-centered"><strong>0.916</strong></td><td class="has-text-centered"><strong>0.807</strong></td><td class="has-text-centered">18m 18s</td><td class="has-text-centered">6,602 MB</td>
+</tr>
+<tr class="child-row agrisplat-group">
+<td style="padding-left: 40px;">↳ Day 20 (Growth Span)</td><td class="has-text-centered"><u>27.83</u></td><td class="has-text-centered"><u>0.799</u></td><td class="has-text-centered"><strong>0.180</strong></td><td class="has-text-centered"><u>0.556</u></td><td class="has-text-centered"><strong>0.288</strong></td><td class="has-text-centered"><strong>0.838</strong></td><td class="has-text-centered"><strong>0.751</strong></td><td class="has-text-centered">17m 47s</td><td class="has-text-centered">5,974 MB</td>
+</tr>
+</tbody>
+
+<tbody><tr class="parent-row" onclick="toggleBenchmarkRow(this, '3dgut-group')">
                   <td>
                     <span class="icon is-small" style="margin-right: 5px;">
                       <i class="fas fa-angle-down toggle-icon"></i>
@@ -379,73 +414,24 @@
                     <span style="color: #888; font-size: 0.95em; font-weight: normal;">
                       [CVPR '25]
                     </span>
-                  </td>
-                  <td class="has-text-centered"><strong>25.096</strong></td>
-                  <td class="has-text-centered"><strong>0.6092</strong></td>
-                  <td class="has-text-centered"><strong>0.4945</strong></td>
-                  <td class="has-text-centered"><strong>7m 0s</strong></td>
-                  <td class="has-text-centered"><strong>6,315 MB</strong></td>
-                </tr>
-                <tr class="child-row 3dgut-group">
-                  <td style="padding-left: 40px;">↳ 06:00 AM (Lighting Variance)</td>
-                  <td class="has-text-centered">26.433</td>
-                  <td class="has-text-centered">0.6915</td>
-                  <td class="has-text-centered">0.4697</td>
-                  <td class="has-text-centered">6m 35s</td>
-                  <td class="has-text-centered">6,060 MB</td>
-                </tr>
-                <tr class="child-row 3dgut-group">
-                  <td style="padding-left: 40px;">↳ 11:00 AM (Lighting Variance)</td>
-                  <td class="has-text-centered">22.860</td>
-                  <td class="has-text-centered">0.5488</td>
-                  <td class="has-text-centered">0.5058</td>
-                  <td class="has-text-centered">6m 48s</td>
-                  <td class="has-text-centered">6,630 MB</td>
-                </tr>
-                <tr class="child-row 3dgut-group">
-                  <td style="padding-left: 40px;">↳ 04:00 PM (Lighting Variance)</td>
-                  <td class="has-text-centered">24.147</td>
-                  <td class="has-text-centered">0.5906</td>
-                  <td class="has-text-centered">0.4904</td>
-                  <td class="has-text-centered">6m 41s</td>
-                  <td class="has-text-centered">6,390 MB</td>
-                </tr>
-                <tr class="child-row 3dgut-group">
-                  <td style="padding-left: 40px;">↳ 09:00 PM (Lighting Variance)</td>
-                  <td class="has-text-centered">27.813</td>
-                  <td class="has-text-centered">0.7134</td>
-                  <td class="has-text-centered">0.4465</td>
-                  <td class="has-text-centered">6m 36s</td>
-                  <td class="has-text-centered">5,976 MB</td>
-                </tr>
-                <tr class="child-row 3dgut-group">
-                  <td style="padding-left: 40px;">↳ Day 6 (Growth Span)</td>
-                  <td class="has-text-centered">23.706</td>
-                  <td class="has-text-centered">0.5130</td>
-                  <td class="has-text-centered">0.5563</td>
-                  <td class="has-text-centered">8m 2s</td>
-                  <td class="has-text-centered">6,474 MB</td>
-                </tr>
-                <tr class="child-row 3dgut-group">
-                  <td style="padding-left: 40px;">↳ Day 13 (Growth Span)</td>
-                  <td class="has-text-centered">24.856</td>
-                  <td class="has-text-centered">0.5597</td>
-                  <td class="has-text-centered">0.5259</td>
-                  <td class="has-text-centered">7m 17s</td>
-                  <td class="has-text-centered">6,448 MB</td>
-                </tr>
-                <tr class="child-row 3dgut-group">
-                  <td style="padding-left: 40px;">↳ Day 20 (Growth Span)</td>
-                  <td class="has-text-centered">25.858</td>
-                  <td class="has-text-centered">0.6477</td>
-                  <td class="has-text-centered">0.4670</td>
-                  <td class="has-text-centered">7m 3s</td>
-                  <td class="has-text-centered">6,228 MB</td>
-                </tr>
-              </tbody>
+                  </td><td class="has-text-centered">25.11</td><td class="has-text-centered">0.609</td><td class="has-text-centered">0.496</td><td class="has-text-centered">0.383</td><td class="has-text-centered">0.699</td><td class="has-text-centered">0.122</td><td class="has-text-centered">0.261</td><td class="has-text-centered">7m 0s</td><td class="has-text-centered">6,315 MB</td></tr>
+<tr class="child-row 3dgut-group">
+                  <td style="padding-left: 40px;">↳ 06:00 AM (Lighting Variance)</td><td class="has-text-centered">26.51</td><td class="has-text-centered">0.693</td><td class="has-text-centered">0.469</td><td class="has-text-centered">0.475</td><td class="has-text-centered">0.737</td><td class="has-text-centered">0.058</td><td class="has-text-centered">0.063</td><td class="has-text-centered">6m 35s</td><td class="has-text-centered">6,060 MB</td></tr>
+<tr class="child-row 3dgut-group">
+                  <td style="padding-left: 40px;">↳ 11:00 AM (Lighting Variance)</td><td class="has-text-centered">22.96</td><td class="has-text-centered">0.552</td><td class="has-text-centered">0.502</td><td class="has-text-centered">0.249</td><td class="has-text-centered">0.790</td><td class="has-text-centered">0.126</td><td class="has-text-centered">0.352</td><td class="has-text-centered">6m 48s</td><td class="has-text-centered">6,630 MB</td></tr>
+<tr class="child-row 3dgut-group">
+                  <td style="padding-left: 40px;">↳ 04:00 PM (Lighting Variance)</td><td class="has-text-centered">24.12</td><td class="has-text-centered">0.587</td><td class="has-text-centered">0.501</td><td class="has-text-centered">0.315</td><td class="has-text-centered">0.754</td><td class="has-text-centered">0.114</td><td class="has-text-centered">0.313</td><td class="has-text-centered">6m 41s</td><td class="has-text-centered">6,390 MB</td></tr>
+<tr class="child-row 3dgut-group">
+                  <td style="padding-left: 40px;">↳ 09:00 PM (Lighting Variance)</td><td class="has-text-centered">27.72</td><td class="has-text-centered">0.713</td><td class="has-text-centered">0.448</td><td class="has-text-centered">0.487</td><td class="has-text-centered">0.747</td><td class="has-text-centered">0.049</td><td class="has-text-centered">0.057</td><td class="has-text-centered">6m 36s</td><td class="has-text-centered">5,976 MB</td></tr>
+<tr class="child-row 3dgut-group">
+                  <td style="padding-left: 40px;">↳ Day 6 (Growth Span)</td><td class="has-text-centered">23.71</td><td class="has-text-centered">0.512</td><td class="has-text-centered">0.560</td><td class="has-text-centered">0.318</td><td class="has-text-centered">0.509</td><td class="has-text-centered">0.305</td><td class="has-text-centered">0.722</td><td class="has-text-centered">8m 2s</td><td class="has-text-centered">6,474 MB</td></tr>
+<tr class="child-row 3dgut-group">
+                  <td style="padding-left: 40px;">↳ Day 13 (Growth Span)</td><td class="has-text-centered">24.85</td><td class="has-text-centered">0.559</td><td class="has-text-centered">0.527</td><td class="has-text-centered">0.435</td><td class="has-text-centered">0.611</td><td class="has-text-centered">0.126</td><td class="has-text-centered">0.221</td><td class="has-text-centered">7m 17s</td><td class="has-text-centered">6,448 MB</td></tr>
+<tr class="child-row 3dgut-group">
+                  <td style="padding-left: 40px;">↳ Day 20 (Growth Span)</td><td class="has-text-centered">25.87</td><td class="has-text-centered">0.648</td><td class="has-text-centered">0.466</td><td class="has-text-centered">0.405</td><td class="has-text-centered">0.743</td><td class="has-text-centered">0.079</td><td class="has-text-centered">0.097</td><td class="has-text-centered">7m 3s</td><td class="has-text-centered">6,228 MB</td></tr>
+</tbody>
 
-              <tbody>
-                <tr class="parent-row" onclick="toggleBenchmarkRow(this, 'octree-gs-group')">
+<tbody><tr class="parent-row" onclick="toggleBenchmarkRow(this, 'octree-gs-group')">
                   <td>
                     <span class="icon is-small" style="margin-right: 5px;">
                       <i class="fas fa-angle-down toggle-icon"></i>
@@ -454,73 +440,24 @@
                     <span style="color: #888; font-size: 0.95em; font-weight: normal;">
                       [TPAMI '25]
                     </span>
-                  </td>
-                  <td class="has-text-centered"><strong>27.103</strong></td>
-                  <td class="has-text-centered"><strong>0.7547</strong></td>
-                  <td class="has-text-centered"><strong>0.2670</strong></td>
-                  <td class="has-text-centered"><strong>13m 23s</strong></td>
-                  <td class="has-text-centered"><strong>5,578 MB</strong></td>
-                </tr>
-                <tr class="child-row octree-gs-group">
-                  <td style="padding-left: 40px;">↳ 06:00 AM (Lighting Variance)</td>
-                  <td class="has-text-centered">28.451</td>
-                  <td class="has-text-centered">0.8009</td>
-                  <td class="has-text-centered">0.2640</td>
-                  <td class="has-text-centered">12m 59s</td>
-                  <td class="has-text-centered">5,018 MB</td>
-                </tr>
-                <tr class="child-row octree-gs-group">
-                  <td style="padding-left: 40px;">↳ 11:00 AM (Lighting Variance)</td>
-                  <td class="has-text-centered">24.402</td>
-                  <td class="has-text-centered">0.7044</td>
-                  <td class="has-text-centered">0.3007</td>
-                  <td class="has-text-centered">13m 36s</td>
-                  <td class="has-text-centered">5,748 MB</td>
-                </tr>
-                <tr class="child-row octree-gs-group">
-                  <td style="padding-left: 40px;">↳ 04:00 PM (Lighting Variance)</td>
-                  <td class="has-text-centered">25.593</td>
-                  <td class="has-text-centered">0.7269</td>
-                  <td class="has-text-centered">0.2916</td>
-                  <td class="has-text-centered">13m 1s</td>
-                  <td class="has-text-centered">5,414 MB</td>
-                </tr>
-                <tr class="child-row octree-gs-group">
-                  <td style="padding-left: 40px;">↳ 09:00 PM (Lighting Variance)</td>
-                  <td class="has-text-centered">29.716</td>
-                  <td class="has-text-centered">0.8092</td>
-                  <td class="has-text-centered">0.2429</td>
-                  <td class="has-text-centered">13m 17s</td>
-                  <td class="has-text-centered">5,526 MB</td>
-                </tr>
-                <tr class="child-row octree-gs-group">
-                  <td style="padding-left: 40px;">↳ Day 6 (Growth Span)</td>
-                  <td class="has-text-centered">26.211</td>
-                  <td class="has-text-centered">0.7098</td>
-                  <td class="has-text-centered">0.2654</td>
-                  <td class="has-text-centered">14m 50s</td>
-                  <td class="has-text-centered">6,226 MB</td>
-                </tr>
-                <tr class="child-row octree-gs-group">
-                  <td style="padding-left: 40px;">↳ Day 13 (Growth Span)</td>
-                  <td class="has-text-centered">27.669</td>
-                  <td class="has-text-centered">0.7545</td>
-                  <td class="has-text-centered">0.2499</td>
-                  <td class="has-text-centered">13m 50s</td>
-                  <td class="has-text-centered">6,042 MB</td>
-                </tr>
-                <tr class="child-row octree-gs-group">
-                  <td style="padding-left: 40px;">↳ Day 20 (Growth Span)</td>
-                  <td class="has-text-centered">27.677</td>
-                  <td class="has-text-centered">0.7771</td>
-                  <td class="has-text-centered">0.2544</td>
-                  <td class="has-text-centered">12m 11s</td>
-                  <td class="has-text-centered">5,074 MB</td>
-                </tr>
-              </tbody>
+                  </td><td class="has-text-centered">27.03</td><td class="has-text-centered">0.750</td><td class="has-text-centered">0.276</td><td class="has-text-centered">0.533</td><td class="has-text-centered">0.391</td><td class="has-text-centered">0.506</td><td class="has-text-centered"><u>0.712</u></td><td class="has-text-centered">13m 23s</td><td class="has-text-centered">5,578 MB</td></tr>
+<tr class="child-row octree-gs-group">
+                  <td style="padding-left: 40px;">↳ 06:00 AM (Lighting Variance)</td><td class="has-text-centered">28.49</td><td class="has-text-centered"><u>0.803</u></td><td class="has-text-centered"><u>0.251</u></td><td class="has-text-centered"><u>0.589</u></td><td class="has-text-centered">0.393</td><td class="has-text-centered"><u>0.467</u></td><td class="has-text-centered"><u>0.564</u></td><td class="has-text-centered">12m 59s</td><td class="has-text-centered">5,018 MB</td></tr>
+<tr class="child-row octree-gs-group">
+                  <td style="padding-left: 40px;">↳ 11:00 AM (Lighting Variance)</td><td class="has-text-centered">24.25</td><td class="has-text-centered">0.700</td><td class="has-text-centered">0.313</td><td class="has-text-centered">0.390</td><td class="has-text-centered">0.469</td><td class="has-text-centered">0.449</td><td class="has-text-centered">0.819</td><td class="has-text-centered">13m 36s</td><td class="has-text-centered">5,748 MB</td></tr>
+<tr class="child-row octree-gs-group">
+                  <td style="padding-left: 40px;">↳ 04:00 PM (Lighting Variance)</td><td class="has-text-centered">25.52</td><td class="has-text-centered">0.721</td><td class="has-text-centered">0.300</td><td class="has-text-centered">0.429</td><td class="has-text-centered">0.435</td><td class="has-text-centered">0.502</td><td class="has-text-centered"><u>0.799</u></td><td class="has-text-centered">13m 1s</td><td class="has-text-centered">5,414 MB</td></tr>
+<tr class="child-row octree-gs-group">
+                  <td style="padding-left: 40px;">↳ 09:00 PM (Lighting Variance)</td><td class="has-text-centered">29.56</td><td class="has-text-centered"><u>0.808</u></td><td class="has-text-centered">0.251</td><td class="has-text-centered"><u>0.581</u></td><td class="has-text-centered">0.428</td><td class="has-text-centered">0.419</td><td class="has-text-centered">0.511</td><td class="has-text-centered">13m 17s</td><td class="has-text-centered">5,526 MB</td></tr>
+<tr class="child-row octree-gs-group">
+                  <td style="padding-left: 40px;">↳ Day 6 (Growth Span)</td><td class="has-text-centered"><u>26.07</u></td><td class="has-text-centered"><u>0.700</u></td><td class="has-text-centered"><u>0.281</u></td><td class="has-text-centered">0.590</td><td class="has-text-centered">0.268</td><td class="has-text-centered"><u>0.674</u></td><td class="has-text-centered"><u>0.905</u></td><td class="has-text-centered">14m 50s</td><td class="has-text-centered">6,226 MB</td></tr>
+<tr class="child-row octree-gs-group">
+                  <td style="padding-left: 40px;">↳ Day 13 (Growth Span)</td><td class="has-text-centered">27.60</td><td class="has-text-centered">0.746</td><td class="has-text-centered">0.274</td><td class="has-text-centered">0.625</td><td class="has-text-centered">0.325</td><td class="has-text-centered">0.558</td><td class="has-text-centered"><u>0.740</u></td><td class="has-text-centered">13m 50s</td><td class="has-text-centered">6,042 MB</td></tr>
+<tr class="child-row octree-gs-group">
+                  <td style="padding-left: 40px;">↳ Day 20 (Growth Span)</td><td class="has-text-centered">27.70</td><td class="has-text-centered">0.774</td><td class="has-text-centered">0.264</td><td class="has-text-centered">0.528</td><td class="has-text-centered">0.419</td><td class="has-text-centered">0.472</td><td class="has-text-centered">0.646</td><td class="has-text-centered">12m 11s</td><td class="has-text-centered">5,074 MB</td></tr>
+</tbody>
 
-              <tbody>
-                <tr class="parent-row" onclick="toggleBenchmarkRow(this, 'gsplat-group')">
+<tbody><tr class="parent-row" onclick="toggleBenchmarkRow(this, 'gsplat-group')">
                   <td>
                     <span class="icon is-small" style="margin-right: 5px;">
                       <i class="fas fa-angle-down toggle-icon"></i>
@@ -529,73 +466,24 @@
                     <span style="color: #888; font-size: 0.95em; font-weight: normal;">
                       [JMLR '25]
                     </span>
-                  </td>
-                  <td class="has-text-centered"><strong>26.256</strong></td>
-                  <td class="has-text-centered"><strong>0.7094</strong></td>
-                  <td class="has-text-centered"><strong>0.3769</strong></td>
-                  <td class="has-text-centered"><strong>5m 15s</strong></td>
-                  <td class="has-text-centered"><strong>1,834 MB</strong></td>
-                </tr>
-                <tr class="child-row gsplat-group">
-                  <td style="padding-left: 40px;">↳ 06:00 AM (Lighting Variance)</td>
-                  <td class="has-text-centered">27.242</td>
-                  <td class="has-text-centered">0.7637</td>
-                  <td class="has-text-centered">0.3758</td>
-                  <td class="has-text-centered">4m 33s</td>
-                  <td class="has-text-centered">1,596 MB</td>
-                </tr>
-                <tr class="child-row gsplat-group">
-                  <td style="padding-left: 40px;">↳ 11:00 AM (Lighting Variance)</td>
-                  <td class="has-text-centered">23.740</td>
-                  <td class="has-text-centered">0.6630</td>
-                  <td class="has-text-centered">0.3823</td>
-                  <td class="has-text-centered">5m 51s</td>
-                  <td class="has-text-centered">1,958 MB</td>
-                </tr>
-                <tr class="child-row gsplat-group">
-                  <td style="padding-left: 40px;">↳ 04:00 PM (Lighting Variance)</td>
-                  <td class="has-text-centered">25.012</td>
-                  <td class="has-text-centered">0.6882</td>
-                  <td class="has-text-centered">0.3932</td>
-                  <td class="has-text-centered">5m 29s</td>
-                  <td class="has-text-centered">2,064 MB</td>
-                </tr>
-                <tr class="child-row gsplat-group">
-                  <td style="padding-left: 40px;">↳ 09:00 PM (Lighting Variance)</td>
-                  <td class="has-text-centered">28.714</td>
-                  <td class="has-text-centered">0.7827</td>
-                  <td class="has-text-centered">0.3407</td>
-                  <td class="has-text-centered">4m 34s</td>
-                  <td class="has-text-centered">1,542 MB</td>
-                </tr>
-                <tr class="child-row gsplat-group">
-                  <td style="padding-left: 40px;">↳ Day 6 (Growth Span)</td>
-                  <td class="has-text-centered">25.431</td>
-                  <td class="has-text-centered">0.6348</td>
-                  <td class="has-text-centered">0.3989</td>
-                  <td class="has-text-centered">5m 50s</td>
-                  <td class="has-text-centered">2,094 MB</td>
-                </tr>
-                <tr class="child-row gsplat-group">
-                  <td style="padding-left: 40px;">↳ Day 13 (Growth Span)</td>
-                  <td class="has-text-centered">26.730</td>
-                  <td class="has-text-centered">0.6977</td>
-                  <td class="has-text-centered">0.3723</td>
-                  <td class="has-text-centered">5m 43s</td>
-                  <td class="has-text-centered">1,964 MB</td>
-                </tr>
-                <tr class="child-row gsplat-group">
-                  <td style="padding-left: 40px;">↳ Day 20 (Growth Span)</td>
-                  <td class="has-text-centered">26.922</td>
-                  <td class="has-text-centered">0.7355</td>
-                  <td class="has-text-centered">0.3752</td>
-                  <td class="has-text-centered">4m 49s</td>
-                  <td class="has-text-centered">1,620 MB</td>
-                </tr>
-              </tbody>
+                  </td><td class="has-text-centered">26.28</td><td class="has-text-centered">0.707</td><td class="has-text-centered">0.381</td><td class="has-text-centered">0.495</td><td class="has-text-centered">0.548</td><td class="has-text-centered">0.316</td><td class="has-text-centered">0.514</td><td class="has-text-centered">5m 15s</td><td class="has-text-centered">1,834 MB</td></tr>
+<tr class="child-row gsplat-group">
+                  <td style="padding-left: 40px;">↳ 06:00 AM (Lighting Variance)</td><td class="has-text-centered">27.26</td><td class="has-text-centered">0.766</td><td class="has-text-centered">0.370</td><td class="has-text-centered">0.546</td><td class="has-text-centered">0.604</td><td class="has-text-centered">0.196</td><td class="has-text-centered">0.255</td><td class="has-text-centered">4m 33s</td><td class="has-text-centered">1,596 MB</td></tr>
+<tr class="child-row gsplat-group">
+                  <td style="padding-left: 40px;">↳ 11:00 AM (Lighting Variance)</td><td class="has-text-centered">23.86</td><td class="has-text-centered">0.658</td><td class="has-text-centered">0.395</td><td class="has-text-centered">0.349</td><td class="has-text-centered">0.635</td><td class="has-text-centered">0.293</td><td class="has-text-centered">0.640</td><td class="has-text-centered">5m 51s</td><td class="has-text-centered">1,958 MB</td></tr>
+<tr class="child-row gsplat-group">
+                  <td style="padding-left: 40px;">↳ 04:00 PM (Lighting Variance)</td><td class="has-text-centered">24.92</td><td class="has-text-centered">0.685</td><td class="has-text-centered">0.401</td><td class="has-text-centered">0.402</td><td class="has-text-centered">0.628</td><td class="has-text-centered">0.279</td><td class="has-text-centered">0.581</td><td class="has-text-centered">5m 29s</td><td class="has-text-centered">2,064 MB</td></tr>
+<tr class="child-row gsplat-group">
+                  <td style="padding-left: 40px;">↳ 09:00 PM (Lighting Variance)</td><td class="has-text-centered">28.80</td><td class="has-text-centered">0.783</td><td class="has-text-centered">0.342</td><td class="has-text-centered">0.554</td><td class="has-text-centered">0.607</td><td class="has-text-centered">0.204</td><td class="has-text-centered">0.261</td><td class="has-text-centered">4m 34s</td><td class="has-text-centered">1,542 MB</td></tr>
+<tr class="child-row gsplat-group">
+                  <td style="padding-left: 40px;">↳ Day 6 (Growth Span)</td><td class="has-text-centered">25.30</td><td class="has-text-centered">0.629</td><td class="has-text-centered">0.410</td><td class="has-text-centered">0.543</td><td class="has-text-centered">0.314</td><td class="has-text-centered">0.603</td><td class="has-text-centered">0.877</td><td class="has-text-centered">5m 50s</td><td class="has-text-centered">2,094 MB</td></tr>
+<tr class="child-row gsplat-group">
+                  <td style="padding-left: 40px;">↳ Day 13 (Growth Span)</td><td class="has-text-centered">26.72</td><td class="has-text-centered">0.694</td><td class="has-text-centered">0.381</td><td class="has-text-centered">0.580</td><td class="has-text-centered">0.429</td><td class="has-text-centered">0.411</td><td class="has-text-centered">0.631</td><td class="has-text-centered">5m 43s</td><td class="has-text-centered">1,964 MB</td></tr>
+<tr class="child-row gsplat-group">
+                  <td style="padding-left: 40px;">↳ Day 20 (Growth Span)</td><td class="has-text-centered">27.08</td><td class="has-text-centered">0.738</td><td class="has-text-centered">0.367</td><td class="has-text-centered">0.490</td><td class="has-text-centered">0.619</td><td class="has-text-centered">0.226</td><td class="has-text-centered">0.350</td><td class="has-text-centered">4m 49s</td><td class="has-text-centered">1,620 MB</td></tr>
+</tbody>
 
-              <tbody>
-                <tr class="parent-row" onclick="toggleBenchmarkRow(this, '3dgs-mcmc-group')">
+<tbody><tr class="parent-row" onclick="toggleBenchmarkRow(this, '3dgs-mcmc-group')">
                   <td>
                     <span class="icon is-small" style="margin-right: 5px;">
                       <i class="fas fa-angle-down toggle-icon"></i>
@@ -604,148 +492,24 @@
                     <span style="color: #888; font-size: 0.95em; font-weight: normal;">
                       [NeurIPS '24]
                     </span>
-                  </td>
-                  <td class="has-text-centered"><strong>25.762</strong></td>
-                  <td class="has-text-centered"><strong>0.6491</strong></td>
-                  <td class="has-text-centered"><strong>0.5143</strong></td>
-                  <td class="has-text-centered"><strong>4m 56s</strong></td>
-                  <td class="has-text-centered"><strong>4,512 MB</strong></td>
-                </tr>
-                <tr class="child-row 3dgs-mcmc-group">
-                  <td style="padding-left: 40px;">↳ 06:00 AM (Lighting Variance)</td>
-                  <td class="has-text-centered">27.053</td>
-                  <td class="has-text-centered">0.7194</td>
-                  <td class="has-text-centered">0.4917</td>
-                  <td class="has-text-centered">4m 58s</td>
-                  <td class="has-text-centered">4,992 MB</td>
-                </tr>
-                <tr class="child-row 3dgs-mcmc-group">
-                  <td style="padding-left: 40px;">↳ 11:00 AM (Lighting Variance)</td>
-                  <td class="has-text-centered">23.385</td>
-                  <td class="has-text-centered">0.5886</td>
-                  <td class="has-text-centered">0.5363</td>
-                  <td class="has-text-centered">4m 22s</td>
-                  <td class="has-text-centered">4,302 MB</td>
-                </tr>
-                <tr class="child-row 3dgs-mcmc-group">
-                  <td style="padding-left: 40px;">↳ 04:00 PM (Lighting Variance)</td>
-                  <td class="has-text-centered">24.667</td>
-                  <td class="has-text-centered">0.6281</td>
-                  <td class="has-text-centered">0.5223</td>
-                  <td class="has-text-centered">4m 39s</td>
-                  <td class="has-text-centered">4,310 MB</td>
-                </tr>
-                <tr class="child-row 3dgs-mcmc-group">
-                  <td style="padding-left: 40px;">↳ 09:00 PM (Lighting Variance)</td>
-                  <td class="has-text-centered">28.180</td>
-                  <td class="has-text-centered">0.7370</td>
-                  <td class="has-text-centered">0.4675</td>
-                  <td class="has-text-centered">5m 4s</td>
-                  <td class="has-text-centered">4,734 MB</td>
-                </tr>
-                <tr class="child-row 3dgs-mcmc-group">
-                  <td style="padding-left: 40px;">↳ Day 6 (Growth Span)</td>
-                  <td class="has-text-centered">24.556</td>
-                  <td class="has-text-centered">0.5566</td>
-                  <td class="has-text-centered">0.5902</td>
-                  <td class="has-text-centered">5m 37s</td>
-                  <td class="has-text-centered">4,436 MB</td>
-                </tr>
-                <tr class="child-row 3dgs-mcmc-group">
-                  <td style="padding-left: 40px;">↳ Day 13 (Growth Span)</td>
-                  <td class="has-text-centered">26.134</td>
-                  <td class="has-text-centered">0.6349</td>
-                  <td class="has-text-centered">0.4973</td>
-                  <td class="has-text-centered">5m 5s</td>
-                  <td class="has-text-centered">4,196 MB</td>
-                </tr>
-                <tr class="child-row 3dgs-mcmc-group">
-                  <td style="padding-left: 40px;">↳ Day 20 (Growth Span)</td>
-                  <td class="has-text-centered">26.357</td>
-                  <td class="has-text-centered">0.6795</td>
-                  <td class="has-text-centered">0.4948</td>
-                  <td class="has-text-centered">4m 50s</td>
-                  <td class="has-text-centered">4,612 MB</td>
-                </tr>
-              </tbody>
+                  </td><td class="has-text-centered">25.71</td><td class="has-text-centered">0.643</td><td class="has-text-centered">0.527</td><td class="has-text-centered">0.425</td><td class="has-text-centered">0.736</td><td class="has-text-centered">0.144</td><td class="has-text-centered">0.299</td><td class="has-text-centered">4m 56s</td><td class="has-text-centered">4,512 MB</td></tr>
+<tr class="child-row 3dgs-mcmc-group">
+                  <td style="padding-left: 40px;">↳ 06:00 AM (Lighting Variance)</td><td class="has-text-centered">27.03</td><td class="has-text-centered">0.715</td><td class="has-text-centered">0.505</td><td class="has-text-centered">0.481</td><td class="has-text-centered">0.817</td><td class="has-text-centered">0.049</td><td class="has-text-centered">0.064</td><td class="has-text-centered">4m 58s</td><td class="has-text-centered">4,992 MB</td></tr>
+<tr class="child-row 3dgs-mcmc-group">
+                  <td style="padding-left: 40px;">↳ 11:00 AM (Lighting Variance)</td><td class="has-text-centered">23.31</td><td class="has-text-centered">0.581</td><td class="has-text-centered">0.550</td><td class="has-text-centered">0.268</td><td class="has-text-centered">0.853</td><td class="has-text-centered">0.103</td><td class="has-text-centered">0.314</td><td class="has-text-centered">4m 22s</td><td class="has-text-centered">4,302 MB</td></tr>
+<tr class="child-row 3dgs-mcmc-group">
+                  <td style="padding-left: 40px;">↳ 04:00 PM (Lighting Variance)</td><td class="has-text-centered">24.55</td><td class="has-text-centered">0.621</td><td class="has-text-centered">0.536</td><td class="has-text-centered">0.334</td><td class="has-text-centered">0.822</td><td class="has-text-centered">0.104</td><td class="has-text-centered">0.307</td><td class="has-text-centered">4m 39s</td><td class="has-text-centered">4,310 MB</td></tr>
+<tr class="child-row 3dgs-mcmc-group">
+                  <td style="padding-left: 40px;">↳ 09:00 PM (Lighting Variance)</td><td class="has-text-centered">28.28</td><td class="has-text-centered">0.734</td><td class="has-text-centered">0.476</td><td class="has-text-centered">0.492</td><td class="has-text-centered">0.833</td><td class="has-text-centered">0.043</td><td class="has-text-centered">0.073</td><td class="has-text-centered">5m 4s</td><td class="has-text-centered">4,734 MB</td></tr>
+<tr class="child-row 3dgs-mcmc-group">
+                  <td style="padding-left: 40px;">↳ Day 6 (Growth Span)</td><td class="has-text-centered">24.46</td><td class="has-text-centered">0.548</td><td class="has-text-centered">0.611</td><td class="has-text-centered">0.470</td><td class="has-text-centered">0.439</td><td class="has-text-centered">0.431</td><td class="has-text-centered">0.806</td><td class="has-text-centered">5m 37s</td><td class="has-text-centered">4,436 MB</td></tr>
+<tr class="child-row 3dgs-mcmc-group">
+                  <td style="padding-left: 40px;">↳ Day 13 (Growth Span)</td><td class="has-text-centered">25.96</td><td class="has-text-centered">0.625</td><td class="has-text-centered">0.518</td><td class="has-text-centered">0.508</td><td class="has-text-centered">0.579</td><td class="has-text-centered">0.210</td><td class="has-text-centered">0.416</td><td class="has-text-centered">5m 5s</td><td class="has-text-centered">4,196 MB</td></tr>
+<tr class="child-row 3dgs-mcmc-group">
+                  <td style="padding-left: 40px;">↳ Day 20 (Growth Span)</td><td class="has-text-centered">26.34</td><td class="has-text-centered">0.677</td><td class="has-text-centered">0.496</td><td class="has-text-centered">0.419</td><td class="has-text-centered">0.805</td><td class="has-text-centered">0.071</td><td class="has-text-centered">0.116</td><td class="has-text-centered">4m 50s</td><td class="has-text-centered">4,612 MB</td></tr>
+</tbody>
 
-              <tbody>
-                <tr class="parent-row" onclick="toggleBenchmarkRow(this, 'wild-gaussians-group')">
-                  <td>
-                    <span class="icon is-small" style="margin-right: 5px;">
-                      <i class="fas fa-angle-down toggle-icon"></i>
-                    </span>
-                    <strong>WildGaussians</strong>
-                    <span style="color: #888; font-size: 0.95em; font-weight: normal;">
-                      [NeurIPS '24]
-                    </span>
-                  </td>
-                  <td class="has-text-centered"><strong>13.873</strong></td>
-                  <td class="has-text-centered"><strong>0.4647</strong></td>
-                  <td class="has-text-centered"><strong>0.7445</strong></td>
-                  <td class="has-text-centered"><strong>1h 1m 28s</strong></td>
-                  <td class="has-text-centered"><strong>2,022 MB</strong></td>
-                </tr>
-                <tr class="child-row wild-gaussians-group">
-                  <td style="padding-left: 40px;">↳ 06:00 AM (Lighting Variance)</td>
-                  <td class="has-text-centered">7.298</td>
-                  <td class="has-text-centered">0.4037</td>
-                  <td class="has-text-centered">0.8073</td>
-                  <td class="has-text-centered">59m 27s</td>
-                  <td class="has-text-centered">2,034 MB</td>
-                </tr>
-                <tr class="child-row wild-gaussians-group">
-                  <td style="padding-left: 40px;">↳ 11:00 AM (Lighting Variance)</td>
-                  <td class="has-text-centered">11.498</td>
-                  <td class="has-text-centered">0.3847</td>
-                  <td class="has-text-centered">0.8028</td>
-                  <td class="has-text-centered">1h 0m 56s</td>
-                  <td class="has-text-centered">1,832 MB</td>
-                </tr>
-                <tr class="child-row wild-gaussians-group">
-                  <td style="padding-left: 40px;">↳ 04:00 PM (Lighting Variance)</td>
-                  <td class="has-text-centered">11.022</td>
-                  <td class="has-text-centered">0.4061</td>
-                  <td class="has-text-centered">0.8067</td>
-                  <td class="has-text-centered">59m 46s</td>
-                  <td class="has-text-centered">1,832 MB</td>
-                </tr>
-                <tr class="child-row wild-gaussians-group">
-                  <td style="padding-left: 40px;">↳ 09:00 PM (Lighting Variance)</td>
-                  <td class="has-text-centered">8.158</td>
-                  <td class="has-text-centered">0.4506</td>
-                  <td class="has-text-centered">0.7798</td>
-                  <td class="has-text-centered">58m 56s</td>
-                  <td class="has-text-centered">1,846 MB</td>
-                </tr>
-                <tr class="child-row wild-gaussians-group">
-                  <td style="padding-left: 40px;">↳ Day 6 (Growth Span)</td>
-                  <td class="has-text-centered">23.057</td>
-                  <td class="has-text-centered">0.5129</td>
-                  <td class="has-text-centered">0.6509</td>
-                  <td class="has-text-centered">1h 6m 28s</td>
-                  <td class="has-text-centered">2,310 MB</td>
-                </tr>
-                <tr class="child-row wild-gaussians-group">
-                  <td style="padding-left: 40px;">↳ Day 13 (Growth Span)</td>
-                  <td class="has-text-centered">24.422</td>
-                  <td class="has-text-centered">0.5812</td>
-                  <td class="has-text-centered">0.6197</td>
-                  <td class="has-text-centered">1h 5m 4s</td>
-                  <td class="has-text-centered">2,268 MB</td>
-                </tr>
-                <tr class="child-row wild-gaussians-group">
-                  <td style="padding-left: 40px;">↳ Day 20 (Growth Span)</td>
-                  <td class="has-text-centered">11.655</td>
-                  <td class="has-text-centered">0.5140</td>
-                  <td class="has-text-centered">0.7441</td>
-                  <td class="has-text-centered">59m 39s</td>
-                  <td class="has-text-centered">2,034 MB</td>
-                </tr>
-              </tbody>
-
-              <tbody>
-                <tr class="parent-row" onclick="toggleBenchmarkRow(this, 'gaussian-splatting-wild-group')">
+<tbody><tr class="parent-row" onclick="toggleBenchmarkRow(this, 'gaussian-splatting-wild-group')">
                   <td>
                     <span class="icon is-small" style="margin-right: 5px;">
                       <i class="fas fa-angle-down toggle-icon"></i>
@@ -754,73 +518,24 @@
                     <span style="color: #888; font-size: 0.95em; font-weight: normal;">
                       [ECCV '24]
                     </span>
-                  </td>
-                  <td class="has-text-centered"><strong>21.214</strong></td>
-                  <td class="has-text-centered"><strong>0.5884</strong></td>
-                  <td class="has-text-centered"><strong>0.5621</strong></td>
-                  <td class="has-text-centered"><strong>58m 32s</strong></td>
-                  <td class="has-text-centered"><strong>7,027 MB</strong></td>
-                </tr>
-                <tr class="child-row gaussian-splatting-wild-group">
-                  <td style="padding-left: 40px;">↳ 06:00 AM (Lighting Variance)</td>
-                  <td class="has-text-centered">20.338</td>
-                  <td class="has-text-centered">0.6593</td>
-                  <td class="has-text-centered">0.5430</td>
-                  <td class="has-text-centered">58m 59s</td>
-                  <td class="has-text-centered">6,888 MB</td>
-                </tr>
-                <tr class="child-row gaussian-splatting-wild-group">
-                  <td style="padding-left: 40px;">↳ 11:00 AM (Lighting Variance)</td>
-                  <td class="has-text-centered">17.946</td>
-                  <td class="has-text-centered">0.5033</td>
-                  <td class="has-text-centered">0.6044</td>
-                  <td class="has-text-centered">58m 59s</td>
-                  <td class="has-text-centered">7,040 MB</td>
-                </tr>
-                <tr class="child-row gaussian-splatting-wild-group">
-                  <td style="padding-left: 40px;">↳ 04:00 PM (Lighting Variance)</td>
-                  <td class="has-text-centered">20.337</td>
-                  <td class="has-text-centered">0.5588</td>
-                  <td class="has-text-centered">0.5888</td>
-                  <td class="has-text-centered">58m 48s</td>
-                  <td class="has-text-centered">6,886 MB</td>
-                </tr>
-                <tr class="child-row gaussian-splatting-wild-group">
-                  <td style="padding-left: 40px;">↳ 09:00 PM (Lighting Variance)</td>
-                  <td class="has-text-centered">22.819</td>
-                  <td class="has-text-centered">0.7015</td>
-                  <td class="has-text-centered">0.4949</td>
-                  <td class="has-text-centered">58m 16s</td>
-                  <td class="has-text-centered">6,848 MB</td>
-                </tr>
-                <tr class="child-row gaussian-splatting-wild-group">
-                  <td style="padding-left: 40px;">↳ Day 6 (Growth Span)</td>
-                  <td class="has-text-centered">23.474</td>
-                  <td class="has-text-centered">0.5186</td>
-                  <td class="has-text-centered">0.5919</td>
-                  <td class="has-text-centered">59m 9s</td>
-                  <td class="has-text-centered">7,314 MB</td>
-                </tr>
-                <tr class="child-row gaussian-splatting-wild-group">
-                  <td style="padding-left: 40px;">↳ Day 13 (Growth Span)</td>
-                  <td class="has-text-centered">23.616</td>
-                  <td class="has-text-centered">0.5885</td>
-                  <td class="has-text-centered">0.5392</td>
-                  <td class="has-text-centered">58m 40s</td>
-                  <td class="has-text-centered">7,330 MB</td>
-                </tr>
-                <tr class="child-row gaussian-splatting-wild-group">
-                  <td style="padding-left: 40px;">↳ Day 20 (Growth Span)</td>
-                  <td class="has-text-centered">19.967</td>
-                  <td class="has-text-centered">0.5889</td>
-                  <td class="has-text-centered">0.5724</td>
-                  <td class="has-text-centered">56m 57s</td>
-                  <td class="has-text-centered">6,886 MB</td>
-                </tr>
-              </tbody>
+                  </td><td class="has-text-centered">21.03</td><td class="has-text-centered">0.582</td><td class="has-text-centered">0.575</td><td class="has-text-centered">0.375</td><td class="has-text-centered">0.791</td><td class="has-text-centered">0.087</td><td class="has-text-centered">0.173</td><td class="has-text-centered">58m 32s</td><td class="has-text-centered">7,027 MB</td></tr>
+<tr class="child-row gaussian-splatting-wild-group">
+                  <td style="padding-left: 40px;">↳ 06:00 AM (Lighting Variance)</td><td class="has-text-centered">20.78</td><td class="has-text-centered">0.654</td><td class="has-text-centered">0.563</td><td class="has-text-centered">0.466</td><td class="has-text-centered">0.807</td><td class="has-text-centered">0.058</td><td class="has-text-centered">0.035</td><td class="has-text-centered">58m 59s</td><td class="has-text-centered">6,888 MB</td></tr>
+<tr class="child-row gaussian-splatting-wild-group">
+                  <td style="padding-left: 40px;">↳ 11:00 AM (Lighting Variance)</td><td class="has-text-centered">16.41</td><td class="has-text-centered">0.477</td><td class="has-text-centered">0.636</td><td class="has-text-centered">0.213</td><td class="has-text-centered">0.945</td><td class="has-text-centered">0.080</td><td class="has-text-centered">0.221</td><td class="has-text-centered">58m 59s</td><td class="has-text-centered">7,040 MB</td></tr>
+<tr class="child-row gaussian-splatting-wild-group">
+                  <td style="padding-left: 40px;">↳ 04:00 PM (Lighting Variance)</td><td class="has-text-centered">20.54</td><td class="has-text-centered">0.564</td><td class="has-text-centered">0.587</td><td class="has-text-centered">0.317</td><td class="has-text-centered">0.855</td><td class="has-text-centered">0.079</td><td class="has-text-centered">0.210</td><td class="has-text-centered">58m 48s</td><td class="has-text-centered">6,886 MB</td></tr>
+<tr class="child-row gaussian-splatting-wild-group">
+                  <td style="padding-left: 40px;">↳ 09:00 PM (Lighting Variance)</td><td class="has-text-centered">22.80</td><td class="has-text-centered">0.698</td><td class="has-text-centered">0.497</td><td class="has-text-centered">0.495</td><td class="has-text-centered">0.777</td><td class="has-text-centered">0.057</td><td class="has-text-centered">0.048</td><td class="has-text-centered">58m 16s</td><td class="has-text-centered">6,848 MB</td></tr>
+<tr class="child-row gaussian-splatting-wild-group">
+                  <td style="padding-left: 40px;">↳ Day 6 (Growth Span)</td><td class="has-text-centered">23.44</td><td class="has-text-centered">0.512</td><td class="has-text-centered">0.609</td><td class="has-text-centered">0.308</td><td class="has-text-centered">0.650</td><td class="has-text-centered">0.124</td><td class="has-text-centered">0.453</td><td class="has-text-centered">59m 9s</td><td class="has-text-centered">7,314 MB</td></tr>
+<tr class="child-row gaussian-splatting-wild-group">
+                  <td style="padding-left: 40px;">↳ Day 13 (Growth Span)</td><td class="has-text-centered">23.47</td><td class="has-text-centered">0.581</td><td class="has-text-centered">0.555</td><td class="has-text-centered">0.461</td><td class="has-text-centered">0.662</td><td class="has-text-centered">0.081</td><td class="has-text-centered">0.145</td><td class="has-text-centered">58m 40s</td><td class="has-text-centered">7,330 MB</td></tr>
+<tr class="child-row gaussian-splatting-wild-group">
+                  <td style="padding-left: 40px;">↳ Day 20 (Growth Span)</td><td class="has-text-centered">19.75</td><td class="has-text-centered">0.585</td><td class="has-text-centered">0.574</td><td class="has-text-centered">0.361</td><td class="has-text-centered">0.840</td><td class="has-text-centered">0.130</td><td class="has-text-centered">0.101</td><td class="has-text-centered">56m 57s</td><td class="has-text-centered">6,886 MB</td></tr>
+</tbody>
 
-              <tbody>
-                <tr class="parent-row" onclick="toggleBenchmarkRow(this, 'hierarchical-3dgs-group')">
+<tbody><tr class="parent-row" onclick="toggleBenchmarkRow(this, 'hierarchical-3dgs-group')">
                   <td>
                     <span class="icon is-small" style="margin-right: 5px;">
                       <i class="fas fa-angle-down toggle-icon"></i>
@@ -829,73 +544,24 @@
                     <span style="color: #888; font-size: 0.95em; font-weight: normal;">
                       [SIGGRAPH '24]
                     </span>
-                  </td>
-                  <td class="has-text-centered"><strong>26.758</strong></td>
-                  <td class="has-text-centered"><strong>0.7431</strong></td>
-                  <td class="has-text-centered"><strong>0.2573</strong></td>
-                  <td class="has-text-centered"><strong>38m 12s</strong></td>
-                  <td class="has-text-centered"><strong>8,602 MB</strong></td>
-                </tr>
-                <tr class="child-row hierarchical-3dgs-group">
-                  <td style="padding-left: 40px;">↳ 06:00 AM (Lighting Variance)</td>
-                  <td class="has-text-centered">27.990</td>
-                  <td class="has-text-centered">0.7939</td>
-                  <td class="has-text-centered">0.2504</td>
-                  <td class="has-text-centered">33m 11s</td>
-                  <td class="has-text-centered">6,900 MB</td>
-                </tr>
-                <tr class="child-row hierarchical-3dgs-group">
-                  <td style="padding-left: 40px;">↳ 11:00 AM (Lighting Variance)</td>
-                  <td class="has-text-centered">24.412</td>
-                  <td class="has-text-centered">0.7076</td>
-                  <td class="has-text-centered">0.2620</td>
-                  <td class="has-text-centered">43m 37s</td>
-                  <td class="has-text-centered">10,584 MB</td>
-                </tr>
-                <tr class="child-row hierarchical-3dgs-group">
-                  <td style="padding-left: 40px;">↳ 04:00 PM (Lighting Variance)</td>
-                  <td class="has-text-centered">25.488</td>
-                  <td class="has-text-centered">0.7204</td>
-                  <td class="has-text-centered">0.2647</td>
-                  <td class="has-text-centered">41m 34s</td>
-                  <td class="has-text-centered">9,742 MB</td>
-                </tr>
-                <tr class="child-row hierarchical-3dgs-group">
-                  <td style="padding-left: 40px;">↳ 09:00 PM (Lighting Variance)</td>
-                  <td class="has-text-centered">29.330</td>
-                  <td class="has-text-centered">0.8042</td>
-                  <td class="has-text-centered">0.2371</td>
-                  <td class="has-text-centered">31m 57s</td>
-                  <td class="has-text-centered">6,320 MB</td>
-                </tr>
-                <tr class="child-row hierarchical-3dgs-group">
-                  <td style="padding-left: 40px;">↳ Day 6 (Growth Span)</td>
-                  <td class="has-text-centered">25.473</td>
-                  <td class="has-text-centered">0.6680</td>
-                  <td class="has-text-centered">0.2920</td>
-                  <td class="has-text-centered">38m 59s</td>
-                  <td class="has-text-centered">8,734 MB</td>
-                </tr>
-                <tr class="child-row hierarchical-3dgs-group">
-                  <td style="padding-left: 40px;">↳ Day 13 (Growth Span)</td>
-                  <td class="has-text-centered">27.260</td>
-                  <td class="has-text-centered">0.7390</td>
-                  <td class="has-text-centered">0.2511</td>
-                  <td class="has-text-centered">40m 50s</td>
-                  <td class="has-text-centered">9,430 MB</td>
-                </tr>
-                <tr class="child-row hierarchical-3dgs-group">
-                  <td style="padding-left: 40px;">↳ Day 20 (Growth Span)</td>
-                  <td class="has-text-centered">27.350</td>
-                  <td class="has-text-centered">0.7685</td>
-                  <td class="has-text-centered">0.2436</td>
-                  <td class="has-text-centered">37m 18s</td>
-                  <td class="has-text-centered">8,502 MB</td>
-                </tr>
-              </tbody>
+                  </td><td class="has-text-centered">26.74</td><td class="has-text-centered">0.741</td><td class="has-text-centered">0.260</td><td class="has-text-centered">0.516</td><td class="has-text-centered"><u>0.363</u></td><td class="has-text-centered"><u>0.517</u></td><td class="has-text-centered">0.709</td><td class="has-text-centered">38m 12s</td><td class="has-text-centered">8,602 MB</td></tr>
+<tr class="child-row hierarchical-3dgs-group">
+                  <td style="padding-left: 40px;">↳ 06:00 AM (Lighting Variance)</td><td class="has-text-centered">27.79</td><td class="has-text-centered">0.792</td><td class="has-text-centered">0.255</td><td class="has-text-centered">0.574</td><td class="has-text-centered"><u>0.377</u></td><td class="has-text-centered">0.440</td><td class="has-text-centered">0.525</td><td class="has-text-centered">33m 11s</td><td class="has-text-centered">6,900 MB</td></tr>
+<tr class="child-row hierarchical-3dgs-group">
+                  <td style="padding-left: 40px;">↳ 11:00 AM (Lighting Variance)</td><td class="has-text-centered">24.28</td><td class="has-text-centered">0.697</td><td class="has-text-centered">0.275</td><td class="has-text-centered">0.366</td><td class="has-text-centered">0.435</td><td class="has-text-centered"><u>0.502</u></td><td class="has-text-centered"><u>0.835</u></td><td class="has-text-centered">43m 37s</td><td class="has-text-centered">10,584 MB</td></tr>
+<tr class="child-row hierarchical-3dgs-group">
+                  <td style="padding-left: 40px;">↳ 04:00 PM (Lighting Variance)</td><td class="has-text-centered"><u>25.70</u></td><td class="has-text-centered">0.723</td><td class="has-text-centered">0.261</td><td class="has-text-centered">0.414</td><td class="has-text-centered"><u>0.406</u></td><td class="has-text-centered"><u>0.511</u></td><td class="has-text-centered">0.794</td><td class="has-text-centered">41m 34s</td><td class="has-text-centered">9,742 MB</td></tr>
+<tr class="child-row hierarchical-3dgs-group">
+                  <td style="padding-left: 40px;">↳ 09:00 PM (Lighting Variance)</td><td class="has-text-centered">29.30</td><td class="has-text-centered">0.804</td><td class="has-text-centered">0.239</td><td class="has-text-centered">0.574</td><td class="has-text-centered"><u>0.393</u></td><td class="has-text-centered"><u>0.444</u></td><td class="has-text-centered"><u>0.521</u></td><td class="has-text-centered">31m 57s</td><td class="has-text-centered">6,320 MB</td></tr>
+<tr class="child-row hierarchical-3dgs-group">
+                  <td style="padding-left: 40px;">↳ Day 6 (Growth Span)</td><td class="has-text-centered">25.48</td><td class="has-text-centered">0.666</td><td class="has-text-centered">0.293</td><td class="has-text-centered">0.547</td><td class="has-text-centered">0.253</td><td class="has-text-centered">0.659</td><td class="has-text-centered">0.901</td><td class="has-text-centered">38m 59s</td><td class="has-text-centered">8,734 MB</td></tr>
+<tr class="child-row hierarchical-3dgs-group">
+                  <td style="padding-left: 40px;">↳ Day 13 (Growth Span)</td><td class="has-text-centered">27.31</td><td class="has-text-centered">0.739</td><td class="has-text-centered">0.249</td><td class="has-text-centered">0.615</td><td class="has-text-centered">0.300</td><td class="has-text-centered"><u>0.562</u></td><td class="has-text-centered">0.736</td><td class="has-text-centered">40m 50s</td><td class="has-text-centered">9,430 MB</td></tr>
+<tr class="child-row hierarchical-3dgs-group">
+                  <td style="padding-left: 40px;">↳ Day 20 (Growth Span)</td><td class="has-text-centered">27.30</td><td class="has-text-centered">0.767</td><td class="has-text-centered">0.247</td><td class="has-text-centered">0.523</td><td class="has-text-centered">0.376</td><td class="has-text-centered"><u>0.497</u></td><td class="has-text-centered"><u>0.650</u></td><td class="has-text-centered">37m 18s</td><td class="has-text-centered">8,502 MB</td></tr>
+</tbody>
 
-              <tbody>
-                <tr class="parent-row" onclick="toggleBenchmarkRow(this, '3dgrt-group')">
+<tbody><tr class="parent-row" onclick="toggleBenchmarkRow(this, '3dgrt-group')">
                   <td>
                     <span class="icon is-small" style="margin-right: 5px;">
                       <i class="fas fa-angle-down toggle-icon"></i>
@@ -904,148 +570,50 @@
                     <span style="color: #888; font-size: 0.95em; font-weight: normal;">
                       [SIGGRAPH Asia '24]
                     </span>
-                  </td>
-                  <td class="has-text-centered"><strong>25.934</strong></td>
-                  <td class="has-text-centered"><strong>0.7100</strong></td>
-                  <td class="has-text-centered"><strong>0.3567</strong></td>
-                  <td class="has-text-centered"><strong>27m 52s</strong></td>
-                  <td class="has-text-centered"><strong>7,866 MB</strong></td>
-                </tr>
-                <tr class="child-row 3dgrt-group">
-                  <td style="padding-left: 40px;">↳ 06:00 AM (Lighting Variance)</td>
-                  <td class="has-text-centered">26.702</td>
-                  <td class="has-text-centered">0.7653</td>
-                  <td class="has-text-centered">0.3477</td>
-                  <td class="has-text-centered">22m 57s</td>
-                  <td class="has-text-centered">7,200 MB</td>
-                </tr>
-                <tr class="child-row 3dgrt-group">
-                  <td style="padding-left: 40px;">↳ 11:00 AM (Lighting Variance)</td>
-                  <td class="has-text-centered">23.599</td>
-                  <td class="has-text-centered">0.6616</td>
-                  <td class="has-text-centered">0.3710</td>
-                  <td class="has-text-centered">30m 39s</td>
-                  <td class="has-text-centered">8,206 MB</td>
-                </tr>
-                <tr class="child-row 3dgrt-group">
-                  <td style="padding-left: 40px;">↳ 04:00 PM (Lighting Variance)</td>
-                  <td class="has-text-centered">24.733</td>
-                  <td class="has-text-centered">0.6896</td>
-                  <td class="has-text-centered">0.3751</td>
-                  <td class="has-text-centered">28m 20s</td>
-                  <td class="has-text-centered">8,034 MB</td>
-                </tr>
-                <tr class="child-row 3dgrt-group">
-                  <td style="padding-left: 40px;">↳ 09:00 PM (Lighting Variance)</td>
-                  <td class="has-text-centered">28.463</td>
-                  <td class="has-text-centered">0.7828</td>
-                  <td class="has-text-centered">0.3213</td>
-                  <td class="has-text-centered">21m 50s</td>
-                  <td class="has-text-centered">6,996 MB</td>
-                </tr>
-                <tr class="child-row 3dgrt-group">
-                  <td style="padding-left: 40px;">↳ Day 6 (Growth Span)</td>
-                  <td class="has-text-centered">25.317</td>
-                  <td class="has-text-centered">0.6351</td>
-                  <td class="has-text-centered">0.3847</td>
-                  <td class="has-text-centered">31m 22s</td>
-                  <td class="has-text-centered">8,450 MB</td>
-                </tr>
-                <tr class="child-row 3dgrt-group">
-                  <td style="padding-left: 40px;">↳ Day 13 (Growth Span)</td>
-                  <td class="has-text-centered">26.424</td>
-                  <td class="has-text-centered">0.6986</td>
-                  <td class="has-text-centered">0.3515</td>
-                  <td class="has-text-centered">33m 59s</td>
-                  <td class="has-text-centered">8,456 MB</td>
-                </tr>
-                <tr class="child-row 3dgrt-group">
-                  <td style="padding-left: 40px;">↳ Day 20 (Growth Span)</td>
-                  <td class="has-text-centered">26.301</td>
-                  <td class="has-text-centered">0.7373</td>
-                  <td class="has-text-centered">0.3458</td>
-                  <td class="has-text-centered">25m 59s</td>
-                  <td class="has-text-centered">7,722 MB</td>
-                </tr>
-              </tbody>
+                  </td><td class="has-text-centered">25.93</td><td class="has-text-centered">0.710</td><td class="has-text-centered">0.357</td><td class="has-text-centered">0.497</td><td class="has-text-centered">0.516</td><td class="has-text-centered">0.337</td><td class="has-text-centered">0.550</td><td class="has-text-centered">27m 52s</td><td class="has-text-centered">7,866 MB</td></tr>
+<tr class="child-row 3dgrt-group">
+                  <td style="padding-left: 40px;">↳ 06:00 AM (Lighting Variance)</td><td class="has-text-centered">26.70</td><td class="has-text-centered">0.765</td><td class="has-text-centered">0.348</td><td class="has-text-centered">0.547</td><td class="has-text-centered">0.570</td><td class="has-text-centered">0.236</td><td class="has-text-centered">0.310</td><td class="has-text-centered">22m 57s</td><td class="has-text-centered">7,200 MB</td></tr>
+<tr class="child-row 3dgrt-group">
+                  <td style="padding-left: 40px;">↳ 11:00 AM (Lighting Variance)</td><td class="has-text-centered">23.60</td><td class="has-text-centered">0.662</td><td class="has-text-centered">0.371</td><td class="has-text-centered">0.352</td><td class="has-text-centered">0.592</td><td class="has-text-centered">0.315</td><td class="has-text-centered">0.679</td><td class="has-text-centered">30m 39s</td><td class="has-text-centered">8,206 MB</td></tr>
+<tr class="child-row 3dgrt-group">
+                  <td style="padding-left: 40px;">↳ 04:00 PM (Lighting Variance)</td><td class="has-text-centered">24.73</td><td class="has-text-centered">0.690</td><td class="has-text-centered">0.375</td><td class="has-text-centered">0.403</td><td class="has-text-centered">0.584</td><td class="has-text-centered">0.311</td><td class="has-text-centered">0.626</td><td class="has-text-centered">28m 20s</td><td class="has-text-centered">8,034 MB</td></tr>
+<tr class="child-row 3dgrt-group">
+                  <td style="padding-left: 40px;">↳ 09:00 PM (Lighting Variance)</td><td class="has-text-centered">28.46</td><td class="has-text-centered">0.783</td><td class="has-text-centered">0.321</td><td class="has-text-centered">0.551</td><td class="has-text-centered">0.581</td><td class="has-text-centered">0.223</td><td class="has-text-centered">0.291</td><td class="has-text-centered">21m 50s</td><td class="has-text-centered">6,996 MB</td></tr>
+<tr class="child-row 3dgrt-group">
+                  <td style="padding-left: 40px;">↳ Day 6 (Growth Span)</td><td class="has-text-centered">25.32</td><td class="has-text-centered">0.635</td><td class="has-text-centered">0.385</td><td class="has-text-centered">0.546</td><td class="has-text-centered">0.297</td><td class="has-text-centered">0.595</td><td class="has-text-centered">0.882</td><td class="has-text-centered">31m 22s</td><td class="has-text-centered">8,450 MB</td></tr>
+<tr class="child-row 3dgrt-group">
+                  <td style="padding-left: 40px;">↳ Day 13 (Growth Span)</td><td class="has-text-centered">26.42</td><td class="has-text-centered">0.699</td><td class="has-text-centered">0.351</td><td class="has-text-centered">0.588</td><td class="has-text-centered">0.408</td><td class="has-text-centered">0.423</td><td class="has-text-centered">0.657</td><td class="has-text-centered">33m 59s</td><td class="has-text-centered">8,456 MB</td></tr>
+<tr class="child-row 3dgrt-group">
+                  <td style="padding-left: 40px;">↳ Day 20 (Growth Span)</td><td class="has-text-centered">26.30</td><td class="has-text-centered">0.737</td><td class="has-text-centered">0.346</td><td class="has-text-centered">0.490</td><td class="has-text-centered">0.579</td><td class="has-text-centered">0.256</td><td class="has-text-centered">0.408</td><td class="has-text-centered">25m 59s</td><td class="has-text-centered">7,722 MB</td></tr>
+</tbody>
 
-              <tbody>
-                <tr class="parent-row" onclick="toggleBenchmarkRow(this, 'taming-3dgs-group')">
+<tbody><tr class="parent-row" onclick="toggleBenchmarkRow(this, 'taming-3dgs-group')">
                   <td>
                     <span class="icon is-small" style="margin-right: 5px;">
                       <i class="fas fa-angle-down toggle-icon"></i>
                     </span>
-                    <strong>Taming3DGS</strong>
+                    <strong>Taming 3DGS</strong>
                     <span style="color: #888; font-size: 0.95em; font-weight: normal;">
                       [SIGGRAPH Asia '24]
                     </span>
-                  </td>
-                  <td class="has-text-centered"><strong>26.777</strong></td>
-                  <td class="has-text-centered"><strong>0.7248</strong></td>
-                  <td class="has-text-centered"><strong>0.3541</strong></td>
-                  <td class="has-text-centered"><strong>4m 31s</strong></td>
-                  <td class="has-text-centered"><strong>6,016 MB</strong></td>
-                </tr>
-                <tr class="child-row taming-3dgs-group">
-                  <td style="padding-left: 40px;">↳ 06:00 AM (Lighting Variance)</td>
-                  <td class="has-text-centered">27.908</td>
-                  <td class="has-text-centered">0.7756</td>
-                  <td class="has-text-centered">0.3472</td>
-                  <td class="has-text-centered">3m 47s</td>
-                  <td class="has-text-centered">5,222 MB</td>
-                </tr>
-                <tr class="child-row taming-3dgs-group">
-                  <td style="padding-left: 40px;">↳ 11:00 AM (Lighting Variance)</td>
-                  <td class="has-text-centered">24.342</td>
-                  <td class="has-text-centered">0.6854</td>
-                  <td class="has-text-centered">0.3579</td>
-                  <td class="has-text-centered">5m 3s</td>
-                  <td class="has-text-centered">5,914 MB</td>
-                </tr>
-                <tr class="child-row taming-3dgs-group">
-                  <td style="padding-left: 40px;">↳ 04:00 PM (Lighting Variance)</td>
-                  <td class="has-text-centered">25.453</td>
-                  <td class="has-text-centered">0.7012</td>
-                  <td class="has-text-centered">0.3705</td>
-                  <td class="has-text-centered">4m 31s</td>
-                  <td class="has-text-centered">6,112 MB</td>
-                </tr>
-                <tr class="child-row taming-3dgs-group">
-                  <td style="padding-left: 40px;">↳ 09:00 PM (Lighting Variance)</td>
-                  <td class="has-text-centered">29.179</td>
-                  <td class="has-text-centered">0.7896</td>
-                  <td class="has-text-centered">0.3245</td>
-                  <td class="has-text-centered">3m 44s</td>
-                  <td class="has-text-centered">5,342 MB</td>
-                </tr>
-                <tr class="child-row taming-3dgs-group">
-                  <td style="padding-left: 40px;">↳ Day 6 (Growth Span)</td>
-                  <td class="has-text-centered">25.780</td>
-                  <td class="has-text-centered">0.6533</td>
-                  <td class="has-text-centered">0.3855</td>
-                  <td class="has-text-centered">5m 19s</td>
-                  <td class="has-text-centered">7,162 MB</td>
-                </tr>
-                <tr class="child-row taming-3dgs-group">
-                  <td style="padding-left: 40px;">↳ Day 13 (Growth Span)</td>
-                  <td class="has-text-centered">27.241</td>
-                  <td class="has-text-centered">0.7187</td>
-                  <td class="has-text-centered">0.3495</td>
-                  <td class="has-text-centered">5m 10s</td>
-                  <td class="has-text-centered">6,714 MB</td>
-                </tr>
-                <tr class="child-row taming-3dgs-group">
-                  <td style="padding-left: 40px;">↳ Day 20 (Growth Span)</td>
-                  <td class="has-text-centered">27.534</td>
-                  <td class="has-text-centered">0.7495</td>
-                  <td class="has-text-centered">0.3437</td>
-                  <td class="has-text-centered">4m 7s</td>
-                  <td class="has-text-centered">5,648 MB</td>
-                </tr>
-              </tbody>
+                  </td><td class="has-text-centered">26.70</td><td class="has-text-centered">0.722</td><td class="has-text-centered">0.360</td><td class="has-text-centered">0.513</td><td class="has-text-centered">0.507</td><td class="has-text-centered">0.352</td><td class="has-text-centered">0.566</td><td class="has-text-centered">4m 31s</td><td class="has-text-centered">6,016 MB</td></tr>
+<tr class="child-row taming-3dgs-group">
+                  <td style="padding-left: 40px;">↳ 06:00 AM (Lighting Variance)</td><td class="has-text-centered">28.00</td><td class="has-text-centered">0.777</td><td class="has-text-centered">0.341</td><td class="has-text-centered">0.564</td><td class="has-text-centered">0.543</td><td class="has-text-centered">0.253</td><td class="has-text-centered">0.334</td><td class="has-text-centered">3m 47s</td><td class="has-text-centered">5,222 MB</td></tr>
+<tr class="child-row taming-3dgs-group">
+                  <td style="padding-left: 40px;">↳ 11:00 AM (Lighting Variance)</td><td class="has-text-centered">24.12</td><td class="has-text-centered">0.677</td><td class="has-text-centered">0.373</td><td class="has-text-centered">0.367</td><td class="has-text-centered">0.587</td><td class="has-text-centered">0.324</td><td class="has-text-centered">0.702</td><td class="has-text-centered">5m 3s</td><td class="has-text-centered">5,914 MB</td></tr>
+<tr class="child-row taming-3dgs-group">
+                  <td style="padding-left: 40px;">↳ 04:00 PM (Lighting Variance)</td><td class="has-text-centered">25.38</td><td class="has-text-centered">0.699</td><td class="has-text-centered">0.373</td><td class="has-text-centered">0.412</td><td class="has-text-centered">0.583</td><td class="has-text-centered">0.308</td><td class="has-text-centered">0.632</td><td class="has-text-centered">4m 31s</td><td class="has-text-centered">6,112 MB</td></tr>
+<tr class="child-row taming-3dgs-group">
+                  <td style="padding-left: 40px;">↳ 09:00 PM (Lighting Variance)</td><td class="has-text-centered">29.05</td><td class="has-text-centered">0.786</td><td class="has-text-centered">0.335</td><td class="has-text-centered">0.562</td><td class="has-text-centered">0.565</td><td class="has-text-centered">0.232</td><td class="has-text-centered">0.290</td><td class="has-text-centered">3m 44s</td><td class="has-text-centered">5,342 MB</td></tr>
+<tr class="child-row taming-3dgs-group">
+                  <td style="padding-left: 40px;">↳ Day 6 (Growth Span)</td><td class="has-text-centered">25.73</td><td class="has-text-centered">0.650</td><td class="has-text-centered">0.391</td><td class="has-text-centered">0.573</td><td class="has-text-centered">0.309</td><td class="has-text-centered">0.602</td><td class="has-text-centered">0.886</td><td class="has-text-centered">5m 19s</td><td class="has-text-centered">7,162 MB</td></tr>
+<tr class="child-row taming-3dgs-group">
+                  <td style="padding-left: 40px;">↳ Day 13 (Growth Span)</td><td class="has-text-centered">27.24</td><td class="has-text-centered">0.715</td><td class="has-text-centered">0.355</td><td class="has-text-centered">0.605</td><td class="has-text-centered">0.397</td><td class="has-text-centered">0.459</td><td class="has-text-centered">0.675</td><td class="has-text-centered">5m 10s</td><td class="has-text-centered">6,714 MB</td></tr>
+<tr class="child-row taming-3dgs-group">
+                  <td style="padding-left: 40px;">↳ Day 20 (Growth Span)</td><td class="has-text-centered">27.39</td><td class="has-text-centered">0.747</td><td class="has-text-centered">0.349</td><td class="has-text-centered">0.507</td><td class="has-text-centered">0.564</td><td class="has-text-centered">0.285</td><td class="has-text-centered">0.444</td><td class="has-text-centered">4m 7s</td><td class="has-text-centered">5,648 MB</td></tr>
+</tbody>
 
-              <tbody>
-                <tr class="parent-row" onclick="toggleBenchmarkRow(this, 'scaffold-gs-group')">
+<tbody><tr class="parent-row" onclick="toggleBenchmarkRow(this, 'scaffold-gs-group')">
                   <td>
                     <span class="icon is-small" style="margin-right: 5px;">
                       <i class="fas fa-angle-down toggle-icon"></i>
@@ -1054,73 +622,24 @@
                     <span style="color: #888; font-size: 0.95em; font-weight: normal;">
                       [CVPR '24]
                     </span>
-                  </td>
-                  <td class="has-text-centered"><strong>24.840</strong></td>
-                  <td class="has-text-centered"><strong>0.6930</strong></td>
-                  <td class="has-text-centered"><strong>0.3550</strong></td>
-                  <td class="has-text-centered"><strong>8m 25s</strong></td>
-                  <td class="has-text-centered"><strong>4,785 MB</strong></td>
-                </tr>
-                <tr class="child-row scaffold-gs-group">
-                  <td style="padding-left: 40px;">↳ 06:00 AM (Lighting Variance)</td>
-                  <td class="has-text-centered">25.542</td>
-                  <td class="has-text-centered">0.7403</td>
-                  <td class="has-text-centered">0.3649</td>
-                  <td class="has-text-centered">7m 33s</td>
-                  <td class="has-text-centered">4,450 MB</td>
-                </tr>
-                <tr class="child-row scaffold-gs-group">
-                  <td style="padding-left: 40px;">↳ 11:00 AM (Lighting Variance)</td>
-                  <td class="has-text-centered">21.193</td>
-                  <td class="has-text-centered">0.6280</td>
-                  <td class="has-text-centered">0.3630</td>
-                  <td class="has-text-centered">8m 36s</td>
-                  <td class="has-text-centered">5,066 MB</td>
-                </tr>
-                <tr class="child-row scaffold-gs-group">
-                  <td style="padding-left: 40px;">↳ 04:00 PM (Lighting Variance)</td>
-                  <td class="has-text-centered">24.661</td>
-                  <td class="has-text-centered">0.6739</td>
-                  <td class="has-text-centered">0.3766</td>
-                  <td class="has-text-centered">7m 58s</td>
-                  <td class="has-text-centered">4,646 MB</td>
-                </tr>
-                <tr class="child-row scaffold-gs-group">
-                  <td style="padding-left: 40px;">↳ 09:00 PM (Lighting Variance)</td>
-                  <td class="has-text-centered">27.770</td>
-                  <td class="has-text-centered">0.7743</td>
-                  <td class="has-text-centered">0.3255</td>
-                  <td class="has-text-centered">7m 21s</td>
-                  <td class="has-text-centered">4,334 MB</td>
-                </tr>
-                <tr class="child-row scaffold-gs-group">
-                  <td style="padding-left: 40px;">↳ Day 6 (Growth Span)</td>
-                  <td class="has-text-centered">24.816</td>
-                  <td class="has-text-centered">0.6427</td>
-                  <td class="has-text-centered">0.3445</td>
-                  <td class="has-text-centered">9m 55s</td>
-                  <td class="has-text-centered">5,428 MB</td>
-                </tr>
-                <tr class="child-row scaffold-gs-group">
-                  <td style="padding-left: 40px;">↳ Day 13 (Growth Span)</td>
-                  <td class="has-text-centered">25.286</td>
-                  <td class="has-text-centered">0.6887</td>
-                  <td class="has-text-centered">0.3515</td>
-                  <td class="has-text-centered">9m 35s</td>
-                  <td class="has-text-centered">5,006 MB</td>
-                </tr>
-                <tr class="child-row scaffold-gs-group">
-                  <td style="padding-left: 40px;">↳ Day 20 (Growth Span)</td>
-                  <td class="has-text-centered">24.612</td>
-                  <td class="has-text-centered">0.7032</td>
-                  <td class="has-text-centered">0.3587</td>
-                  <td class="has-text-centered">8m 0s</td>
-                  <td class="has-text-centered">4,564 MB</td>
-                </tr>
-              </tbody>
+                  </td><td class="has-text-centered">24.61</td><td class="has-text-centered">0.684</td><td class="has-text-centered">0.367</td><td class="has-text-centered">0.467</td><td class="has-text-centered">0.530</td><td class="has-text-centered">0.394</td><td class="has-text-centered">0.586</td><td class="has-text-centered">8m 25s</td><td class="has-text-centered">4,785 MB</td></tr>
+<tr class="child-row scaffold-gs-group">
+                  <td style="padding-left: 40px;">↳ 06:00 AM (Lighting Variance)</td><td class="has-text-centered">25.62</td><td class="has-text-centered">0.734</td><td class="has-text-centered">0.375</td><td class="has-text-centered">0.512</td><td class="has-text-centered">0.593</td><td class="has-text-centered">0.290</td><td class="has-text-centered">0.328</td><td class="has-text-centered">7m 33s</td><td class="has-text-centered">4,450 MB</td></tr>
+<tr class="child-row scaffold-gs-group">
+                  <td style="padding-left: 40px;">↳ 11:00 AM (Lighting Variance)</td><td class="has-text-centered">20.97</td><td class="has-text-centered">0.603</td><td class="has-text-centered">0.390</td><td class="has-text-centered">0.318</td><td class="has-text-centered">0.606</td><td class="has-text-centered">0.433</td><td class="has-text-centered">0.771</td><td class="has-text-centered">8m 36s</td><td class="has-text-centered">5,066 MB</td></tr>
+<tr class="child-row scaffold-gs-group">
+                  <td style="padding-left: 40px;">↳ 04:00 PM (Lighting Variance)</td><td class="has-text-centered">24.78</td><td class="has-text-centered">0.678</td><td class="has-text-centered">0.369</td><td class="has-text-centered">0.392</td><td class="has-text-centered">0.566</td><td class="has-text-centered">0.345</td><td class="has-text-centered">0.676</td><td class="has-text-centered">7m 58s</td><td class="has-text-centered">4,646 MB</td></tr>
+<tr class="child-row scaffold-gs-group">
+                  <td style="padding-left: 40px;">↳ 09:00 PM (Lighting Variance)</td><td class="has-text-centered">26.69</td><td class="has-text-centered">0.761</td><td class="has-text-centered">0.342</td><td class="has-text-centered">0.532</td><td class="has-text-centered">0.587</td><td class="has-text-centered">0.289</td><td class="has-text-centered">0.317</td><td class="has-text-centered">7m 21s</td><td class="has-text-centered">4,334 MB</td></tr>
+<tr class="child-row scaffold-gs-group">
+                  <td style="padding-left: 40px;">↳ Day 6 (Growth Span)</td><td class="has-text-centered">24.85</td><td class="has-text-centered">0.637</td><td class="has-text-centered">0.351</td><td class="has-text-centered">0.516</td><td class="has-text-centered">0.323</td><td class="has-text-centered">0.554</td><td class="has-text-centered">0.870</td><td class="has-text-centered">9m 55s</td><td class="has-text-centered">5,428 MB</td></tr>
+<tr class="child-row scaffold-gs-group">
+                  <td style="padding-left: 40px;">↳ Day 13 (Growth Span)</td><td class="has-text-centered">25.15</td><td class="has-text-centered">0.685</td><td class="has-text-centered">0.365</td><td class="has-text-centered">0.554</td><td class="has-text-centered">0.437</td><td class="has-text-centered">0.468</td><td class="has-text-centered">0.648</td><td class="has-text-centered">9m 35s</td><td class="has-text-centered">5,006 MB</td></tr>
+<tr class="child-row scaffold-gs-group">
+                  <td style="padding-left: 40px;">↳ Day 20 (Growth Span)</td><td class="has-text-centered">24.18</td><td class="has-text-centered">0.692</td><td class="has-text-centered">0.375</td><td class="has-text-centered">0.447</td><td class="has-text-centered">0.595</td><td class="has-text-centered">0.378</td><td class="has-text-centered">0.492</td><td class="has-text-centered">8m 0s</td><td class="has-text-centered">4,564 MB</td></tr>
+</tbody>
 
-              <tbody>
-                <tr class="parent-row" onclick="toggleBenchmarkRow(this, 'pgsr-group')">
+<tbody><tr class="parent-row" onclick="toggleBenchmarkRow(this, 'pgsr-group')">
                   <td>
                     <span class="icon is-small" style="margin-right: 5px;">
                       <i class="fas fa-angle-down toggle-icon"></i>
@@ -1129,73 +648,24 @@
                     <span style="color: #888; font-size: 0.95em; font-weight: normal;">
                       [TVCG '24]
                     </span>
-                  </td>
-                  <td class="has-text-centered"><strong>25.610</strong></td>
-                  <td class="has-text-centered"><strong>0.6699</strong></td>
-                  <td class="has-text-centered"><strong>0.4543</strong></td>
-                  <td class="has-text-centered"><strong>7m 30s</strong></td>
-                  <td class="has-text-centered"><strong>4,770 MB</strong></td>
-                </tr>
-                <tr class="child-row pgsr-group">
-                  <td style="padding-left: 40px;">↳ 06:00 AM (Lighting Variance)</td>
-                  <td class="has-text-centered">26.697</td>
-                  <td class="has-text-centered">0.7429</td>
-                  <td class="has-text-centered">0.4173</td>
-                  <td class="has-text-centered">6m 53s</td>
-                  <td class="has-text-centered">4,514 MB</td>
-                </tr>
-                <tr class="child-row pgsr-group">
-                  <td style="padding-left: 40px;">↳ 11:00 AM (Lighting Variance)</td>
-                  <td class="has-text-centered">23.673</td>
-                  <td class="has-text-centered">0.6415</td>
-                  <td class="has-text-centered">0.4212</td>
-                  <td class="has-text-centered">8m 16s</td>
-                  <td class="has-text-centered">5,148 MB</td>
-                </tr>
-                <tr class="child-row pgsr-group">
-                  <td style="padding-left: 40px;">↳ 04:00 PM (Lighting Variance)</td>
-                  <td class="has-text-centered">24.634</td>
-                  <td class="has-text-centered">0.6610</td>
-                  <td class="has-text-centered">0.4435</td>
-                  <td class="has-text-centered">7m 41s</td>
-                  <td class="has-text-centered">4,806 MB</td>
-                </tr>
-                <tr class="child-row pgsr-group">
-                  <td style="padding-left: 40px;">↳ 09:00 PM (Lighting Variance)</td>
-                  <td class="has-text-centered">28.277</td>
-                  <td class="has-text-centered">0.7585</td>
-                  <td class="has-text-centered">0.3931</td>
-                  <td class="has-text-centered">6m 49s</td>
-                  <td class="has-text-centered">4,510 MB</td>
-                </tr>
-                <tr class="child-row pgsr-group">
-                  <td style="padding-left: 40px;">↳ Day 6 (Growth Span)</td>
-                  <td class="has-text-centered">24.148</td>
-                  <td class="has-text-centered">0.5459</td>
-                  <td class="has-text-centered">0.6047</td>
-                  <td class="has-text-centered">8m 16s</td>
-                  <td class="has-text-centered">4,948 MB</td>
-                </tr>
-                <tr class="child-row pgsr-group">
-                  <td style="padding-left: 40px;">↳ Day 13 (Growth Span)</td>
-                  <td class="has-text-centered">25.236</td>
-                  <td class="has-text-centered">0.6271</td>
-                  <td class="has-text-centered">0.4952</td>
-                  <td class="has-text-centered">7m 28s</td>
-                  <td class="has-text-centered">4,822 MB</td>
-                </tr>
-                <tr class="child-row pgsr-group">
-                  <td style="padding-left: 40px;">↳ Day 20 (Growth Span)</td>
-                  <td class="has-text-centered">26.607</td>
-                  <td class="has-text-centered">0.7122</td>
-                  <td class="has-text-centered">0.4053</td>
-                  <td class="has-text-centered">7m 13s</td>
-                  <td class="has-text-centered">4,640 MB</td>
-                </tr>
-              </tbody>
+                  </td><td class="has-text-centered">25.70</td><td class="has-text-centered">0.671</td><td class="has-text-centered">0.453</td><td class="has-text-centered">0.465</td><td class="has-text-centered">0.598</td><td class="has-text-centered">0.267</td><td class="has-text-centered">0.462</td><td class="has-text-centered">7m 30s</td><td class="has-text-centered">4,770 MB</td></tr>
+<tr class="child-row pgsr-group">
+                  <td style="padding-left: 40px;">↳ 06:00 AM (Lighting Variance)</td><td class="has-text-centered">26.89</td><td class="has-text-centered">0.744</td><td class="has-text-centered">0.412</td><td class="has-text-centered">0.527</td><td class="has-text-centered">0.647</td><td class="has-text-centered">0.179</td><td class="has-text-centered">0.229</td><td class="has-text-centered">6m 53s</td><td class="has-text-centered">4,514 MB</td></tr>
+<tr class="child-row pgsr-group">
+                  <td style="padding-left: 40px;">↳ 11:00 AM (Lighting Variance)</td><td class="has-text-centered">23.58</td><td class="has-text-centered">0.637</td><td class="has-text-centered">0.426</td><td class="has-text-centered">0.334</td><td class="has-text-centered">0.661</td><td class="has-text-centered">0.261</td><td class="has-text-centered">0.588</td><td class="has-text-centered">8m 16s</td><td class="has-text-centered">5,148 MB</td></tr>
+<tr class="child-row pgsr-group">
+                  <td style="padding-left: 40px;">↳ 04:00 PM (Lighting Variance)</td><td class="has-text-centered">24.72</td><td class="has-text-centered">0.664</td><td class="has-text-centered">0.436</td><td class="has-text-centered">0.387</td><td class="has-text-centered">0.670</td><td class="has-text-centered">0.249</td><td class="has-text-centered">0.532</td><td class="has-text-centered">7m 41s</td><td class="has-text-centered">4,806 MB</td></tr>
+<tr class="child-row pgsr-group">
+                  <td style="padding-left: 40px;">↳ 09:00 PM (Lighting Variance)</td><td class="has-text-centered">28.32</td><td class="has-text-centered">0.759</td><td class="has-text-centered">0.393</td><td class="has-text-centered">0.532</td><td class="has-text-centered">0.674</td><td class="has-text-centered">0.164</td><td class="has-text-centered">0.234</td><td class="has-text-centered">6m 49s</td><td class="has-text-centered">4,510 MB</td></tr>
+<tr class="child-row pgsr-group">
+                  <td style="padding-left: 40px;">↳ Day 6 (Growth Span)</td><td class="has-text-centered">24.28</td><td class="has-text-centered">0.549</td><td class="has-text-centered">0.601</td><td class="has-text-centered">0.479</td><td class="has-text-centered">0.372</td><td class="has-text-centered">0.513</td><td class="has-text-centered">0.822</td><td class="has-text-centered">8m 16s</td><td class="has-text-centered">4,948 MB</td></tr>
+<tr class="child-row pgsr-group">
+                  <td style="padding-left: 40px;">↳ Day 13 (Growth Span)</td><td class="has-text-centered">25.56</td><td class="has-text-centered">0.629</td><td class="has-text-centered">0.494</td><td class="has-text-centered">0.526</td><td class="has-text-centered">0.527</td><td class="has-text-centered">0.294</td><td class="has-text-centered">0.492</td><td class="has-text-centered">7m 28s</td><td class="has-text-centered">4,822 MB</td></tr>
+<tr class="child-row pgsr-group">
+                  <td style="padding-left: 40px;">↳ Day 20 (Growth Span)</td><td class="has-text-centered">26.57</td><td class="has-text-centered">0.712</td><td class="has-text-centered">0.407</td><td class="has-text-centered">0.472</td><td class="has-text-centered">0.635</td><td class="has-text-centered">0.208</td><td class="has-text-centered">0.340</td><td class="has-text-centered">7m 13s</td><td class="has-text-centered">4,640 MB</td></tr>
+</tbody>
 
-              <tbody>
-                <tr class="parent-row" onclick="toggleBenchmarkRow(this, 'gaussian-splatting-group')">
+<tbody><tr class="parent-row" onclick="toggleBenchmarkRow(this, 'gaussian-splatting-group')">
                   <td>
                     <span class="icon is-small" style="margin-right: 5px;">
                       <i class="fas fa-angle-down toggle-icon"></i>
@@ -1204,73 +674,24 @@
                     <span style="color: #888; font-size: 0.95em; font-weight: normal;">
                       [SIGGRAPH '23]
                     </span>
-                  </td>
-                  <td class="has-text-centered"><strong>26.306</strong></td>
-                  <td class="has-text-centered"><strong>0.7177</strong></td>
-                  <td class="has-text-centered"><strong>0.3636</strong></td>
-                  <td class="has-text-centered"><strong>6m 43s</strong></td>
-                  <td class="has-text-centered"><strong>4,665 MB</strong></td>
-                </tr>
-                <tr class="child-row gaussian-splatting-group">
-                  <td style="padding-left: 40px;">↳ 06:00 AM (Lighting Variance)</td>
-                  <td class="has-text-centered">27.107</td>
-                  <td class="has-text-centered">0.7717</td>
-                  <td class="has-text-centered">0.3565</td>
-                  <td class="has-text-centered">6m 0s</td>
-                  <td class="has-text-centered">4,480 MB</td>
-                </tr>
-                <tr class="child-row gaussian-splatting-group">
-                  <td style="padding-left: 40px;">↳ 11:00 AM (Lighting Variance)</td>
-                  <td class="has-text-centered">23.950</td>
-                  <td class="has-text-centered">0.6742</td>
-                  <td class="has-text-centered">0.3695</td>
-                  <td class="has-text-centered">7m 0s</td>
-                  <td class="has-text-centered">4,852 MB</td>
-                </tr>
-                <tr class="child-row gaussian-splatting-group">
-                  <td style="padding-left: 40px;">↳ 04:00 PM (Lighting Variance)</td>
-                  <td class="has-text-centered">24.970</td>
-                  <td class="has-text-centered">0.6932</td>
-                  <td class="has-text-centered">0.3862</td>
-                  <td class="has-text-centered">6m 42s</td>
-                  <td class="has-text-centered">4,646 MB</td>
-                </tr>
-                <tr class="child-row gaussian-splatting-group">
-                  <td style="padding-left: 40px;">↳ 09:00 PM (Lighting Variance)</td>
-                  <td class="has-text-centered">28.788</td>
-                  <td class="has-text-centered">0.7884</td>
-                  <td class="has-text-centered">0.3294</td>
-                  <td class="has-text-centered">6m 5s</td>
-                  <td class="has-text-centered">4,274 MB</td>
-                </tr>
-                <tr class="child-row gaussian-splatting-group">
-                  <td style="padding-left: 40px;">↳ Day 6 (Growth Span)</td>
-                  <td class="has-text-centered">25.449</td>
-                  <td class="has-text-centered">0.6449</td>
-                  <td class="has-text-centered">0.3867</td>
-                  <td class="has-text-centered">7m 48s</td>
-                  <td class="has-text-centered">5,090 MB</td>
-                </tr>
-                <tr class="child-row gaussian-splatting-group">
-                  <td style="padding-left: 40px;">↳ Day 13 (Growth Span)</td>
-                  <td class="has-text-centered">26.891</td>
-                  <td class="has-text-centered">0.7097</td>
-                  <td class="has-text-centered">0.3538</td>
-                  <td class="has-text-centered">7m 22s</td>
-                  <td class="has-text-centered">4,952 MB</td>
-                </tr>
-                <tr class="child-row gaussian-splatting-group">
-                  <td style="padding-left: 40px;">↳ Day 20 (Growth Span)</td>
-                  <td class="has-text-centered">26.987</td>
-                  <td class="has-text-centered">0.7420</td>
-                  <td class="has-text-centered">0.3633</td>
-                  <td class="has-text-centered">6m 9s</td>
-                  <td class="has-text-centered">4,364 MB</td>
-                </tr>
-              </tbody>
+                  </td><td class="has-text-centered">26.31</td><td class="has-text-centered">0.715</td><td class="has-text-centered">0.369</td><td class="has-text-centered">0.507</td><td class="has-text-centered">0.530</td><td class="has-text-centered">0.340</td><td class="has-text-centered">0.540</td><td class="has-text-centered">6m 43s</td><td class="has-text-centered">4,665 MB</td></tr>
+<tr class="child-row gaussian-splatting-group">
+                  <td style="padding-left: 40px;">↳ 06:00 AM (Lighting Variance)</td><td class="has-text-centered">27.05</td><td class="has-text-centered">0.768</td><td class="has-text-centered">0.364</td><td class="has-text-centered">0.558</td><td class="has-text-centered">0.582</td><td class="has-text-centered">0.227</td><td class="has-text-centered">0.291</td><td class="has-text-centered">6m 0s</td><td class="has-text-centered">4,480 MB</td></tr>
+<tr class="child-row gaussian-splatting-group">
+                  <td style="padding-left: 40px;">↳ 11:00 AM (Lighting Variance)</td><td class="has-text-centered">23.98</td><td class="has-text-centered">0.669</td><td class="has-text-centered">0.381</td><td class="has-text-centered">0.361</td><td class="has-text-centered">0.618</td><td class="has-text-centered">0.311</td><td class="has-text-centered">0.660</td><td class="has-text-centered">7m 0s</td><td class="has-text-centered">4,852 MB</td></tr>
+<tr class="child-row gaussian-splatting-group">
+                  <td style="padding-left: 40px;">↳ 04:00 PM (Lighting Variance)</td><td class="has-text-centered">25.02</td><td class="has-text-centered">0.694</td><td class="has-text-centered">0.384</td><td class="has-text-centered">0.412</td><td class="has-text-centered">0.611</td><td class="has-text-centered">0.301</td><td class="has-text-centered">0.604</td><td class="has-text-centered">6m 42s</td><td class="has-text-centered">4,646 MB</td></tr>
+<tr class="child-row gaussian-splatting-group">
+                  <td style="padding-left: 40px;">↳ 09:00 PM (Lighting Variance)</td><td class="has-text-centered">28.72</td><td class="has-text-centered">0.784</td><td class="has-text-centered">0.339</td><td class="has-text-centered">0.562</td><td class="has-text-centered">0.593</td><td class="has-text-centered">0.223</td><td class="has-text-centered">0.290</td><td class="has-text-centered">6m 5s</td><td class="has-text-centered">4,274 MB</td></tr>
+<tr class="child-row gaussian-splatting-group">
+                  <td style="padding-left: 40px;">↳ Day 6 (Growth Span)</td><td class="has-text-centered">25.45</td><td class="has-text-centered">0.642</td><td class="has-text-centered">0.392</td><td class="has-text-centered">0.562</td><td class="has-text-centered">0.300</td><td class="has-text-centered">0.615</td><td class="has-text-centered">0.883</td><td class="has-text-centered">7m 48s</td><td class="has-text-centered">5,090 MB</td></tr>
+<tr class="child-row gaussian-splatting-group">
+                  <td style="padding-left: 40px;">↳ Day 13 (Growth Span)</td><td class="has-text-centered">26.84</td><td class="has-text-centered">0.706</td><td class="has-text-centered">0.361</td><td class="has-text-centered">0.596</td><td class="has-text-centered">0.403</td><td class="has-text-centered">0.452</td><td class="has-text-centered">0.667</td><td class="has-text-centered">7m 22s</td><td class="has-text-centered">4,952 MB</td></tr>
+<tr class="child-row gaussian-splatting-group">
+                  <td style="padding-left: 40px;">↳ Day 20 (Growth Span)</td><td class="has-text-centered">27.11</td><td class="has-text-centered">0.742</td><td class="has-text-centered">0.361</td><td class="has-text-centered">0.498</td><td class="has-text-centered">0.606</td><td class="has-text-centered">0.249</td><td class="has-text-centered">0.388</td><td class="has-text-centered">6m 9s</td><td class="has-text-centered">4,364 MB</td></tr>
+</tbody>
 
-              <tbody>
-                <tr class="parent-row" onclick="toggleBenchmarkRow(this, 'zipnerf-group')">
+<tbody><tr class="parent-row" onclick="toggleBenchmarkRow(this, 'zipnerf-group')">
                   <td>
                     <span class="icon is-small" style="margin-right: 5px;">
                       <i class="fas fa-angle-down toggle-icon"></i>
@@ -1279,73 +700,24 @@
                     <span style="color: #888; font-size: 0.95em; font-weight: normal;">
                       [ICCV '23]
                     </span>
-                  </td>
-                  <td class="has-text-centered"><strong>28.264</strong></td>
-                  <td class="has-text-centered"><strong>0.7598</strong></td>
-                  <td class="has-text-centered"><strong>0.2455</strong></td>
-                  <td class="has-text-centered"><strong>4h 27m 45s</strong></td>
-                  <td class="has-text-centered"><strong>32,448 MB</strong></td>
-                </tr>
-                <tr class="child-row zipnerf-group">
-                  <td style="padding-left: 40px;">↳ 06:00 AM (Lighting Variance)</td>
-                  <td class="has-text-centered">29.582</td>
-                  <td class="has-text-centered">0.7953</td>
-                  <td class="has-text-centered">0.2518</td>
-                  <td class="has-text-centered">4h 22m 33s</td>
-                  <td class="has-text-centered">32,448 MB</td>
-                </tr>
-                <tr class="child-row zipnerf-group">
-                  <td style="padding-left: 40px;">↳ 11:00 AM (Lighting Variance)</td>
-                  <td class="has-text-centered">25.923</td>
-                  <td class="has-text-centered">0.7562</td>
-                  <td class="has-text-centered">0.2003</td>
-                  <td class="has-text-centered">4h 28m 42s</td>
-                  <td class="has-text-centered">32,448 MB</td>
-                </tr>
-                <tr class="child-row zipnerf-group">
-                  <td style="padding-left: 40px;">↳ 04:00 PM (Lighting Variance)</td>
-                  <td class="has-text-centered">27.466</td>
-                  <td class="has-text-centered">0.7663</td>
-                  <td class="has-text-centered">0.2027</td>
-                  <td class="has-text-centered">4h 26m 45s</td>
-                  <td class="has-text-centered">32,448 MB</td>
-                </tr>
-                <tr class="child-row zipnerf-group">
-                  <td style="padding-left: 40px;">↳ 09:00 PM (Lighting Variance)</td>
-                  <td class="has-text-centered">30.675</td>
-                  <td class="has-text-centered">0.8065</td>
-                  <td class="has-text-centered">0.2368</td>
-                  <td class="has-text-centered">4h 20m 20s</td>
-                  <td class="has-text-centered">32,448 MB</td>
-                </tr>
-                <tr class="child-row zipnerf-group">
-                  <td style="padding-left: 40px;">↳ Day 6 (Growth Span)</td>
-                  <td class="has-text-centered">25.943</td>
-                  <td class="has-text-centered">0.6097</td>
-                  <td class="has-text-centered">0.4169</td>
-                  <td class="has-text-centered">4h 24m 37s</td>
-                  <td class="has-text-centered">32,448 MB</td>
-                </tr>
-                <tr class="child-row zipnerf-group">
-                  <td style="padding-left: 40px;">↳ Day 13 (Growth Span)</td>
-                  <td class="has-text-centered">28.844</td>
-                  <td class="has-text-centered">0.7742</td>
-                  <td class="has-text-centered">0.2164</td>
-                  <td class="has-text-centered">4h 41m 43s</td>
-                  <td class="has-text-centered">32,448 MB</td>
-                </tr>
-                <tr class="child-row zipnerf-group">
-                  <td style="padding-left: 40px;">↳ Day 20 (Growth Span)</td>
-                  <td class="has-text-centered">29.418</td>
-                  <td class="has-text-centered">0.8105</td>
-                  <td class="has-text-centered">0.1936</td>
-                  <td class="has-text-centered">4h 29m 36s</td>
-                  <td class="has-text-centered">32,448 MB</td>
-                </tr>
-              </tbody>
+                  </td><td class="has-text-centered"><strong>28.26</strong></td><td class="has-text-centered"><u>0.760</u></td><td class="has-text-centered"><u>0.246</u></td><td class="has-text-centered"><strong>0.560</strong></td><td class="has-text-centered">0.375</td><td class="has-text-centered">0.378</td><td class="has-text-centered">0.637</td><td class="has-text-centered">4h 27m 45s</td><td class="has-text-centered">32,448 MB</td></tr>
+<tr class="child-row zipnerf-group">
+                  <td style="padding-left: 40px;">↳ 06:00 AM (Lighting Variance)</td><td class="has-text-centered"><strong>29.58</strong></td><td class="has-text-centered">0.795</td><td class="has-text-centered">0.252</td><td class="has-text-centered">0.553</td><td class="has-text-centered">0.482</td><td class="has-text-centered">0.253</td><td class="has-text-centered">0.369</td><td class="has-text-centered">4h 22m 33s</td><td class="has-text-centered">32,448 MB</td></tr>
+<tr class="child-row zipnerf-group">
+                  <td style="padding-left: 40px;">↳ 11:00 AM (Lighting Variance)</td><td class="has-text-centered"><strong>25.92</strong></td><td class="has-text-centered"><strong>0.756</strong></td><td class="has-text-centered"><strong>0.200</strong></td><td class="has-text-centered"><strong>0.448</strong></td><td class="has-text-centered"><u>0.403</u></td><td class="has-text-centered">0.367</td><td class="has-text-centered">0.763</td><td class="has-text-centered">4h 28m 42s</td><td class="has-text-centered">32,448 MB</td></tr>
+<tr class="child-row zipnerf-group">
+                  <td style="padding-left: 40px;">↳ 04:00 PM (Lighting Variance)</td><td class="has-text-centered"><strong>27.47</strong></td><td class="has-text-centered"><strong>0.766</strong></td><td class="has-text-centered"><strong>0.203</strong></td><td class="has-text-centered"><strong>0.468</strong></td><td class="has-text-centered">0.410</td><td class="has-text-centered">0.362</td><td class="has-text-centered">0.712</td><td class="has-text-centered">4h 26m 45s</td><td class="has-text-centered">32,448 MB</td></tr>
+<tr class="child-row zipnerf-group">
+                  <td style="padding-left: 40px;">↳ 09:00 PM (Lighting Variance)</td><td class="has-text-centered"><strong>30.67</strong></td><td class="has-text-centered">0.807</td><td class="has-text-centered"><u>0.237</u></td><td class="has-text-centered">0.560</td><td class="has-text-centered">0.474</td><td class="has-text-centered">0.244</td><td class="has-text-centered">0.391</td><td class="has-text-centered">4h 20m 20s</td><td class="has-text-centered">32,448 MB</td></tr>
+<tr class="child-row zipnerf-group">
+                  <td style="padding-left: 40px;">↳ Day 6 (Growth Span)</td><td class="has-text-centered">25.94</td><td class="has-text-centered">0.610</td><td class="has-text-centered">0.417</td><td class="has-text-centered"><u>0.620</u></td><td class="has-text-centered"><u>0.238</u></td><td class="has-text-centered">0.555</td><td class="has-text-centered">0.890</td><td class="has-text-centered">4h 24m 37s</td><td class="has-text-centered">32,448 MB</td></tr>
+<tr class="child-row zipnerf-group">
+                  <td style="padding-left: 40px;">↳ Day 13 (Growth Span)</td><td class="has-text-centered"><strong>28.84</strong></td><td class="has-text-centered"><u>0.774</u></td><td class="has-text-centered"><u>0.216</u></td><td class="has-text-centered"><u>0.669</u></td><td class="has-text-centered"><u>0.282</u></td><td class="has-text-centered">0.454</td><td class="has-text-centered">0.712</td><td class="has-text-centered">4h 41m 43s</td><td class="has-text-centered">32,448 MB</td></tr>
+<tr class="child-row zipnerf-group">
+                  <td style="padding-left: 40px;">↳ Day 20 (Growth Span)</td><td class="has-text-centered"><strong>29.42</strong></td><td class="has-text-centered"><strong>0.810</strong></td><td class="has-text-centered"><u>0.194</u></td><td class="has-text-centered"><strong>0.602</strong></td><td class="has-text-centered"><u>0.336</u></td><td class="has-text-centered">0.412</td><td class="has-text-centered">0.618</td><td class="has-text-centered">4h 29m 36s</td><td class="has-text-centered">32,448 MB</td></tr>
+</tbody>
 
-              <tbody>
-                <tr class="parent-row" onclick="toggleBenchmarkRow(this, 'tetra-nerf-group')">
+<tbody><tr class="parent-row" onclick="toggleBenchmarkRow(this, 'tetra-nerf-group')">
                   <td>
                     <span class="icon is-small" style="margin-right: 5px;">
                       <i class="fas fa-angle-down toggle-icon"></i>
@@ -1354,148 +726,50 @@
                     <span style="color: #888; font-size: 0.95em; font-weight: normal;">
                       [ICCV '23]
                     </span>
-                  </td>
-                   <td class="has-text-centered"><strong>26.713</strong></td>
-                  <td class="has-text-centered"><strong>0.6713</strong></td>
-                  <td class="has-text-centered"><strong>0.4296</strong></td>
-                  <td class="has-text-centered"><strong>17h 53m 4s</strong></td>
-                  <td class="has-text-centered"><strong>13,708 MB</strong></td>
-                </tr>
-                <tr class="child-row tetra-nerf-group">
-                  <td style="padding-left: 40px;">↳ 06:00 AM (Lighting Variance)</td>
-                  <td class="has-text-centered">28.225</td>
-                  <td class="has-text-centered">0.7333</td>
-                  <td class="has-text-centered">0.4292</td>
-                  <td class="has-text-centered">16h 59m 19s</td>
-                  <td class="has-text-centered">13,708 MB</td>
-                </tr>
-                <tr class="child-row tetra-nerf-group">
-                  <td style="padding-left: 40px;">↳ 11:00 AM (Lighting Variance)</td>
-                  <td class="has-text-centered">24.057</td>
-                  <td class="has-text-centered">0.6068</td>
-                  <td class="has-text-centered">0.4915</td>
-                  <td class="has-text-centered">17h 23m 24s</td>
-                  <td class="has-text-centered">13,708 MB</td>
-                </tr>
-                <tr class="child-row tetra-nerf-group">
-                  <td style="padding-left: 40px;">↳ 04:00 PM (Lighting Variance)</td>
-                  <td class="has-text-centered">25.564</td>
-                  <td class="has-text-centered">0.6458</td>
-                  <td class="has-text-centered">0.4765</td>
-                  <td class="has-text-centered">18h 8m 2s</td>
-                  <td class="has-text-centered">13,708 MB</td>
-                </tr>
-                <tr class="child-row tetra-nerf-group">
-                  <td style="padding-left: 40px;">↳ 09:00 PM (Lighting Variance)</td>
-                  <td class="has-text-centered">29.337</td>
-                  <td class="has-text-centered">0.7558</td>
-                  <td class="has-text-centered">0.3908</td>
-                  <td class="has-text-centered">17h 53m 47s</td>
-                  <td class="has-text-centered">13,708 MB</td>
-                </tr>
-                <tr class="child-row tetra-nerf-group">
-                  <td style="padding-left: 40px;">↳ Day 6 (Growth Span)</td>
-                  <td class="has-text-centered">25.324</td>
-                  <td class="has-text-centered">0.5976</td>
-                  <td class="has-text-centered">0.4025</td>
-                  <td class="has-text-centered">16h 53m 12s</td>
-                  <td class="has-text-centered">13,708 MB</td>
-                </tr>
-                <tr class="child-row tetra-nerf-group">
-                  <td style="padding-left: 40px;">↳ Day 13 (Growth Span)</td>
-                  <td class="has-text-centered">27.096</td>
-                  <td class="has-text-centered">0.6581</td>
-                  <td class="has-text-centered">0.3926</td>
-                  <td class="has-text-centered">19h 51m 29s</td>
-                  <td class="has-text-centered">13,708 MB</td>
-                </tr>
-                <tr class="child-row tetra-nerf-group">
-                  <td style="padding-left: 40px;">↳ Day 20 (Growth Span)</td>
-                  <td class="has-text-centered">27.388</td>
-                  <td class="has-text-centered">0.7020</td>
-                  <td class="has-text-centered">0.4241</td>
-                  <td class="has-text-centered">18h 2m 14s</td>
-                  <td class="has-text-centered">13,708 MB</td>
-                </tr>
-              </tbody>
+                  </td><td class="has-text-centered">26.71</td><td class="has-text-centered">0.671</td><td class="has-text-centered">0.430</td><td class="has-text-centered">0.433</td><td class="has-text-centered">0.635</td><td class="has-text-centered">0.120</td><td class="has-text-centered">0.254</td><td class="has-text-centered">17h 53m 4s</td><td class="has-text-centered">13,708 MB</td></tr>
+<tr class="child-row tetra-nerf-group">
+                  <td style="padding-left: 40px;">↳ 06:00 AM (Lighting Variance)</td><td class="has-text-centered">28.23</td><td class="has-text-centered">0.733</td><td class="has-text-centered">0.429</td><td class="has-text-centered">0.506</td><td class="has-text-centered">0.670</td><td class="has-text-centered">0.070</td><td class="has-text-centered">0.048</td><td class="has-text-centered">16h 59m 19s</td><td class="has-text-centered">13,708 MB</td></tr>
+<tr class="child-row tetra-nerf-group">
+                  <td style="padding-left: 40px;">↳ 11:00 AM (Lighting Variance)</td><td class="has-text-centered">24.06</td><td class="has-text-centered">0.607</td><td class="has-text-centered">0.492</td><td class="has-text-centered">0.287</td><td class="has-text-centered">0.764</td><td class="has-text-centered">0.089</td><td class="has-text-centered">0.266</td><td class="has-text-centered">17h 23m 24s</td><td class="has-text-centered">13,708 MB</td></tr>
+<tr class="child-row tetra-nerf-group">
+                  <td style="padding-left: 40px;">↳ 04:00 PM (Lighting Variance)</td><td class="has-text-centered">25.56</td><td class="has-text-centered">0.646</td><td class="has-text-centered">0.477</td><td class="has-text-centered">0.353</td><td class="has-text-centered">0.708</td><td class="has-text-centered">0.096</td><td class="has-text-centered">0.271</td><td class="has-text-centered">18h 8m 2s</td><td class="has-text-centered">13,708 MB</td></tr>
+<tr class="child-row tetra-nerf-group">
+                  <td style="padding-left: 40px;">↳ 09:00 PM (Lighting Variance)</td><td class="has-text-centered">29.34</td><td class="has-text-centered">0.756</td><td class="has-text-centered">0.391</td><td class="has-text-centered">0.523</td><td class="has-text-centered">0.653</td><td class="has-text-centered">0.078</td><td class="has-text-centered">0.062</td><td class="has-text-centered">17h 53m 47s</td><td class="has-text-centered">13,708 MB</td></tr>
+<tr class="child-row tetra-nerf-group">
+                  <td style="padding-left: 40px;">↳ Day 6 (Growth Span)</td><td class="has-text-centered">25.32</td><td class="has-text-centered">0.598</td><td class="has-text-centered">0.402</td><td class="has-text-centered">0.414</td><td class="has-text-centered">0.431</td><td class="has-text-centered">0.261</td><td class="has-text-centered">0.711</td><td class="has-text-centered">16h 53m 12s</td><td class="has-text-centered">13,708 MB</td></tr>
+<tr class="child-row tetra-nerf-group">
+                  <td style="padding-left: 40px;">↳ Day 13 (Growth Span)</td><td class="has-text-centered">27.10</td><td class="has-text-centered">0.658</td><td class="has-text-centered">0.393</td><td class="has-text-centered">0.501</td><td class="has-text-centered">0.534</td><td class="has-text-centered">0.161</td><td class="has-text-centered">0.325</td><td class="has-text-centered">19h 51m 29s</td><td class="has-text-centered">13,708 MB</td></tr>
+<tr class="child-row tetra-nerf-group">
+                  <td style="padding-left: 40px;">↳ Day 20 (Growth Span)</td><td class="has-text-centered">27.39</td><td class="has-text-centered">0.702</td><td class="has-text-centered">0.424</td><td class="has-text-centered">0.444</td><td class="has-text-centered">0.684</td><td class="has-text-centered">0.086</td><td class="has-text-centered">0.095</td><td class="has-text-centered">18h 2m 14s</td><td class="has-text-centered">13,708 MB</td></tr>
+</tbody>
 
-              <tbody>
-                <tr class="parent-row" onclick="toggleBenchmarkRow(this, 'nerfacto-group')">
+<tbody><tr class="parent-row" onclick="toggleBenchmarkRow(this, 'nerfacto-group')">
                   <td>
                     <span class="icon is-small" style="margin-right: 5px;">
                       <i class="fas fa-angle-down toggle-icon"></i>
                     </span>
-                    <strong>NerfStudio</strong>
+                    <strong>Nerfacto</strong>
                     <span style="color: #888; font-size: 0.95em; font-weight: normal;">
                       [SIGGRAPH '23]
                     </span>
-                  </td>
-                  <td class="has-text-centered"><strong>22.061</strong></td>
-                  <td class="has-text-centered"><strong>0.5288</strong></td>
-                  <td class="has-text-centered"><strong>0.5434</strong></td>
-                  <td class="has-text-centered"><strong>6m 53s</strong></td>
-                  <td class="has-text-centered"><strong>4,198 MB</strong></td>
-                </tr>
-                <tr class="child-row nerfacto-group">
-                  <td style="padding-left: 40px;">↳ 06:00 AM (Lighting Variance)</td>
-                  <td class="has-text-centered">23.703</td>
-                  <td class="has-text-centered">0.6389</td>
-                  <td class="has-text-centered">0.4891</td>
-                  <td class="has-text-centered">7m 18s</td>
-                  <td class="has-text-centered">4,198 MB</td>
-                </tr>
-                <tr class="child-row nerfacto-group">
-                  <td style="padding-left: 40px;">↳ 11:00 AM (Lighting Variance)</td>
-                  <td class="has-text-centered">20.275</td>
-                  <td class="has-text-centered">0.4353</td>
-                  <td class="has-text-centered">0.5365</td>
-                  <td class="has-text-centered">7m 22s</td>
-                  <td class="has-text-centered">4,198 MB</td>
-                </tr>
-                <tr class="child-row nerfacto-group">
-                  <td style="padding-left: 40px;">↳ 04:00 PM (Lighting Variance)</td>
-                  <td class="has-text-centered">21.573</td>
-                  <td class="has-text-centered">0.5007</td>
-                  <td class="has-text-centered">0.4977</td>
-                  <td class="has-text-centered">7m 19s</td>
-                  <td class="has-text-centered">4,198 MB</td>
-                </tr>
-                <tr class="child-row nerfacto-group">
-                  <td style="padding-left: 40px;">↳ 09:00 PM (Lighting Variance)</td>
-                  <td class="has-text-centered">24.739</td>
-                  <td class="has-text-centered">0.6555</td>
-                  <td class="has-text-centered">0.4643</td>
-                  <td class="has-text-centered">7m 10s</td>
-                  <td class="has-text-centered">4,198 MB</td>
-                </tr>
-                <tr class="child-row nerfacto-group">
-                  <td style="padding-left: 40px;">↳ Day 6 (Growth Span)</td>
-                  <td class="has-text-centered">22.133</td>
-                  <td class="has-text-centered">0.4449</td>
-                  <td class="has-text-centered">0.6376</td>
-                  <td class="has-text-centered">6m 22s</td>
-                  <td class="has-text-centered">4,198 MB</td>
-                </tr>
-                <tr class="child-row nerfacto-group">
-                  <td style="padding-left: 40px;">↳ Day 13 (Growth Span)</td>
-                  <td class="has-text-centered">18.809</td>
-                  <td class="has-text-centered">0.4454</td>
-                  <td class="has-text-centered">0.6905</td>
-                  <td class="has-text-centered">6m 21s</td>
-                  <td class="has-text-centered">4,198 MB</td>
-                </tr>
-                <tr class="child-row nerfacto-group">
-                  <td style="padding-left: 40px;">↳ Day 20 (Growth Span)</td>
-                  <td class="has-text-centered">23.194</td>
-                  <td class="has-text-centered">0.5809</td>
-                  <td class="has-text-centered">0.4882</td>
-                  <td class="has-text-centered">6m 20s</td>
-                  <td class="has-text-centered">4,198 MB</td>
-                </tr>
-              </tbody>
+                  </td><td class="has-text-centered">22.06</td><td class="has-text-centered">0.529</td><td class="has-text-centered">0.543</td><td class="has-text-centered">0.337</td><td class="has-text-centered">0.767</td><td class="has-text-centered">0.047</td><td class="has-text-centered">0.100</td><td class="has-text-centered">6m 53s</td><td class="has-text-centered">4,198 MB</td></tr>
+<tr class="child-row nerfacto-group">
+                  <td style="padding-left: 40px;">↳ 06:00 AM (Lighting Variance)</td><td class="has-text-centered">23.70</td><td class="has-text-centered">0.639</td><td class="has-text-centered">0.489</td><td class="has-text-centered">0.460</td><td class="has-text-centered">0.782</td><td class="has-text-centered">0.040</td><td class="has-text-centered">0.042</td><td class="has-text-centered">7m 18s</td><td class="has-text-centered">4,198 MB</td></tr>
+<tr class="child-row nerfacto-group">
+                  <td style="padding-left: 40px;">↳ 11:00 AM (Lighting Variance)</td><td class="has-text-centered">20.27</td><td class="has-text-centered">0.435</td><td class="has-text-centered">0.537</td><td class="has-text-centered">0.199</td><td class="has-text-centered">0.853</td><td class="has-text-centered">0.035</td><td class="has-text-centered">0.056</td><td class="has-text-centered">7m 22s</td><td class="has-text-centered">4,198 MB</td></tr>
+<tr class="child-row nerfacto-group">
+                  <td style="padding-left: 40px;">↳ 04:00 PM (Lighting Variance)</td><td class="has-text-centered">21.57</td><td class="has-text-centered">0.501</td><td class="has-text-centered">0.498</td><td class="has-text-centered">0.283</td><td class="has-text-centered">0.791</td><td class="has-text-centered">0.045</td><td class="has-text-centered">0.102</td><td class="has-text-centered">7m 19s</td><td class="has-text-centered">4,198 MB</td></tr>
+<tr class="child-row nerfacto-group">
+                  <td style="padding-left: 40px;">↳ 09:00 PM (Lighting Variance)</td><td class="has-text-centered">24.74</td><td class="has-text-centered">0.655</td><td class="has-text-centered">0.464</td><td class="has-text-centered">0.471</td><td class="has-text-centered">0.780</td><td class="has-text-centered">0.030</td><td class="has-text-centered">0.045</td><td class="has-text-centered">7m 10s</td><td class="has-text-centered">4,198 MB</td></tr>
+<tr class="child-row nerfacto-group">
+                  <td style="padding-left: 40px;">↳ Day 6 (Growth Span)</td><td class="has-text-centered">22.13</td><td class="has-text-centered">0.445</td><td class="has-text-centered">0.638</td><td class="has-text-centered">0.200</td><td class="has-text-centered">0.645</td><td class="has-text-centered">0.104</td><td class="has-text-centered">0.403</td><td class="has-text-centered">6m 22s</td><td class="has-text-centered">4,198 MB</td></tr>
+<tr class="child-row nerfacto-group">
+                  <td style="padding-left: 40px;">↳ Day 13 (Growth Span)</td><td class="has-text-centered">18.81</td><td class="has-text-centered">0.445</td><td class="has-text-centered">0.691</td><td class="has-text-centered">0.376</td><td class="has-text-centered">0.730</td><td class="has-text-centered">0.038</td><td class="has-text-centered">0.017</td><td class="has-text-centered">6m 21s</td><td class="has-text-centered">4,198 MB</td></tr>
+<tr class="child-row nerfacto-group">
+                  <td style="padding-left: 40px;">↳ Day 20 (Growth Span)</td><td class="has-text-centered">23.19</td><td class="has-text-centered">0.581</td><td class="has-text-centered">0.488</td><td class="has-text-centered">0.373</td><td class="has-text-centered">0.791</td><td class="has-text-centered">0.039</td><td class="has-text-centered">0.032</td><td class="has-text-centered">6m 20s</td><td class="has-text-centered">4,198 MB</td></tr>
+</tbody>
 
-              <tbody>
-                <tr class="parent-row" onclick="toggleBenchmarkRow(this, 'seathru-nerf-group')">
+<tbody><tr class="parent-row" onclick="toggleBenchmarkRow(this, 'seathru-nerf-group')">
                   <td>
                     <span class="icon is-small" style="margin-right: 5px;">
                       <i class="fas fa-angle-down toggle-icon"></i>
@@ -1504,70 +778,22 @@
                     <span style="color: #888; font-size: 0.95em; font-weight: normal;">
                       [CVPR '23]
                     </span>
-                  </td>
-                  <td class="has-text-centered"><strong>23.485</strong></td>
-                  <td class="has-text-centered"><strong>0.5272</strong></td>
-                  <td class="has-text-centered"><strong>0.6709</strong></td>
-                  <td class="has-text-centered"><strong>11h 51m 45s</strong></td>
-                  <td class="has-text-centered"><strong>37,218 MB</strong></td>
-                </tr>
-                <tr class="child-row seathru-nerf-group">
-                  <td style="padding-left: 40px;">↳ 06:00 AM (Lighting Variance)</td>
-                  <td class="has-text-centered">25.371</td>
-                  <td class="has-text-centered">0.6274</td>
-                  <td class="has-text-centered">0.6273</td>
-                  <td class="has-text-centered">11h 46m 32s</td>
-                  <td class="has-text-centered">37,218 MB</td>
-                </tr>
-                <tr class="child-row seathru-nerf-group">
-                  <td style="padding-left: 40px;">↳ 11:00 AM (Lighting Variance)</td>
-                  <td class="has-text-centered">21.421</td>
-                  <td class="has-text-centered">0.4415</td>
-                  <td class="has-text-centered">0.7049</td>
-                  <td class="has-text-centered">11h 43m 27s</td>
-                  <td class="has-text-centered">37,218 MB</td>
-                </tr>
-                <tr class="child-row seathru-nerf-group">
-                  <td style="padding-left: 40px;">↳ 04:00 PM (Lighting Variance)</td>
-                  <td class="has-text-centered">22.885</td>
-                  <td class="has-text-centered">0.4975</td>
-                  <td class="has-text-centered">0.6810</td>
-                  <td class="has-text-centered">11h 41m 39s</td>
-                  <td class="has-text-centered">37,218 MB</td>
-                </tr>
-                <tr class="child-row seathru-nerf-group">
-                  <td style="padding-left: 40px;">↳ 09:00 PM (Lighting Variance)</td>
-                  <td class="has-text-centered">26.456</td>
-                  <td class="has-text-centered">0.6527</td>
-                  <td class="has-text-centered">0.6079</td>
-                  <td class="has-text-centered">11h 42m 38s</td>
-                  <td class="has-text-centered">37,218 MB</td>
-                </tr>
-                <tr class="child-row seathru-nerf-group">
-                  <td style="padding-left: 40px;">↳ Day 6 (Growth Span)</td>
-                  <td class="has-text-centered">22.691</td>
-                  <td class="has-text-centered">0.4429</td>
-                  <td class="has-text-centered">0.7129</td>
-                  <td class="has-text-centered">11h 38m 1s</td>
-                  <td class="has-text-centered">37,218 MB</td>
-                </tr>
-                <tr class="child-row seathru-nerf-group">
-                  <td style="padding-left: 40px;">↳ Day 13 (Growth Span)</td>
-                  <td class="has-text-centered">21.488</td>
-                  <td class="has-text-centered">0.4601</td>
-                  <td class="has-text-centered">0.7162</td>
-                  <td class="has-text-centered">12h 45m 41s</td>
-                  <td class="has-text-centered">37,216 MB</td>
-                </tr>
-                <tr class="child-row seathru-nerf-group">
-                  <td style="padding-left: 40px;">↳ Day 20 (Growth Span)</td>
-                  <td class="has-text-centered">24.084</td>
-                  <td class="has-text-centered">0.5681</td>
-                  <td class="has-text-centered">0.6460</td>
-                  <td class="has-text-centered">11h 44m 23s</td>
-                  <td class="has-text-centered">37,218 MB</td>
-                </tr>
-              </tbody>
+                  </td><td class="has-text-centered">23.49</td><td class="has-text-centered">0.527</td><td class="has-text-centered">0.671</td><td class="has-text-centered">0.336</td><td class="has-text-centered">0.850</td><td class="has-text-centered">0.024</td><td class="has-text-centered">0.021</td><td class="has-text-centered">11h 51m 45s</td><td class="has-text-centered">37,218 MB</td></tr>
+<tr class="child-row seathru-nerf-group">
+                  <td style="padding-left: 40px;">↳ 06:00 AM (Lighting Variance)</td><td class="has-text-centered">25.37</td><td class="has-text-centered">0.627</td><td class="has-text-centered">0.627</td><td class="has-text-centered">0.457</td><td class="has-text-centered">0.849</td><td class="has-text-centered">0.023</td><td class="has-text-centered">0.020</td><td class="has-text-centered">11h 46m 32s</td><td class="has-text-centered">37,218 MB</td></tr>
+<tr class="child-row seathru-nerf-group">
+                  <td style="padding-left: 40px;">↳ 11:00 AM (Lighting Variance)</td><td class="has-text-centered">21.42</td><td class="has-text-centered">0.441</td><td class="has-text-centered">0.705</td><td class="has-text-centered">0.204</td><td class="has-text-centered">0.984</td><td class="has-text-centered">0.014</td><td class="has-text-centered">0.014</td><td class="has-text-centered">11h 43m 27s</td><td class="has-text-centered">37,218 MB</td></tr>
+<tr class="child-row seathru-nerf-group">
+                  <td style="padding-left: 40px;">↳ 04:00 PM (Lighting Variance)</td><td class="has-text-centered">22.88</td><td class="has-text-centered">0.498</td><td class="has-text-centered">0.681</td><td class="has-text-centered">0.278</td><td class="has-text-centered">0.914</td><td class="has-text-centered">0.020</td><td class="has-text-centered">0.020</td><td class="has-text-centered">11h 41m 39s</td><td class="has-text-centered">37,218 MB</td></tr>
+<tr class="child-row seathru-nerf-group">
+                  <td style="padding-left: 40px;">↳ 09:00 PM (Lighting Variance)</td><td class="has-text-centered">26.46</td><td class="has-text-centered">0.653</td><td class="has-text-centered">0.608</td><td class="has-text-centered">0.470</td><td class="has-text-centered">0.828</td><td class="has-text-centered">0.027</td><td class="has-text-centered">0.015</td><td class="has-text-centered">11h 42m 38s</td><td class="has-text-centered">37,218 MB</td></tr>
+<tr class="child-row seathru-nerf-group">
+                  <td style="padding-left: 40px;">↳ Day 6 (Growth Span)</td><td class="has-text-centered">22.69</td><td class="has-text-centered">0.443</td><td class="has-text-centered">0.713</td><td class="has-text-centered">0.183</td><td class="has-text-centered">0.751</td><td class="has-text-centered">0.034</td><td class="has-text-centered">0.061</td><td class="has-text-centered">11h 38m 1s</td><td class="has-text-centered">37,218 MB</td></tr>
+<tr class="child-row seathru-nerf-group">
+                  <td style="padding-left: 40px;">↳ Day 13 (Growth Span)</td><td class="has-text-centered">21.49</td><td class="has-text-centered">0.460</td><td class="has-text-centered">0.716</td><td class="has-text-centered">0.386</td><td class="has-text-centered">0.753</td><td class="has-text-centered">0.022</td><td class="has-text-centered">0.006</td><td class="has-text-centered">12h 45m 41s</td><td class="has-text-centered">37,216 MB</td></tr>
+<tr class="child-row seathru-nerf-group">
+                  <td style="padding-left: 40px;">↳ Day 20 (Growth Span)</td><td class="has-text-centered">24.08</td><td class="has-text-centered">0.568</td><td class="has-text-centered">0.646</td><td class="has-text-centered">0.374</td><td class="has-text-centered">0.872</td><td class="has-text-centered">0.023</td><td class="has-text-centered">0.013</td><td class="has-text-centered">11h 44m 23s</td><td class="has-text-centered">37,218 MB</td></tr>
+</tbody>
             </table>
           </div>
         </div>
@@ -1658,8 +884,8 @@
           <h2 class="title is-3">Benchmark Qualitative Results I</h2>
           <div class="content has-text-centered">
             <p>
-              We present the qualitative comparison results against the Ground Truth for <b>Zip-NeRF</b> and <b>Octree-GS</b>, 
-              which demonstrated the best performance among NeRF-based and Gaussian Splatting-based methods, respectively.
+              We present the qualitative comparison results against the Ground Truth for <b>Octree-GS</b>, the base method of our approach, and <b>AgriSplat</b>.
+              AgriSplat reproduces the fine leaf and edge details of the canola region more faithfully.
               For high-resolution image comparisons, please refer to the Supplementary Material.
             </p>
             <p style="color: red;">
@@ -1716,29 +942,6 @@
                     
                     <div class="custom-video-block">
                       <h3 class="title" style="font-family: 'Kalam', cursive; text-align: center; font-size: 16px; margin-bottom: 5px;">
-                        Scene at <span style="color: #0253c5;">06:00 AM</span> (Zip-NeRF)
-                      </h3>
-                      <div style="display: flex; justify-content: space-between; text-align: center; font-size: 15px; margin-bottom: 2px; padding: 5px;">
-                        <span style="margin-left: 10px;"><strong>Ground Truth</strong></span>
-                        <span style="margin-right: 10px;"><strong>Zip-NeRF</strong></span>
-                      </div>
-                      <div class="video-compare-container" data-slider>
-                        <video class="left-video" loop autoplay muted playsinline>
-                          <source src="./video_results/Rendered/zipnerf/Table1/06_640p.mp4" type="video/mp4">
-                        </video>
-                        <div class="slider-bar">
-                          <div class="slider-divider"></div>
-                          <video class="right-video" loop autoplay muted playsinline>
-                            <source src="./video_results/Ground_Truth/Table1/06_640p.mp4" type="video/mp4">
-                          </video>
-                        </div>
-                      </div>
-                    </div>
-
-                    <br>
-
-                    <div class="custom-video-block">
-                      <h3 class="title" style="font-family: 'Kalam', cursive; text-align: center; font-size: 16px; margin-bottom: 5px;">
                         Scene at <span style="color: #0253c5;">06:00 AM</span> (Octree-GS)
                       </h3>
                       <div style="display: flex; justify-content: space-between; text-align: center; font-size: 15px; margin-bottom: 2px; padding: 5px;">
@@ -1758,35 +961,35 @@
                       </div>
                     </div>
 
+                    <br>
+
+                    <div class="custom-video-block">
+                      <h3 class="title" style="font-family: 'Kalam', cursive; text-align: center; font-size: 16px; margin-bottom: 5px;">
+                        Scene at <span style="color: #0253c5;">06:00 AM</span> (AgriSplat)
+                      </h3>
+                      <div style="display: flex; justify-content: space-between; text-align: center; font-size: 15px; margin-bottom: 2px; padding: 5px;">
+                        <span style="margin-left: 10px;"><strong>Ground Truth</strong></span>
+                        <span style="margin-right: 10px;"><strong>AgriSplat</strong></span>
+                      </div>
+                      <div class="video-compare-container" data-slider>
+                        <video class="left-video" loop autoplay muted playsinline>
+                          <source src="./video_results/Rendered/agrisplat/Table1/06_640p.mp4" type="video/mp4">
+                        </video>
+                        <div class="slider-bar">
+                          <div class="slider-divider"></div>
+                          <video class="right-video" loop autoplay muted playsinline>
+                            <source src="./video_results/Ground_Truth/Table1/06_640p.mp4" type="video/mp4">
+                          </video>
+                        </div>
+                      </div>
+                    </div>
+
                   </div>
                 </div>
 
                 <div class="tab-pane fade" id="nav-11am" role="tabpanel" aria-labelledby="nav-11am-tab">
                   <div class="container h-100 pt-3 pb-3">
                     
-                    <div class="custom-video-block">
-                      <h3 class="title" style="font-family: 'Kalam', cursive; text-align: center; font-size: 16px; margin-bottom: 5px;">
-                        Scene at <span style="color: #0253c5;">11:00 AM</span> (Zip-NeRF)
-                      </h3>
-                      <div style="display: flex; justify-content: space-between; text-align: center; font-size: 15px; margin-bottom: 2px; padding: 5px;">
-                        <span style="margin-left: 10px;"><strong>Ground Truth</strong></span>
-                        <span style="margin-right: 10px;"><strong>Zip-NeRF</strong></span>
-                      </div>
-                      <div class="video-compare-container" data-slider>
-                        <video class="left-video" loop autoplay muted playsinline>
-                          <source src="./video_results/Rendered/zipnerf/Table1/11_640p.mp4" type="video/mp4">
-                        </video>
-                        <div class="slider-bar">
-                          <div class="slider-divider"></div>
-                          <video class="right-video" loop autoplay muted playsinline>
-                            <source src="./video_results/Ground_Truth/Table1/11_640p.mp4" type="video/mp4">
-                          </video>
-                        </div>
-                      </div>
-                    </div>
-
-                    <br>
-
                     <div class="custom-video-block">
                       <h3 class="title" style="font-family: 'Kalam', cursive; text-align: center; font-size: 16px; margin-bottom: 5px;">
                         Scene at <span style="color: #0253c5;">11:00 AM</span> (Octree-GS)
@@ -1808,35 +1011,35 @@
                       </div>
                     </div>
 
+                    <br>
+
+                    <div class="custom-video-block">
+                      <h3 class="title" style="font-family: 'Kalam', cursive; text-align: center; font-size: 16px; margin-bottom: 5px;">
+                        Scene at <span style="color: #0253c5;">11:00 AM</span> (AgriSplat)
+                      </h3>
+                      <div style="display: flex; justify-content: space-between; text-align: center; font-size: 15px; margin-bottom: 2px; padding: 5px;">
+                        <span style="margin-left: 10px;"><strong>Ground Truth</strong></span>
+                        <span style="margin-right: 10px;"><strong>AgriSplat</strong></span>
+                      </div>
+                      <div class="video-compare-container" data-slider>
+                        <video class="left-video" loop autoplay muted playsinline>
+                          <source src="./video_results/Rendered/agrisplat/Table1/11_640p.mp4" type="video/mp4">
+                        </video>
+                        <div class="slider-bar">
+                          <div class="slider-divider"></div>
+                          <video class="right-video" loop autoplay muted playsinline>
+                            <source src="./video_results/Ground_Truth/Table1/11_640p.mp4" type="video/mp4">
+                          </video>
+                        </div>
+                      </div>
+                    </div>
+
                   </div>
                 </div>
 
                 <div class="tab-pane fade" id="nav-04pm" role="tabpanel" aria-labelledby="nav-04pm-tab">
                   <div class="container h-100 pt-3 pb-3">
                     
-                    <div class="custom-video-block">
-                      <h3 class="title" style="font-family: 'Kalam', cursive; text-align: center; font-size: 16px; margin-bottom: 5px;">
-                        Scene at <span style="color: #0253c5;">04:00 PM</span> (Zip-NeRF)
-                      </h3>
-                      <div style="display: flex; justify-content: space-between; text-align: center; font-size: 15px; margin-bottom: 2px; padding: 5px;">
-                        <span style="margin-left: 10px;"><strong>Ground Truth</strong></span>
-                        <span style="margin-right: 10px;"><strong>Zip-NeRF</strong></span>
-                      </div>
-                      <div class="video-compare-container" data-slider>
-                        <video class="left-video" loop autoplay muted playsinline>
-                          <source src="./video_results/Rendered/zipnerf/Table1/16_640p.mp4" type="video/mp4">
-                        </video>
-                        <div class="slider-bar">
-                          <div class="slider-divider"></div>
-                          <video class="right-video" loop autoplay muted playsinline>
-                            <source src="./video_results/Ground_Truth/Table1/16_640p.mp4" type="video/mp4">
-                          </video>
-                        </div>
-                      </div>
-                    </div>
-
-                    <br>
-
                     <div class="custom-video-block">
                       <h3 class="title" style="font-family: 'Kalam', cursive; text-align: center; font-size: 16px; margin-bottom: 5px;">
                         Scene at <span style="color: #0253c5;">04:00 PM</span> (Octree-GS)
@@ -1858,35 +1061,35 @@
                       </div>
                     </div>
 
+                    <br>
+
+                    <div class="custom-video-block">
+                      <h3 class="title" style="font-family: 'Kalam', cursive; text-align: center; font-size: 16px; margin-bottom: 5px;">
+                        Scene at <span style="color: #0253c5;">04:00 PM</span> (AgriSplat)
+                      </h3>
+                      <div style="display: flex; justify-content: space-between; text-align: center; font-size: 15px; margin-bottom: 2px; padding: 5px;">
+                        <span style="margin-left: 10px;"><strong>Ground Truth</strong></span>
+                        <span style="margin-right: 10px;"><strong>AgriSplat</strong></span>
+                      </div>
+                      <div class="video-compare-container" data-slider>
+                        <video class="left-video" loop autoplay muted playsinline>
+                          <source src="./video_results/Rendered/agrisplat/Table1/16_640p.mp4" type="video/mp4">
+                        </video>
+                        <div class="slider-bar">
+                          <div class="slider-divider"></div>
+                          <video class="right-video" loop autoplay muted playsinline>
+                            <source src="./video_results/Ground_Truth/Table1/16_640p.mp4" type="video/mp4">
+                          </video>
+                        </div>
+                      </div>
+                    </div>
+
                   </div>
                 </div>
 
                 <div class="tab-pane fade" id="nav-09pm" role="tabpanel" aria-labelledby="nav-09pm-tab">
                   <div class="container h-100 pt-3 pb-3">
                     
-                    <div class="custom-video-block">
-                      <h3 class="title" style="font-family: 'Kalam', cursive; text-align: center; font-size: 16px; margin-bottom: 5px;">
-                        Scene at <span style="color: #0253c5;">09:00 PM</span> (Zip-NeRF)
-                      </h3>
-                      <div style="display: flex; justify-content: space-between; text-align: center; font-size: 15px; margin-bottom: 2px; padding: 5px;">
-                        <span style="margin-left: 10px;"><strong>Ground Truth</strong></span>
-                        <span style="margin-right: 10px;"><strong>Zip-NeRF</strong></span>
-                      </div>
-                      <div class="video-compare-container" data-slider>
-                        <video class="left-video" loop autoplay muted playsinline>
-                          <source src="./video_results/Rendered/zipnerf/Table1/21_640p.mp4" type="video/mp4">
-                        </video>
-                        <div class="slider-bar">
-                          <div class="slider-divider"></div>
-                          <video class="right-video" loop autoplay muted playsinline>
-                            <source src="./video_results/Ground_Truth/Table1/21_640p.mp4" type="video/mp4">
-                          </video>
-                        </div>
-                      </div>
-                    </div>
-
-                    <br>
-
                     <div class="custom-video-block">
                       <h3 class="title" style="font-family: 'Kalam', cursive; text-align: center; font-size: 16px; margin-bottom: 5px;">
                         Scene at <span style="color: #0253c5;">09:00 PM</span> (Octree-GS)
@@ -1908,35 +1111,35 @@
                       </div>
                     </div>
 
+                    <br>
+
+                    <div class="custom-video-block">
+                      <h3 class="title" style="font-family: 'Kalam', cursive; text-align: center; font-size: 16px; margin-bottom: 5px;">
+                        Scene at <span style="color: #0253c5;">09:00 PM</span> (AgriSplat)
+                      </h3>
+                      <div style="display: flex; justify-content: space-between; text-align: center; font-size: 15px; margin-bottom: 2px; padding: 5px;">
+                        <span style="margin-left: 10px;"><strong>Ground Truth</strong></span>
+                        <span style="margin-right: 10px;"><strong>AgriSplat</strong></span>
+                      </div>
+                      <div class="video-compare-container" data-slider>
+                        <video class="left-video" loop autoplay muted playsinline>
+                          <source src="./video_results/Rendered/agrisplat/Table1/21_640p.mp4" type="video/mp4">
+                        </video>
+                        <div class="slider-bar">
+                          <div class="slider-divider"></div>
+                          <video class="right-video" loop autoplay muted playsinline>
+                            <source src="./video_results/Ground_Truth/Table1/21_640p.mp4" type="video/mp4">
+                          </video>
+                        </div>
+                      </div>
+                    </div>
+
                   </div>
                 </div>
 
                 <div class="tab-pane fade" id="nav-day6" role="tabpanel" aria-labelledby="nav-day6-tab">
                   <div class="container h-100 pt-3 pb-3">
                     
-                    <div class="custom-video-block">
-                      <h3 class="title" style="font-family: 'Kalam', cursive; text-align: center; font-size: 16px; margin-bottom: 5px;">
-                        Scene on <span style="color: #0253c5;">Day 6</span> (Zip-NeRF)
-                      </h3>
-                      <div style="display: flex; justify-content: space-between; text-align: center; font-size: 15px; margin-bottom: 2px; padding: 5px;">
-                        <span style="margin-left: 10px;"><strong>Ground Truth</strong></span>
-                        <span style="margin-right: 10px;"><strong>Zip-NeRF</strong></span>
-                      </div>
-                      <div class="video-compare-container" data-slider>
-                        <video class="left-video" loop autoplay muted playsinline>
-                          <source src="./video_results/Rendered/zipnerf/Table2/Week1_640p.mp4" type="video/mp4">
-                        </video>
-                        <div class="slider-bar">
-                          <div class="slider-divider"></div>
-                          <video class="right-video" loop autoplay muted playsinline>
-                            <source src="./video_results/Ground_Truth/Table2/Week1_640p.mp4" type="video/mp4">
-                          </video>
-                        </div>
-                      </div>
-                    </div>
-
-                    <br>
-
                     <div class="custom-video-block">
                       <h3 class="title" style="font-family: 'Kalam', cursive; text-align: center; font-size: 16px; margin-bottom: 5px;">
                         Scene on <span style="color: #0253c5;">Day 6</span> (Octree-GS)
@@ -1958,35 +1161,35 @@
                       </div>
                     </div>
 
+                    <br>
+
+                    <div class="custom-video-block">
+                      <h3 class="title" style="font-family: 'Kalam', cursive; text-align: center; font-size: 16px; margin-bottom: 5px;">
+                        Scene on <span style="color: #0253c5;">Day 6</span> (AgriSplat)
+                      </h3>
+                      <div style="display: flex; justify-content: space-between; text-align: center; font-size: 15px; margin-bottom: 2px; padding: 5px;">
+                        <span style="margin-left: 10px;"><strong>Ground Truth</strong></span>
+                        <span style="margin-right: 10px;"><strong>AgriSplat</strong></span>
+                      </div>
+                      <div class="video-compare-container" data-slider>
+                        <video class="left-video" loop autoplay muted playsinline>
+                          <source src="./video_results/Rendered/agrisplat/Table2/Week1_640p.mp4" type="video/mp4">
+                        </video>
+                        <div class="slider-bar">
+                          <div class="slider-divider"></div>
+                          <video class="right-video" loop autoplay muted playsinline>
+                            <source src="./video_results/Ground_Truth/Table2/Week1_640p.mp4" type="video/mp4">
+                          </video>
+                        </div>
+                      </div>
+                    </div>
+
                   </div>
                 </div>
 
                 <div class="tab-pane fade" id="nav-day13" role="tabpanel" aria-labelledby="nav-day13-tab">
                   <div class="container h-100 pt-3 pb-3">
                     
-                    <div class="custom-video-block">
-                      <h3 class="title" style="font-family: 'Kalam', cursive; text-align: center; font-size: 16px; margin-bottom: 5px;">
-                        Scene on <span style="color: #0253c5;">Day 13</span> (Zip-NeRF)
-                      </h3>
-                      <div style="display: flex; justify-content: space-between; text-align: center; font-size: 15px; margin-bottom: 2px; padding: 5px;">
-                        <span style="margin-left: 10px;"><strong>Ground Truth</strong></span>
-                        <span style="margin-right: 10px;"><strong>Zip-NeRF</strong></span>
-                      </div>
-                      <div class="video-compare-container" data-slider>
-                        <video class="left-video" loop autoplay muted playsinline>
-                          <source src="./video_results/Rendered/zipnerf/Table2/Week2_640p.mp4" type="video/mp4">
-                        </video>
-                        <div class="slider-bar">
-                          <div class="slider-divider"></div>
-                          <video class="right-video" loop autoplay muted playsinline>
-                            <source src="./video_results/Ground_Truth/Table2/Week2_640p.mp4" type="video/mp4">
-                          </video>
-                        </div>
-                      </div>
-                    </div>
-
-                    <br>
-
                     <div class="custom-video-block">
                       <h3 class="title" style="font-family: 'Kalam', cursive; text-align: center; font-size: 16px; margin-bottom: 5px;">
                         Scene on <span style="color: #0253c5;">Day 13</span> (Octree-GS)
@@ -2008,6 +1211,29 @@
                       </div>
                     </div>
 
+                    <br>
+
+                    <div class="custom-video-block">
+                      <h3 class="title" style="font-family: 'Kalam', cursive; text-align: center; font-size: 16px; margin-bottom: 5px;">
+                        Scene on <span style="color: #0253c5;">Day 13</span> (AgriSplat)
+                      </h3>
+                      <div style="display: flex; justify-content: space-between; text-align: center; font-size: 15px; margin-bottom: 2px; padding: 5px;">
+                        <span style="margin-left: 10px;"><strong>Ground Truth</strong></span>
+                        <span style="margin-right: 10px;"><strong>AgriSplat</strong></span>
+                      </div>
+                      <div class="video-compare-container" data-slider>
+                        <video class="left-video" loop autoplay muted playsinline>
+                          <source src="./video_results/Rendered/agrisplat/Table2/Week2_640p.mp4" type="video/mp4">
+                        </video>
+                        <div class="slider-bar">
+                          <div class="slider-divider"></div>
+                          <video class="right-video" loop autoplay muted playsinline>
+                            <source src="./video_results/Ground_Truth/Table2/Week2_640p.mp4" type="video/mp4">
+                          </video>
+                        </div>
+                      </div>
+                    </div>
+
                   </div>
                 </div>
 
@@ -2016,15 +1242,15 @@
                     
                     <div class="custom-video-block">
                       <h3 class="title" style="font-family: 'Kalam', cursive; text-align: center; font-size: 16px; margin-bottom: 5px;">
-                        Scene on <span style="color: #0253c5;">Day 20</span> (Zip-NeRF)
+                        Scene on <span style="color: #0253c5;">Day 20</span> (Octree-GS)
                       </h3>
                       <div style="display: flex; justify-content: space-between; text-align: center; font-size: 15px; margin-bottom: 2px; padding: 5px;">
                         <span style="margin-left: 10px;"><strong>Ground Truth</strong></span>
-                        <span style="margin-right: 10px;"><strong>Zip-NeRF</strong></span>
+                        <span style="margin-right: 10px;"><strong>Octree-GS</strong></span>
                       </div>
                       <div class="video-compare-container" data-slider>
                         <video class="left-video" loop autoplay muted playsinline>
-                          <source src="./video_results/Rendered/zipnerf/Table2/Week3_640p.mp4" type="video/mp4">
+                          <source src="./video_results/Rendered/octree-gs/Table2/Week3_640p.mp4" type="video/mp4">
                         </video>
                         <div class="slider-bar">
                           <div class="slider-divider"></div>
@@ -2039,15 +1265,15 @@
 
                     <div class="custom-video-block">
                       <h3 class="title" style="font-family: 'Kalam', cursive; text-align: center; font-size: 16px; margin-bottom: 5px;">
-                        Scene on <span style="color: #0253c5;">Day 20</span> (Octree-GS)
+                        Scene on <span style="color: #0253c5;">Day 20</span> (AgriSplat)
                       </h3>
                       <div style="display: flex; justify-content: space-between; text-align: center; font-size: 15px; margin-bottom: 2px; padding: 5px;">
                         <span style="margin-left: 10px;"><strong>Ground Truth</strong></span>
-                        <span style="margin-right: 10px;"><strong>Octree-GS</strong></span>
+                        <span style="margin-right: 10px;"><strong>AgriSplat</strong></span>
                       </div>
                       <div class="video-compare-container" data-slider>
                         <video class="left-video" loop autoplay muted playsinline>
-                          <source src="./video_results/Rendered/octree-gs/Table2/Week3_640p.mp4" type="video/mp4">
+                          <source src="./video_results/Rendered/agrisplat/Table2/Week3_640p.mp4" type="video/mp4">
                         </video>
                         <div class="slider-bar">
                           <div class="slider-divider"></div>
@@ -2145,8 +1371,8 @@
           <h2 class="title is-3">Benchmark Qualitative Results II</h2>
           <div class="content has-text-centered">
             <p>
-              Following the top performers, we present the qualitative results for the next three highest-ranking methods: <b>Hierarchical-3DGS</b>, <b>Taming-3DGS</b>, and <b>3DGS</b>.<br>
-              These results are organized by scenario to facilitate direct comparison.<br> Collectively, the visuals confirm that the benchmark table above accurately reflects actual method performance.
+              We present the qualitative results of three representative baselines: <b>Zip-NeRF</b>, <b>Scaffold-GS</b>, and <b>H3DGS</b>.<br>
+              These results are organized by scenario to facilitate direct comparison.<br> Collectively, the visuals show how the benchmark table above reflects actual method performance.
             </p>
             <p style="color: red;">
                 Please note that all video playback is accelerated to 7&times; the actual robot speed and resized to 480 &times; 270.
@@ -2185,6 +1411,30 @@
 
         <figure class="video-wrapper">
           <video class="sync-video">
+            <source src="./video_results/Rendered/zipnerf/Table1/06_480p.mp4" type="video/mp4">
+          </video>
+          <button class="maximize-btn" title="Fullscreen">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/>
+            </svg>
+          </button>
+          <figcaption><strong>Zip-NeRF</strong></figcaption>
+        </figure>
+
+        <figure class="video-wrapper">
+          <video class="sync-video">
+            <source src="./video_results/Rendered/scaffold-gs/Table1/06_480p.mp4" type="video/mp4">
+          </video>
+          <button class="maximize-btn" title="Fullscreen">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/>
+            </svg>
+          </button>
+          <figcaption><strong>Scaffold-GS</strong></figcaption>
+        </figure>
+
+        <figure class="video-wrapper">
+          <video class="sync-video">
             <source src="./video_results/Rendered/hierarchical-3dgs/Table1/06.mp4" type="video/mp4">
           </video>
           <button class="maximize-btn" title="Fullscreen">
@@ -2192,31 +1442,7 @@
               <path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/>
             </svg>
           </button>
-          <figcaption><strong>Hierarchical-3DGS</strong></figcaption>
-        </figure>
-
-        <figure class="video-wrapper">
-          <video class="sync-video">
-            <source src="./video_results/Rendered/taming-3dgs/Table1/06.mp4" type="video/mp4">
-          </video>
-          <button class="maximize-btn" title="Fullscreen">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-              <path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/>
-            </svg>
-          </button>
-          <figcaption><strong>Taming-3DGS</strong></figcaption>
-        </figure>
-
-        <figure class="video-wrapper">
-          <video class="sync-video">
-            <source src="./video_results/Rendered/gaussian-splatting/Table1/06.mp4" type="video/mp4">
-          </video>
-          <button class="maximize-btn" title="Fullscreen">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-              <path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/>
-            </svg>
-          </button>
-          <figcaption><strong>3DGS</strong></figcaption>
+          <figcaption><strong>H3DGS</strong></figcaption>
         </figure>
 
       </div>
@@ -2239,6 +1465,30 @@
 
         <figure class="video-wrapper">
           <video class="sync-video">
+            <source src="./video_results/Rendered/zipnerf/Table1/11_480p.mp4" type="video/mp4">
+          </video>
+          <button class="maximize-btn" title="Fullscreen">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/>
+            </svg>
+          </button>
+          <figcaption><strong>Zip-NeRF</strong></figcaption>
+        </figure>
+
+        <figure class="video-wrapper">
+          <video class="sync-video">
+            <source src="./video_results/Rendered/scaffold-gs/Table1/11_480p.mp4" type="video/mp4">
+          </video>
+          <button class="maximize-btn" title="Fullscreen">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/>
+            </svg>
+          </button>
+          <figcaption><strong>Scaffold-GS</strong></figcaption>
+        </figure>
+
+        <figure class="video-wrapper">
+          <video class="sync-video">
             <source src="./video_results/Rendered/hierarchical-3dgs/Table1/11.mp4" type="video/mp4">
           </video>
           <button class="maximize-btn" title="Fullscreen">
@@ -2246,31 +1496,7 @@
               <path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/>
             </svg>
           </button>
-          <figcaption><strong>Hierarchical-3DGS</strong></figcaption>
-        </figure>
-
-        <figure class="video-wrapper">
-          <video class="sync-video">
-            <source src="./video_results/Rendered/taming-3dgs/Table1/11.mp4" type="video/mp4">
-          </video>
-          <button class="maximize-btn" title="Fullscreen">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-              <path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/>
-            </svg>
-          </button>
-          <figcaption><strong>Taming-3DGS</strong></figcaption>
-        </figure>
-
-        <figure class="video-wrapper">
-          <video class="sync-video">
-            <source src="./video_results/Rendered/gaussian-splatting/Table1/11.mp4" type="video/mp4">
-          </video>
-          <button class="maximize-btn" title="Fullscreen">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-              <path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/>
-            </svg>
-          </button>
-          <figcaption><strong>3DGS</strong></figcaption>
+          <figcaption><strong>H3DGS</strong></figcaption>
         </figure>
       </div>
     <!-- </section> -->
@@ -2292,6 +1518,30 @@
 
         <figure class="video-wrapper">
           <video class="sync-video">
+            <source src="./video_results/Rendered/zipnerf/Table1/16_480p.mp4" type="video/mp4">
+          </video>
+          <button class="maximize-btn" title="Fullscreen">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/>
+            </svg>
+          </button>
+          <figcaption><strong>Zip-NeRF</strong></figcaption>
+        </figure>
+
+        <figure class="video-wrapper">
+          <video class="sync-video">
+            <source src="./video_results/Rendered/scaffold-gs/Table1/16_480p.mp4" type="video/mp4">
+          </video>
+          <button class="maximize-btn" title="Fullscreen">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/>
+            </svg>
+          </button>
+          <figcaption><strong>Scaffold-GS</strong></figcaption>
+        </figure>
+
+        <figure class="video-wrapper">
+          <video class="sync-video">
             <source src="./video_results/Rendered/hierarchical-3dgs/Table1/16.mp4" type="video/mp4">
           </video>
           <button class="maximize-btn" title="Fullscreen">
@@ -2299,31 +1549,7 @@
               <path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/>
             </svg>
           </button>
-          <figcaption><strong>Hierarchical-3DGS</strong></figcaption>
-        </figure>
-
-        <figure class="video-wrapper">
-          <video class="sync-video">
-            <source src="./video_results/Rendered/taming-3dgs/Table1/16.mp4" type="video/mp4">
-          </video>
-          <button class="maximize-btn" title="Fullscreen">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-              <path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/>
-            </svg>
-          </button>
-          <figcaption><strong>Taming-3DGS</strong></figcaption>
-        </figure>
-
-        <figure class="video-wrapper">
-          <video class="sync-video">
-            <source src="./video_results/Rendered/gaussian-splatting/Table1/16.mp4" type="video/mp4">
-          </video>
-          <button class="maximize-btn" title="Fullscreen">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-              <path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/>
-            </svg>
-          </button>
-          <figcaption><strong>3DGS</strong></figcaption>
+          <figcaption><strong>H3DGS</strong></figcaption>
         </figure>
       </div>
     <!-- </section> -->
@@ -2345,6 +1571,30 @@
 
         <figure class="video-wrapper">
           <video class="sync-video">
+            <source src="./video_results/Rendered/zipnerf/Table1/21_480p.mp4" type="video/mp4">
+          </video>
+          <button class="maximize-btn" title="Fullscreen">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/>
+            </svg>
+          </button>
+          <figcaption><strong>Zip-NeRF</strong></figcaption>
+        </figure>
+
+        <figure class="video-wrapper">
+          <video class="sync-video">
+            <source src="./video_results/Rendered/scaffold-gs/Table1/21_480p.mp4" type="video/mp4">
+          </video>
+          <button class="maximize-btn" title="Fullscreen">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/>
+            </svg>
+          </button>
+          <figcaption><strong>Scaffold-GS</strong></figcaption>
+        </figure>
+
+        <figure class="video-wrapper">
+          <video class="sync-video">
             <source src="./video_results/Rendered/hierarchical-3dgs/Table1/21.mp4" type="video/mp4">
           </video>
           <button class="maximize-btn" title="Fullscreen">
@@ -2352,31 +1602,7 @@
               <path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/>
             </svg>
           </button>
-          <figcaption><strong>Hierarchical-3DGS</strong></figcaption>
-        </figure>
-
-        <figure class="video-wrapper">
-          <video class="sync-video">
-            <source src="./video_results/Rendered/taming-3dgs/Table1/21.mp4" type="video/mp4">
-          </video>
-          <button class="maximize-btn" title="Fullscreen">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-              <path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/>
-            </svg>
-          </button>
-          <figcaption><strong>Taming-3DGS</strong></figcaption>
-        </figure>
-
-        <figure class="video-wrapper">
-          <video class="sync-video">
-            <source src="./video_results/Rendered/gaussian-splatting/Table1/21.mp4" type="video/mp4">
-          </video>
-          <button class="maximize-btn" title="Fullscreen">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-              <path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/>
-            </svg>
-          </button>
-          <figcaption><strong>3DGS</strong></figcaption>
+          <figcaption><strong>H3DGS</strong></figcaption>
         </figure>
       </div>
     </section>
@@ -2398,6 +1624,30 @@
 
         <figure class="video-wrapper">
           <video class="sync-video">
+            <source src="./video_results/Rendered/zipnerf/Table2/Week1_480p.mp4" type="video/mp4">
+          </video>
+          <button class="maximize-btn" title="Fullscreen">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/>
+            </svg>
+          </button>
+          <figcaption><strong>Zip-NeRF</strong></figcaption>
+        </figure>
+
+        <figure class="video-wrapper">
+          <video class="sync-video">
+            <source src="./video_results/Rendered/scaffold-gs/Table2/Week1_480p.mp4" type="video/mp4">
+          </video>
+          <button class="maximize-btn" title="Fullscreen">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/>
+            </svg>
+          </button>
+          <figcaption><strong>Scaffold-GS</strong></figcaption>
+        </figure>
+
+        <figure class="video-wrapper">
+          <video class="sync-video">
             <source src="./video_results/Rendered/hierarchical-3dgs/Table2/Week1.mp4" type="video/mp4">
           </video>
           <button class="maximize-btn" title="Fullscreen">
@@ -2405,31 +1655,7 @@
               <path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/>
             </svg>
           </button>
-          <figcaption><strong>Hierarchical-3DGS</strong></figcaption>
-        </figure>
-
-        <figure class="video-wrapper">
-          <video class="sync-video">
-            <source src="./video_results/Rendered/taming-3dgs/Table2/Week1.mp4" type="video/mp4">
-          </video>
-          <button class="maximize-btn" title="Fullscreen">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-              <path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/>
-            </svg>
-          </button>
-          <figcaption><strong>Taming-3DGS</strong></figcaption>
-        </figure>
-
-        <figure class="video-wrapper">
-          <video class="sync-video">
-            <source src="./video_results/Rendered/gaussian-splatting/Table2/Week1.mp4" type="video/mp4">
-          </video>
-          <button class="maximize-btn" title="Fullscreen">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-              <path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/>
-            </svg>
-          </button>
-          <figcaption><strong>3DGS</strong></figcaption>
+          <figcaption><strong>H3DGS</strong></figcaption>
         </figure>
       </div>
     <!-- </section> -->
@@ -2451,6 +1677,30 @@
 
         <figure class="video-wrapper">
           <video class="sync-video">
+            <source src="./video_results/Rendered/zipnerf/Table2/Week2_480p.mp4" type="video/mp4">
+          </video>
+          <button class="maximize-btn" title="Fullscreen">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/>
+            </svg>
+          </button>
+          <figcaption><strong>Zip-NeRF</strong></figcaption>
+        </figure>
+
+        <figure class="video-wrapper">
+          <video class="sync-video">
+            <source src="./video_results/Rendered/scaffold-gs/Table2/Week2_480p.mp4" type="video/mp4">
+          </video>
+          <button class="maximize-btn" title="Fullscreen">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/>
+            </svg>
+          </button>
+          <figcaption><strong>Scaffold-GS</strong></figcaption>
+        </figure>
+
+        <figure class="video-wrapper">
+          <video class="sync-video">
             <source src="./video_results/Rendered/hierarchical-3dgs/Table2/Week2.mp4" type="video/mp4">
           </video>
           <button class="maximize-btn" title="Fullscreen">
@@ -2458,31 +1708,7 @@
               <path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/>
             </svg>
           </button>
-          <figcaption><strong>Hierarchical-3DGS</strong></figcaption>
-        </figure>
-
-        <figure class="video-wrapper">
-          <video class="sync-video">
-            <source src="./video_results/Rendered/taming-3dgs/Table2/Week2.mp4" type="video/mp4">
-          </video>
-          <button class="maximize-btn" title="Fullscreen">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-              <path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/>
-            </svg>
-          </button>
-          <figcaption><strong>Taming-3DGS</strong></figcaption>
-        </figure>
-
-        <figure class="video-wrapper">
-          <video class="sync-video">
-            <source src="./video_results/Rendered/gaussian-splatting/Table2/Week2.mp4" type="video/mp4">
-          </video>
-          <button class="maximize-btn" title="Fullscreen">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-              <path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/>
-            </svg>
-          </button>
-          <figcaption><strong>3DGS</strong></figcaption>
+          <figcaption><strong>H3DGS</strong></figcaption>
         </figure>
       </div>
     <!-- </section> -->
@@ -2504,6 +1730,30 @@
 
         <figure class="video-wrapper">
           <video class="sync-video">
+            <source src="./video_results/Rendered/zipnerf/Table2/Week3_480p.mp4" type="video/mp4">
+          </video>
+          <button class="maximize-btn" title="Fullscreen">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/>
+            </svg>
+          </button>
+          <figcaption><strong>Zip-NeRF</strong></figcaption>
+        </figure>
+
+        <figure class="video-wrapper">
+          <video class="sync-video">
+            <source src="./video_results/Rendered/scaffold-gs/Table2/Week3_480p.mp4" type="video/mp4">
+          </video>
+          <button class="maximize-btn" title="Fullscreen">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/>
+            </svg>
+          </button>
+          <figcaption><strong>Scaffold-GS</strong></figcaption>
+        </figure>
+
+        <figure class="video-wrapper">
+          <video class="sync-video">
             <source src="./video_results/Rendered/hierarchical-3dgs/Table2/Week3.mp4" type="video/mp4">
           </video>
           <button class="maximize-btn" title="Fullscreen">
@@ -2511,31 +1761,7 @@
               <path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/>
             </svg>
           </button>
-          <figcaption><strong>Hierarchical-3DGS</strong></figcaption>
-        </figure>
-
-        <figure class="video-wrapper">
-          <video class="sync-video">
-            <source src="./video_results/Rendered/taming-3dgs/Table2/Week3.mp4" type="video/mp4">
-          </video>
-          <button class="maximize-btn" title="Fullscreen">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-              <path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/>
-            </svg>
-          </button>
-          <figcaption><strong>Taming-3DGS</strong></figcaption>
-        </figure>
-
-        <figure class="video-wrapper">
-          <video class="sync-video">
-            <source src="./video_results/Rendered/gaussian-splatting/Table2/Week3.mp4" type="video/mp4">
-          </video>
-          <button class="maximize-btn" title="Fullscreen">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-              <path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/>
-            </svg>
-          </button>
-          <figcaption><strong>3DGS</strong></figcaption>
+          <figcaption><strong>H3DGS</strong></figcaption>
         </figure>
       </div>
     </section>
@@ -2613,7 +1839,7 @@
     <div class="container is-max-desktop content">
       <h2 class="title">BibTeX</h2>
       <pre><code>@article{jeong2025agrichrono,
-        title={AgriChrono: A Multi-modal Dataset Capturing Crop Growth and Lighting Variability with a Field Robot},
+        title={AgriChrono: A Longitudinal Dataset and Benchmark for Novel-View Synthesis of Field-Grown Crops},
         author={Jeong, Jaehwan and Vu, Tuan-Anh and Jony, Mohammad and Ahmad, Shahab and Rahman, Md. Mukhlesur and Kim, Sangpil and Jawed, M. Khalid},
         journal={arXiv preprint arXiv:2508.18694},
         year={2025},
@@ -2626,7 +1852,7 @@
       We would like to thank the <a href="https://github.com/nerfbaselines/nerfbaselines" target="_blank"><b>NerfBaselines Team</b></a> for providing the open-source code for benchmarking. 
       This work was supported in part by the US Department of Agriculture (grant numbers 2024-67021-42528 and 2022-67022-37021), 
       the Culture, Sports, and Tourism R&amp;D Program through the Korea Creative Content Agency grant funded by the Ministry of Culture, Sports and Tourism in 2024 (International Collaborative Research and Global Talent Development for the Development of Copyright Management and Protection Technologies for Generative AI, RS-2024-00345025), 
-      and the Institute of Information &amp; Communications Technology Planning &amp; Evaluation (IITP) grant funded by the Korea government (MSIT) (No. RS-2019-II190079, Artificial Intelligence Graduate School Program, Korea University).
+      and the Institute of Information &amp; Communications Technology Planning &amp; Evaluation (IITP) grant funded by the Korea government (MSIT) (No. RS-2019-II190079, Artificial Intelligence Graduate School Program, Korea University). This research was also supported by the AI Seoul Tech Research Support Program of the Seoul Future Foundation.
     </p>
   </div>
 </section>
